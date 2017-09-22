@@ -21,8 +21,8 @@ vnoremap <buffer> ;ts "+y:silent call g:neoterm.instances[g:current_buf_term].do
 
 setlocal equalprg=autopep8\ -
 nmap <buffer> g= :set operatorfunc=python#CallAutoPep8<CR>g@
-nmap <buffer> g== :exe "call python#Autopep8('--range " . line('.') . ' '  . line('.') . "')"<CR>
-vmap <buffer> g= :call python#Autopep8()<CR>
+nmap <buffer> g== :exe "call python#CallAutopep8('--range " . line('.') . ' '  . line('.') . "')"<CR>
+vmap <buffer> g= :call python#CallAutopep8()<CR>
 nnoremap <buffer> ( F(
 nnoremap <buffer> ) f)
 nnoremap <buffer> [( F(

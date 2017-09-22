@@ -19,7 +19,7 @@ function! python#NumIncrease(count)
 endfunction
 
 function! python#CallAutoPep8(type)
-    '[,']call Autopep8()
+    '[,']call Autopep8(type)
 endfunction
 
 function! python#Import(...) abort

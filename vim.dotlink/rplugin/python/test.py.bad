@@ -1,5 +1,5 @@
-
-import neovim
+# Autocmd: Called 1 times, file: test.py
+# import neovim
 
 # @neovim.plugin
 # class Limit(object):
