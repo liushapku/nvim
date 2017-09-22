@@ -1,0 +1,1 @@
+nmap <buffer> C cif

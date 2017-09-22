@@ -1,0 +1,134 @@
+#!/usr/bin/env python
+
+try:
+    import argparse
+    import neovim, os, re, sys, time
+except:
+    os.execvp('nvim', sys.argv)
+    exit(0)
+
+
+# Get a list of buffers that haven't been deleted. `nvim.buffers` includes
+# buffers that have had `:bdelete` called on them and aren't in the buffer
+# list, so we have to filter those out.
+def get_listed_buffers(nvim):
+    # print(*(buf.number for buf in nvim.buffers))
+    return set(buf.number for buf in nvim.buffers \
+        if nvim.eval('buflisted(%d)' % buf.number))
+
+print(sys.argv)
+argparser = argparse.ArgumentParser()
+argparser.add_argument('--WIN', dest='win', help='window to execute cmd')
+argparser.add_argument('--CMD', dest='cmd', action='append', help='cmd to specify the window')
+argparser.add_argument('--SPLIT', dest='split', help='how to split, None or s or v')
+myargs, argv = argparser.parse_known_args()
+# For now, treat all arguments that don't start with - or + as filenames. This
+# is good enough to recognize '-f' and `+11`, which is all this script really
+# needs right now.
+try:
+    nvim_socket = os.environ["NVIM_LISTEN_ADDRESS"]
+    isembed = True
+except KeyError:
+    isembed = False
+    # If we aren't running inside a `:terminal`, just exec nvim.
+
+if not isembed:
+    os.execvp('nvim', [sys.argv[0]] + argv)
+    exit(0)
+
+nvim = neovim.attach('socket', path=nvim_socket)
+
+
+existing_buffers = get_listed_buffers(nvim)
+if myargs.cmd is not None:
+    for cmd in myargs.cmd:
+        if cmd:
+            nvim.command(cmd)
+
+filenames = [
+    re.sub(' ', '\ ', os.path.abspath(arg))
+        for arg in argv if not arg[0] in ['-', '+']
+]
+newfiles = [f for f in filenames if nvim.eval('bufnr("{}")'.format(f)) == -1]
+print('allfiles:', filenames)
+print('newfiles:', newfiles)
+if myargs.win is not None:
+    nvim.command(myargs.win + 'wincmd w')
+if myargs.split is None:
+    if myargs.win is None:
+        nvim.command('split')
+elif myargs.split == 's':
+    nvim.command('split')
+elif myargs.split == 'v':
+    nvim.command('vert split')
+else:
+    pass
+
+
+def opened_by_other(filename):
+    regexes = [
+        r'.git/COMMIT_EDITMSG$',
+        r'.git/rebase-merge/git-rebase-todo$',
+        r'ipython_edit_.*\.py',
+        r'/crontab$',
+    ]
+    return any(re.search(regex, filename) for regex in regexes)
+
+if any(opened_by_other(filename) for filename in filenames):
+    print('nvim launched by git or ipython ...')
+    assert len(filenames) == 1, 'should open one file at a time'
+    nvim.command('args %s' % ' '.join(filenames))
+    channel_id = nvim.channel_id
+    buffer = nvim.eval('bufnr(argv()[0])')
+    nvim.command('setlocal bufhidden=delete')
+    nvim.command('autocmd! BufDelete <buffer={}> write | call rpcnotify({}, "existing")'.format(buffer, channel_id))
+    nvim.next_message() # block until `rpcnotify` is called
+    print('nvim exited')
+    nvim.command('autocmd! BufDelete <buffer={}>'.format(buffer))
+    nvim.command('argdel *')
+
+else:
+    # if newfiles:
+    nvim.command('args %s' % ' '.join(filenames))
+
+    all_buffers = get_listed_buffers(nvim)
+    new_buffers = all_buffers.difference(existing_buffers)
+
+    # The '-f' flag is a signal that we're in a situation like a `git commit`
+    # invocation where we need to block until the user is done with the file(s).
+    # ADDED: for git commit, -f flag actually does not exist
+    # It should be handled by the open_by_other function
+    if '-f' in argv and len(new_buffers) > 0:
+        # The rule here is that the user is 'done' with the opened files when none
+        # of them are visible onscreen. This allows for use cases like hitting `:q`
+        # on a `git commit` tempfile. However, we can't just poll to see if they're
+        # visible, because using `nvim.windows`, `nvim.eval()`, or `nvim.call()`
+        # will interrupt any multi-key mappings the user may be inputting. The
+        # solution is to set a buffer-local autocmd on each opened buffer so that
+        # we only check for visibility immediately after the user either closes or
+        # hides one of the buffers.
+        channel_id = nvim.channel_id
+        for buffer in new_buffers:
+            nvim.command((
+                'autocmd BufDelete,BufHidden <buffer=%d> ' +
+                'call rpcnotify(%d, "check_buffers")'
+            ) % (buffer, channel_id))
+
+        stay_open = True
+        while stay_open:
+            nvim.next_message() # block until `rpcnotify` is called
+            open_buffers = [window.buffer.number for window in nvim.windows]
+            stay_open = any([buffer in open_buffers for buffer in new_buffers])
+
+        # Now that none of the opened files are visible anymore, we do a few
+        # cleanup steps before ending the script:
+        #  * Clear the arg list, since otherwise `:next` would reopen the tempfile
+        #    or whatever.
+        #  * Clear the autocmds we added, since `bdelete` just hides the buffer and
+        #    the autocmds will still be active if the user reopens the file(s).
+        #  * Delete each of the buffers we created.
+        nvim.command('argdel *')
+        for buffer in new_buffers:
+            nvim.command('autocmd! BufDelete,BufHidden <buffer=%d>' % buffer)
+            nvim.command('bdelete! %d' % buffer)
+

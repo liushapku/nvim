@@ -1,0 +1,198 @@
+"buffer map: @
+
+
+"autocmd BufEnter * silent! lcd %:p:h
+"
+"set shellcmdflag=-ic
+"set termguicolors
+
+"set updatetime=4000
+set title
+set shortmess+=c
+set virtualedit=block
+"set tildeop  " ~ behaves like an operator
+set timeoutlen=400
+set clipboard=unnamedplus,unnamed
+set hidden
+set autoindent
+set undofile
+"set smartindent
+set cindent
+set hlsearch
+set noincsearch
+set diffopt+=vertical
+set scrollback=10000
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set keymodel=startsel,stopsel
+set backspace=indent,eol,start
+set dictionary+=/usr/share/dict/words
+set number
+"set relativenumber
+set ruler
+set mouse=a
+set showcmd
+set noshowmode
+set autowrite
+set autowriteall
+set whichwrap=b,s,<,>,[,]  " use <Left><Right> to move to previous/next line
+set sessionoptions-=curdir
+set sessionoptions+=sesdir
+set completeopt=menuone,longest,preview
+set laststatus=2
+set wildmode=longest:full,full
+set wildmenu
+set showtabline=2
+set splitright
+"set autochdir
+set noea
+"set cursorline
+set switchbuf+=useopen
+set cmdheight=2
+set nostartofline
+
+filetype plugin indent on
+
+nnoremap <F2> :<C-U>NERDTreeTabsToggle<CR>
+nnoremap <F3> :<C-U>w<cr>:so%<cr>
+"nnoremap <F4> :<C-U>BD<CR>
+"nnoremap <F5> :<C-U>AsyncRun<Space>
+map <F9> <leader>c<Space>
+imap <F9> <C-O><leader>c<Space>
+
+noremap <C-S> :w<CR>
+imap <C-S> <Esc><C-S>
+noremap <leader>mks :mksession!
+noremap <leader>info :wviminfo!
+noremap <C-F10> :set mouse=
+
+
+let tempdir=fnamemodify(tempname(), ':h')
+
+
+"imap <S-Tab> <C-O><<
+"map <S-Tab> <<
+
+nmap Y y$
+" buf-kill
+
+function! ExeLines()
+    let file = tempname()
+    exe "'<,'>write " . file
+    exe 'so'  file
+endfunction
+nnoremap <leader>e :exe getline(".")<CR>
+vnoremap <leader>e :<C-U>call ExeLines()<CR>
+
+command! -register ExeReg exe getreg(<q-reg>)
+
+""""""""""""""""""""""
+
+function! Redir(command)
+    redir! => temp
+    silent exec a:command
+    redir END
+    return temp
+endfunction
+command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(Redir(<q-args>), "\n"))
+
+function! TestOp() range
+    echo a:firstline
+    echo a:lastline
+    echo 'good'
+endfunction
+
+function! GetMotionRange(type)
+    if a:type=='line'
+        return "'[V']"
+    elseif a:type=='char'
+        return "`[v`]"
+    else
+        return "`[\<C-V>`]"
+    endif
+endfunction
+
+function! ExecRegister()
+    let a=substitute(eval("@".v:register), "\n", "", "")
+    exec a
+endfunction
+
+nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
+nmap <leader>cd :<C-U>silent exec "lcd " . expand('%:h')<bar>pwd<CR>
+
+noremap <space>- :<C-u>set invcursorline<cr>
+noremap <space><bar> :<C-u>set invcursorcolumn<cr>
+noremap g<bar> :<C-u>set invrelativenumber<CR>
+
+
+function! g:IFuncWrapper(Func, key)
+    let F=function(a:Func)
+    call F()
+    return a:key
+endfunction
+inoremap <buffer> <expr> <A-;> g:IFuncWrapper('jedi#show_call_signatures', "")
+
+cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
+cnoremap <C-R><C-W> <C-R>=expand('<cword>')<CR>
+cnoremap <C-R><C-F> <C-R>=expand('%:p:h') . '/'<cr>
+cnoremap <C-R><C-E> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '') . '/'<cr>
+cnoremap <C-R><C-P> <C-R>=getcwd()<cr>
+
+
+function! g:InputBufName()
+    let n = str2nr(input('bufnr: '))
+    return n==0? '' : bufname(n)
+endfunction
+cnoremap <C-R><C-B> <C-R>=InputBufName()<cr>
+cnoremap <C-R><C-N> <C-R>=fnamemodify(InputBufName(), ':p')<cr>
+nnoremap <A-/> :<C-U>noh<CR>:redraw<CR>
+nnoremap <Space>/ :<C-U>set invhlsearch<CR>
+
+cabbr RR AsyncRun
+
+function! JoinLines(...)
+    if a:0 == 0
+        let s = @*
+    else
+        let s = a:1
+    endif
+    let s = substitute(s, "\"\n\"", "\" \n\"", "")
+    let r= join(split(s, "\n"), "")
+    if a:0 == 0
+        let @* = r
+    endif
+    return r
+endfunction
+noremap gy y:call JoinLines()<cr>
+noremap g<cr> :<c-u>normal i<c-v><cr><cr>
+
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+
+cabbr <> '<,'>
+
+
+" command -range=-1 and default to the current line, pass MagicRange(<count>)
+" as argument
+function! MagicRange(count)
+    return a:count ==-1? line('.') : a:count
+endfunction
+
+nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
+cnoremap <a-/> <c-c>/
+cnoremap <a-?> <c-c>?
+cnoremap <a-;> <c-c>:
+
+function! ToggleFoldMethod()
+    if &foldmethod != 'manual'
+        set foldmethod=manual
+    else
+        set foldmethod=indent
+    endif
+    echo &foldmethod
+endfunction
+nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
+
+
+command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn

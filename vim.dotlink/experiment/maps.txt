@@ -1,0 +1,730 @@
+
+
+n  <C-H>       * :TmuxNavigateLeft<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-tmux-navigator/plugin/tmux_navigator.vim
+n  <NL>        * :TmuxNavigateDown<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-tmux-navigator/plugin/tmux_navigator.vim
+n  <C-K>       * :TmuxNavigateUp<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-tmux-navigator/plugin/tmux_navigator.vim
+n  <C-L>       * :TmuxNavigateRight<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-tmux-navigator/plugin/tmux_navigator.vim
+n  <C-P>       * :<C-U>CtrlP<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/ctrlp.vim/plugin/ctrlp.vim
+   <C-S>       * :w<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <C-W>o        <Plug>ZoomWin
+	Last set from ~/dotfiles/vim.dotlink/bundle/ZoomWin/plugin/ZoomWinPlugin.vim
+n  <C-\>       * :TmuxNavigatePrevious<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-tmux-navigator/plugin/tmux_navigator.vim
+o  %           * v:<C-U>call <SNR>66_Match_wrapper('',1,'o') <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+v  %           * :<C-U>call <SNR>66_Match_wrapper('',1,'v') <CR>m'gv``
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  %           * :<C-U>call <SNR>66_Match_wrapper('',1,'n') <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  ;d          * :YcmShowDetailedDiagnostic<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/youcompleteme/autoload/youcompleteme.vim
+n  ;n            <Plug>(easymotion-bd-n)
+	Last set from ~/dotfiles/vim.dotlink/after/plugin/personal.vim
+   ;f          * f
+	Last set from ~/dotfiles/vim.dotlink/after/plugin/personal.vim
+n  ;ca           <Plug>NERDCommenterAltDelims
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cu           <Plug>NERDCommenterUncomment
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cu           <Plug>NERDCommenterUncomment
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cb           <Plug>NERDCommenterAlignBoth
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cb           <Plug>NERDCommenterAlignBoth
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cl           <Plug>NERDCommenterAlignLeft
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cl           <Plug>NERDCommenterAlignLeft
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cA           <Plug>NERDCommenterAppend
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cy           <Plug>NERDCommenterYank
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cy           <Plug>NERDCommenterYank
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cs           <Plug>NERDCommenterSexy
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cs           <Plug>NERDCommenterSexy
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;ci           <Plug>NERDCommenterInvert
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;ci           <Plug>NERDCommenterInvert
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;c$           <Plug>NERDCommenterToEOL
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cn           <Plug>NERDCommenterNested
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cn           <Plug>NERDCommenterNested
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cm           <Plug>NERDCommenterMinimal
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cm           <Plug>NERDCommenterMinimal
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;c<Space>     <Plug>NERDCommenterToggle
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;c<Space>     <Plug>NERDCommenterToggle
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  ;cc           <Plug>NERDCommenterComment
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  ;cc           <Plug>NERDCommenterComment
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+   ;;            <Plug>(easymotion-prefix)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  ;ba           <Plug>BufKillAlt
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bundo        <Plug>BufKillUndo
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;!bw          <Plug>BufKillBangBw
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bw           <Plug>BufKillBw
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;!bd          <Plug>BufKillBangBd
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bd           <Plug>BufKillBd
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;!bun         <Plug>BufKillBangBun
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bun          <Plug>BufKillBun
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bf           <Plug>BufKillForward
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;bb           <Plug>BufKillBack
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  ;cp           :<C-U>let @*=@%<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+v  ;e          * :<C-U>exe join(getline("'<","'>"),'|')<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  ;e          * :exe getline(".")<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+   ;info       * :wviminfo!
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+   ;mks        * :mksession!<Space>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  Q           * :<C-U>BD<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+x  S             <Plug>VSurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  Y           * ^y$
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+o  [%          * v:<C-U>call <SNR>66_MultiMatch("bW", "o") <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+v  [%            <Esc>[%m'gv``
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  [%          * :<C-U>call <SNR>66_MultiMatch("bW", "n") <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  [C            9999[c
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  [c            <Plug>(signify-prev-hunk)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  \           * ;
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+o  ]%          * v:<C-U>call <SNR>66_MultiMatch("W",  "o") <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+v  ]%            <Esc>]%m'gv``
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  ]%          * :<C-U>call <SNR>66_MultiMatch("W",  "n") <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  ]C            9999]c
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  ]c            <Plug>(signify-next-hunk)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+v  a%            <Esc>[%v]%
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  cS            <Plug>CSurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  cs            <Plug>Csurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  ds            <Plug>Dsurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  f             <Plug>(easymotion-bd-f)
+	Last set from ~/dotfiles/vim.dotlink/after/plugin/personal.vim
+v  gx            <Plug>NetrwBrowseXVis
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/netrwPlugin.vim
+n  gx            <Plug>NetrwBrowseX
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/netrwPlugin.vim
+o  g%          * v:<C-U>call <SNR>66_Match_wrapper('',0,'o') <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+v  g%          * :<C-U>call <SNR>66_Match_wrapper('',0,'v') <CR>m'gv``
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+n  g%          * :<C-U>call <SNR>66_Match_wrapper('',0,'n') <CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/matchit.vim
+x  gS            <Plug>VgSurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  t             <Plug>(easymotion-bd-t)
+	Last set from ~/dotfiles/vim.dotlink/after/plugin/personal.vim
+n  ww          * <C-W><C-W>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  ySS           <Plug>YSsurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  ySs           <Plug>YSsurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  yss           <Plug>Yssurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  yS            <Plug>YSurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  ys            <Plug>Ysurround
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+v  <Plug>NetrwBrowseXVis * :<C-U>call netrw#BrowseXVis()<CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/netrwPlugin.vim
+n  <Plug>NetrwBrowseX * :call netrw#BrowseX(expand((exists("g:netrw_gx")? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())<CR>
+	Last set from ~/opt/neovim/share/nvim/runtime/plugin/netrwPlugin.vim
+n  <Plug>ZoomWin & :set lz<CR>:silent call ZoomWin#ZoomWin()<CR>:set nolz<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/ZoomWin/plugin/ZoomWinPlugin.vim
+x  <Plug>(signify-motion-outer-visual) * :<C-U>call sy#util#hunk_text_object(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+o  <Plug>(signify-motion-outer-pending) * :<C-U>call sy#util#hunk_text_object(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+x  <Plug>(signify-motion-inner-visual) * :<C-U>call sy#util#hunk_text_object(0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+o  <Plug>(signify-motion-inner-pending) * :<C-U>call sy#util#hunk_text_object(0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  <Plug>(signify-prev-hunk) * &diff ? '[c' : ":\<C-U>call sy#jump#prev_hunk(v:count1)\<CR>"
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  <Plug>(signify-next-hunk) * &diff ? ']c' : ":\<C-U>call sy#jump#next_hunk(v:count1)\<CR>"
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-signify/plugin/signify.vim
+n  <Plug>NERDCommenterAltDelims * :call <SNR>50_SwitchToAlternativeDelimiters(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterUncomment * :call NERDComment("n", "Uncomment")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterAlignBoth * :call NERDComment("n", "AlignBoth")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterAlignLeft * :call NERDComment("n", "AlignLeft")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterAppend * :call NERDComment("n", "Append")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterYank * :call NERDComment("n", "Yank")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterSexy * :call NERDComment("n", "Sexy")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterInvert * :call NERDComment("n", "Invert")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterToEOL * :call NERDComment("n", "ToEOL")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterNested * :call NERDComment("n", "Nested")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterMinimal * :call NERDComment("n", "Minimal")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterToggle * :call NERDComment("n", "Toggle")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+n  <Plug>NERDCommenterComment * :call NERDComment("n", "Comment")<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/nerdcommenter/plugin/NERD_commenter.vim
+v  <Plug>VgSurround * :<C-U>call <SNR>46_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+v  <Plug>VSurround * :<C-U>call <SNR>46_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>YSurround * :<C-U>set opfunc=<SNR>46_opfunc2<CR>g@
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>Ysurround * :<C-U>set opfunc=<SNR>46_opfunc<CR>g@
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>YSsurround * :<C-U>call <SNR>46_opfunc2(v:count1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>Yssurround * :<C-U>call <SNR>46_opfunc(v:count1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>CSurround * :<C-U>call <SNR>46_changesurround(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>Csurround * :<C-U>call <SNR>46_changesurround()<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>Dsurround * :<C-U>call <SNR>46_dosurround(<SNR>46_inputtarget())<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+n  <Plug>SurroundRepeat * .
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-surround/plugin/surround.vim
+   <Plug>NERDTreeFocusToggle & :call <SNR>43_NERDTreeFocusToggle()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeSteppedClose & :call <SNR>43_NERDTreeSteppedClose()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeSteppedOpen & :call <SNR>43_NERDTreeSteppedOpen()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeMirrorToggle & :call <SNR>43_NERDTreeMirrorToggle()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeMirrorOpen & :call <SNR>43_NERDTreeMirrorOrCreate()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeTabsFind & :call <SNR>43_NERDTreeFindFile()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeTabsToggle & :call <SNR>43_NERDTreeToggleAllTabs()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeTabsClose & :call <SNR>43_NERDTreeCloseAllTabs()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>NERDTreeTabsOpen & :call <SNR>43_NERDTreeOpenAllTabs()
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-nerdtree-tabs/nerdtree_plugin/vim-nerdtree-tabs.vim
+   <Plug>(easymotion-prefix)N   <Plug>(easymotion-N)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)n   <Plug>(easymotion-n)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)k   <Plug>(easymotion-k)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)j   <Plug>(easymotion-j)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)gE   <Plug>(easymotion-gE)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)ge   <Plug>(easymotion-ge)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)E   <Plug>(easymotion-E)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)e   <Plug>(easymotion-e)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)B   <Plug>(easymotion-B)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)b   <Plug>(easymotion-b)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)W   <Plug>(easymotion-W)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)w   <Plug>(easymotion-w)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)T   <Plug>(easymotion-T)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)t   <Plug>(easymotion-t)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)s   <Plug>(easymotion-s)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)F   <Plug>(easymotion-F)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-prefix)f   <Plug>(easymotion-f)
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-activate) * :<C-U>call EasyMotion#activate(0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+   <Plug>(easymotion-dotrepeat) * :<C-U>call EasyMotion#DotRepeat()<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-repeat) * <Esc>:<C-U>call EasyMotion#Repeat(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-repeat) * :<C-U>call EasyMotion#Repeat(0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-prev) * :<C-U>call EasyMotion#NextPrevious(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-next) * :<C-U>call EasyMotion#NextPrevious(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-wl) * :<C-U>call EasyMotion#WBL(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-lineforward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-lineforward) * :<C-U>call EasyMotion#LineAnywhere(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-lineanywhere) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-lineanywhere) * :<C-U>call EasyMotion#LineAnywhere(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-wl) * <Esc>:<C-U>call EasyMotion#WBL(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-wl) * :<C-U>call EasyMotion#WBL(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-linebackward) * <Esc>:<C-U>call EasyMotion#LineAnywhere(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-linebackward) * :<C-U>call EasyMotion#LineAnywhere(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bl) * <Esc>:<C-U>call EasyMotion#WBL(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bl) * :<C-U>call EasyMotion#WBL(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-el) * <Esc>:<C-U>call EasyMotion#EL(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-el) * :<C-U>call EasyMotion#EL(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-gel) * <Esc>:<C-U>call EasyMotion#EL(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-gel) * :<C-U>call EasyMotion#EL(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-el) * <Esc>:<C-U>call EasyMotion#EL(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-el) * :<C-U>call EasyMotion#EL(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-jumptoanywhere) * <Esc>:<C-U>call EasyMotion#JumpToAnywhere(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-jumptoanywhere) * :<C-U>call EasyMotion#JumpToAnywhere(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-vim-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-vim-n) * :<C-U>call EasyMotion#Search(0,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-n) * <Esc>:<C-U>call EasyMotion#Search(1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-n) * :<C-U>call EasyMotion#Search(0,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-n) * <Esc>:<C-U>call EasyMotion#Search(1,2,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-n) * :<C-U>call EasyMotion#Search(0,2,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-vim-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-vim-N) * :<C-U>call EasyMotion#Search(0,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-N) * <Esc>:<C-U>call EasyMotion#Search(1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-N) * :<C-U>call EasyMotion#Search(0,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-eol-j) * <Esc>:<C-U>call EasyMotion#Eol(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-eol-j) * :<C-U>call EasyMotion#Eol(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sol-k) * <Esc>:<C-U>call EasyMotion#Sol(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sol-k) * :<C-U>call EasyMotion#Sol(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sol-j) * <Esc>:<C-U>call EasyMotion#Sol(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sol-j) * :<C-U>call EasyMotion#Sol(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-k) * <Esc>:<C-U>call EasyMotion#JK(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-k) * :<C-U>call EasyMotion#JK(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-j) * <Esc>:<C-U>call EasyMotion#JK(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-j) * :<C-U>call EasyMotion#JK(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-jk) * <Esc>:<C-U>call EasyMotion#JK(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-jk) * :<C-U>call EasyMotion#JK(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-eol-bd-jk) * <Esc>:<C-U>call EasyMotion#Eol(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-eol-bd-jk) * :<C-U>call EasyMotion#Eol(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sol-bd-jk) * <Esc>:<C-U>call EasyMotion#Sol(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sol-bd-jk) * :<C-U>call EasyMotion#Sol(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-eol-k) * <Esc>:<C-U>call EasyMotion#Eol(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-eol-k) * :<C-U>call EasyMotion#Eol(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-ge) * <Esc>:<C-U>call EasyMotion#EK(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-ge) * :<C-U>call EasyMotion#EK(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-w) * <Esc>:<C-U>call EasyMotion#WB(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-w) * :<C-U>call EasyMotion#WB(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-W) * <Esc>:<C-U>call EasyMotion#WBW(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-W) * :<C-U>call EasyMotion#WBW(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-w) * <Esc>:<C-U>call EasyMotion#WBK(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-w) * :<C-U>call EasyMotion#WBK(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-gE) * <Esc>:<C-U>call EasyMotion#EW(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-gE) * :<C-U>call EasyMotion#EW(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-e) * <Esc>:<C-U>call EasyMotion#E(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-e) * :<C-U>call EasyMotion#E(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-E) * <Esc>:<C-U>call EasyMotion#EW(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-E) * :<C-U>call EasyMotion#EW(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-e) * <Esc>:<C-U>call EasyMotion#EK(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-e) * :<C-U>call EasyMotion#EK(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-b) * <Esc>:<C-U>call EasyMotion#WB(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-b) * :<C-U>call EasyMotion#WB(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-b) * <Esc>:<C-U>call EasyMotion#WBK(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-b) * :<C-U>call EasyMotion#WBK(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-bd-w) * <Esc>:<C-U>call EasyMotion#WBK(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-bd-w) * :<C-U>call EasyMotion#WBK(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-W) * <Esc>:<C-U>call EasyMotion#WBW(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-W) * :<C-U>call EasyMotion#WBW(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-w) * <Esc>:<C-U>call EasyMotion#WB(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-w) * :<C-U>call EasyMotion#WB(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-iskeyword-bd-e) * <Esc>:<C-U>call EasyMotion#EK(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-iskeyword-bd-e) * :<C-U>call EasyMotion#EK(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-ge) * <Esc>:<C-U>call EasyMotion#E(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-ge) * :<C-U>call EasyMotion#E(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-E) * <Esc>:<C-U>call EasyMotion#EW(1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-E) * :<C-U>call EasyMotion#EW(0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-e) * <Esc>:<C-U>call EasyMotion#E(1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-e) * :<C-U>call EasyMotion#E(0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-B) * <Esc>:<C-U>call EasyMotion#WBW(1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-B) * :<C-U>call EasyMotion#WBW(0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  <Plug>(easymotion-overwin-w) * :<C-U>call EasyMotion#overwin#w()<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  <Plug>(easymotion-overwin-line) * :<C-U>call EasyMotion#overwin#line()<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  <Plug>(easymotion-overwin-f2) * :<C-U>call EasyMotion#OverwinF(2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  <Plug>(easymotion-overwin-f) * :<C-U>call EasyMotion#OverwinF(1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Tln) * :<C-U>call EasyMotion#TL(-1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-t2) * :<C-U>call EasyMotion#T(2,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-t) * <Esc>:<C-U>call EasyMotion#T(1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-t) * :<C-U>call EasyMotion#T(1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-s) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-s) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-tn) * :<C-U>call EasyMotion#T(-1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-t2) * <Esc>:<C-U>call EasyMotion#T(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-t2) * :<C-U>call EasyMotion#T(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-tl) * :<C-U>call EasyMotion#TL(1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-tn) * :<C-U>call EasyMotion#T(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-fn) * :<C-U>call EasyMotion#S(-1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-tl) * :<C-U>call EasyMotion#TL(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-fl) * :<C-U>call EasyMotion#SL(1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-tl2) * :<C-U>call EasyMotion#TL(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-fn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-f) * <Esc>:<C-U>call EasyMotion#S(1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-f) * :<C-U>call EasyMotion#S(1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-fl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Fl2) * :<C-U>call EasyMotion#SL(2,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-tl2) * :<C-U>call EasyMotion#TL(2,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-f2) * :<C-U>call EasyMotion#S(2,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Fln) * :<C-U>call EasyMotion#SL(-1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-tln) * :<C-U>call EasyMotion#TL(-1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-fl2) * :<C-U>call EasyMotion#SL(2,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-fl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-fl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-T2) * <Esc>:<C-U>call EasyMotion#T(2,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-T2) * :<C-U>call EasyMotion#T(2,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-tln) * <Esc>:<C-U>call EasyMotion#TL(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-tln) * :<C-U>call EasyMotion#TL(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-T) * <Esc>:<C-U>call EasyMotion#T(1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-T) * :<C-U>call EasyMotion#T(1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-t) * <Esc>:<C-U>call EasyMotion#T(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-t) * :<C-U>call EasyMotion#T(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Tn) * <Esc>:<C-U>call EasyMotion#T(-1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Tn) * :<C-U>call EasyMotion#T(-1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-s2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-s2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Tl) * <Esc>:<C-U>call EasyMotion#TL(1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Tl) * :<C-U>call EasyMotion#TL(1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sn) * <Esc>:<C-U>call EasyMotion#S(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sn) * :<C-U>call EasyMotion#S(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Fn) * <Esc>:<C-U>call EasyMotion#S(-1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Fn) * :<C-U>call EasyMotion#S(-1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sl) * <Esc>:<C-U>call EasyMotion#SL(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sl) * :<C-U>call EasyMotion#SL(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Fl) * <Esc>:<C-U>call EasyMotion#SL(1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Fl) * :<C-U>call EasyMotion#SL(1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-sl2) * <Esc>:<C-U>call EasyMotion#SL(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-sl2) * :<C-U>call EasyMotion#SL(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-fln) * :<C-U>call EasyMotion#SL(-1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-F) * <Esc>:<C-U>call EasyMotion#S(1,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-F) * :<C-U>call EasyMotion#S(1,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-f) * <Esc>:<C-U>call EasyMotion#S(1,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-f) * :<C-U>call EasyMotion#S(1,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-F2) * <Esc>:<C-U>call EasyMotion#S(2,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-F2) * :<C-U>call EasyMotion#S(2,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-bd-f2) * <Esc>:<C-U>call EasyMotion#S(2,1,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-bd-f2) * :<C-U>call EasyMotion#S(2,0,2)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-Tl2) * <Esc>:<C-U>call EasyMotion#TL(2,1,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-Tl2) * :<C-U>call EasyMotion#TL(2,0,1)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+x  <Plug>(easymotion-fln) * <Esc>:<C-U>call EasyMotion#SL(-1,1,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+nos<Plug>(easymotion-fln) * :<C-U>call EasyMotion#SL(-1,0,0)<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-easymotion/plugin/EasyMotion.vim
+n  <SNR>22_:   * :<C-U><C-R>=v:count ? v:count : ''<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-fugitive/plugin/fugitive.vim
+   <Plug>BufKillUndo * :call <SNR>21_UndoKill()<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangBw * :call <SNR>21_BufKill('bw', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBw * :call <SNR>21_BufKill('bw', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangBd * :call <SNR>21_BufKill('bd', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBd * :call <SNR>21_BufKill('bd', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangBun * :call <SNR>21_BufKill('bun', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBun * :call <SNR>21_BufKill('bun', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangForward * :call <SNR>21_GotoBuffer('bufforward', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillForward * :call <SNR>21_GotoBuffer('bufforward', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangBack * :call <SNR>21_GotoBuffer('bufback', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBack * :call <SNR>21_GotoBuffer('bufback', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillBangAlt * :call <SNR>21_GotoBuffer('#', '!')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+   <Plug>BufKillAlt * :call <SNR>21_GotoBuffer('#', '')<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundle/vim-bufkill/plugin/bufkill.vim
+n  <F4>        * :<C-U>close<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <M-l>         <C-W>l
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <M-k>         <C-PageDown>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <M-j>         <C-PageUp>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <M-h>         <C-W>h<Space>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+   <F9>          ;c<Space>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+   <C-F10>     * :set mouse=
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <C-Down>    * <C-W><Down>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <C-Up>      * <C-W><Up>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <C-Right>   * <C-W><Right>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <C-Left>    * <C-W><Left>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <F5>        * :<C-U>AsyncRun<Space>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <F3>        * :<C-U>so ~/.vim/others.vim<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <F2>        * :<C-U>NERDTreeTabsToggle<CR>
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <S-F1>      * :<C-U>tag usr_toc.txt
+	Last set from ~/dotfiles/vim.dotlink/others.vim
+n  <F6>          :TagbarToggle<CR>
+	Last set from ~/dotfiles/vim.dotlink/bundles.vim

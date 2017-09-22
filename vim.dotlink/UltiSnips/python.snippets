@@ -1,0 +1,4 @@
+# change 'cond ? a : b ??' to a if cond else b
+snippet "\s*([^=]+)\s*\?\s*(.+)\s*:\s*(.*)\s*\?\?" "tenary" r
+`!p snip.rv = ' '.join(['', match.group(2), 'if', match.group(1), 'else', match.group(3)])`
+endsnippet

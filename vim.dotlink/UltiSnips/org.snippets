@@ -1,0 +1,16 @@
+# it seems that cannot switch window during snippet expansion
+snippet "(\S+):" "Expand" r
+`!p vim.command('O2 ' + match.group(1))
+snip.rv = match.group(1) + ': '`$0
+endsnippet
+
+snippet "(\S+)([-*_/=~])" "Markup *-_/=~ (postfix)" r
+`!p snip.rv = match.group(2) + match.group(1) + match.group(2)`$0
+endsnippet
+
+snippet "^(.*)\.t([1-9])$" "Title (postfix)" rb
+`!p stars = '*' * int(match.group(2))
+snip.rv = stars + ' ' + match.group(1)`
+$0
+endsnippet
+
