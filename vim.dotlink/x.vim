@@ -1,5 +1,6 @@
 call plug#begin('~/.vim/bundle')
-
+" database
+Plug 'vim-scripts/dbext.vim'
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 't9md/vim-quickhl'
 Plug 'skywind3000/asyncrun.vim'
@@ -335,3 +336,7 @@ nmap <a-.> <Plug>(IPy-Interrupt)
 imap <silent> <C-F> <Plug>(IPy-Complete)
 map <silent> <leader>? <Plug>(IPy-WordObjInfo)
 
+" dbext
+let g:dbext_default_profile_pgsql = 'type=PGSQL'
+let g:dbext_default_profile = 'pgsql'
+let g:dbext_default_use_sep_result_buffer = 1
