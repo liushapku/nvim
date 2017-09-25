@@ -340,3 +340,9 @@ map <silent> <leader>? <Plug>(IPy-WordObjInfo)
 let g:dbext_default_profile_pgsql = 'type=PGSQL'
 let g:dbext_default_profile = 'pgsql'
 let g:dbext_default_use_sep_result_buffer = 1
+
+" surround
+imap ;ys <esc>lys
+imap ;yss <esc>lyss
+imap ;yS <esc>lyS
+imap ;ySS <esc>lySS
