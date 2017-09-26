@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/bundle')
 " database
 Plug 'vim-scripts/dbext.vim'
+
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 't9md/vim-quickhl'
 Plug 'skywind3000/asyncrun.vim'
