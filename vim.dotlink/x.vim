@@ -34,10 +34,13 @@ Plug 'kana/vim-operator-replace'
 Plug 'peterrincker/vim-argumentative'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'wesq3/vim-windowswap'
-Plug 'junkblocker/patchreview-vim'
 Plug 'houtsnip/vim-emacscommandline'
-Plug 'chrisbra/vim-diff-enhanced'
 Plug 'raimondi/delimitmate'
+
+"diff
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'andrewradev/linediff.vim'
+Plug 'junkblocker/patchreview-vim'
 
 "python
 Plug 'tell-k/vim-autopep8'
