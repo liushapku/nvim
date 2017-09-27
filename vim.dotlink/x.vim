@@ -1,6 +1,7 @@
 call plug#begin('~/.vim/bundle')
 " database
 Plug 'vim-scripts/dbext.vim'
+
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 't9md/vim-quickhl'
 Plug 'skywind3000/asyncrun.vim'
@@ -34,10 +35,13 @@ Plug 'kana/vim-operator-replace'
 Plug 'peterrincker/vim-argumentative'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'wesq3/vim-windowswap'
-Plug 'junkblocker/patchreview-vim'
 Plug 'houtsnip/vim-emacscommandline'
-Plug 'chrisbra/vim-diff-enhanced'
 Plug 'raimondi/delimitmate'
+
+"diff
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'andrewradev/linediff.vim'
+Plug 'junkblocker/patchreview-vim'
 
 "python
 Plug 'tell-k/vim-autopep8'
@@ -340,3 +344,9 @@ map <silent> <leader>? <Plug>(IPy-WordObjInfo)
 let g:dbext_default_profile_pgsql = 'type=PGSQL'
 let g:dbext_default_profile = 'pgsql'
 let g:dbext_default_use_sep_result_buffer = 1
+
+" surround
+imap ;ys <esc>lys
+imap ;yss <esc>lyss
+imap ;yS <esc>lyS
+imap ;ySS <esc>lySS
