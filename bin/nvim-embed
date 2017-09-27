@@ -16,7 +16,7 @@ def get_listed_buffers(nvim):
     return set(buf.number for buf in nvim.buffers \
         if nvim.eval('buflisted(%d)' % buf.number))
 
-print(sys.argv)
+# print(sys.argv)
 argparser = argparse.ArgumentParser()
 argparser.add_argument('--WIN', dest='win', help='window to execute cmd')
 argparser.add_argument('--CMD', dest='cmd', action='append', help='cmd to specify the window')
