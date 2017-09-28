@@ -28,7 +28,7 @@ augroup FileAu
 augroup END
 
 
-augroup QuickFixCmdPost
+augroup QuickFixCmdPostAu
     autocmd!
     autocmd QuickFixCmdPost [^l]* botright cwindow
     autocmd QuickFixCmdPost l* botright lwindow
