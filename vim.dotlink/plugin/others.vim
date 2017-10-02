@@ -134,19 +134,27 @@ function! g:IFuncWrapper(Func, key)
 endfunction
 inoremap <buffer> <expr> <A-;> g:IFuncWrapper('jedi#show_call_signatures', "")
 
+"cWORD
 cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
+"cword
 cnoremap <C-R><C-W> <C-R>=expand('<cword>')<CR>
-cnoremap <C-R><C-F> <C-R>=expand('%:p:h') . '/'<cr>
-cnoremap <C-R><C-E> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '') . '/'<cr>
-cnoremap <C-R><C-P> <C-R>=getcwd()<cr>
-
-
+"full name
+cnoremap <C-R><C-F> <C-R>=expand('%:p')<cr>
+"full directory name
+cnoremap <C-R><C-D> <C-R>=expand('%:p:h') . '/'<cr>
+"full name for autoload
+cnoremap <C-R><C-L> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '') . '/'<cr>
+"cwd
+cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
 function! g:InputBufName()
     let n = str2nr(input('bufnr: '))
     return n==0? '' : bufname(n)
 endfunction
+"buf name
 cnoremap <C-R><C-B> <C-R>=InputBufName()<cr>
+"full buf name
 cnoremap <C-R><C-N> <C-R>=fnamemodify(InputBufName(), ':p')<cr>
+
 nnoremap <A-/> :<C-U>noh<CR>:redraw<CR>
 nnoremap <Space>/ :<C-U>set invhlsearch<CR>
 

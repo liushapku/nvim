@@ -4,6 +4,7 @@
 "echom 'Enter: '. expand('%:p')
 "
 
+map <buffer> <F5> <Plug>(IPyRun)
 
 let &l:errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#

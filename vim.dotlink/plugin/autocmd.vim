@@ -12,6 +12,9 @@ augroup BufAu
 augroup END
 
 augroup FileTypeAu
+    autocmd!
+    autocmd FileType qf call AdjustWindowHeight(3, 10)
+    autocmd FileType markdown,html nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
 augroup END
 
 augroup WinAu
@@ -35,3 +38,8 @@ augroup QuickFixCmdPostAu
     autocmd QuickFixCmdPost Glog botright cwindow
     autocmd QuickFixCmdPost Gllog botright lwindow
 augroup END
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+
+

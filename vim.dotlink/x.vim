@@ -330,7 +330,6 @@ let delimitMate_excluded_regions = "Comment,String"
 let g:nvim_ipy_perform_mappings = 0
 nnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line('.'), line('.') + v:count1 - 1), "\n"))<cr>
 vnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line("'<"), line("'>")), "\n"))<cr>
-map <F5> <Plug>(IPyRun)
 " with bang, it is silent
 command! -range -bang IPyRun call IPyRun(join(getline(<line1>, <line2>), "\n"), <bang>0)
 command! -nargs=+ -bang IPyExe call IPyRun(<q-args>, <bang>0)
