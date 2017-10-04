@@ -1,4 +1,7 @@
 call plug#begin('~/.vim/bundle')
+Plug 'neovim/python-client', { 'do': ':UpdateRemotePlugins' }
+Plug 'tpope/vim-fugitive'
+
 " database
 Plug 'vim-scripts/dbext.vim'
 
@@ -6,7 +9,6 @@ Plug 'jeetsukumaran/vim-indentwise'
 Plug 't9md/vim-quickhl'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'qpkorr/vim-bufkill'
-Plug 'tpope/vim-fugitive'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
@@ -50,8 +52,10 @@ Plug 'nvie/vim-flake8'
 Plug 'pangloss/vim-javascript'
 
 "html
-Plug 'othree/html5.vim'
+"Plug 'othree/html5.vim'
 Plug 'glench/vim-jinja2-syntax'
+"Plug 'docunext/closetag.vim'
+Plug 'mattn/emmet-vim'
 
 "Colors
 Plug 'tomasr/molokai'
@@ -64,16 +68,17 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'shougo/vimproc.vim', {'do': 'make'}
 Plug 'kassio/neoterm'
-Plug 'neovim/python-client', { 'do': ':UpdateRemotePlugins' }
 Plug 'shougo/unite.vim'
 Plug 'shougo/neoyank.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'bfredl/nvim-ipy', { 'do': ':UpdateRemotePlugins' }
+
+" Complete
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/echodoc.vim'
 Plug 'davidhalter/jedi-vim'
-Plug 'kana/vim-textobj-user'
-Plug 'bfredl/nvim-ipy', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 

@@ -204,3 +204,5 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 
 
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
+
+
