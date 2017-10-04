@@ -273,7 +273,7 @@ function! window#SetTop(line) abort
     call winrestview({'topline': line, 'lnum': line})
 endfunction
 
-function! window#CloseHoldLeftOrBelow(nr, reverse) abort
+function! window#CloseHoldPrevious(nr, reverse) abort
     echo a:nr
     if a:nr == 1 && !a:reverse
         1wincmd c
