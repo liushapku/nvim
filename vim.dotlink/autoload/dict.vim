@@ -6,9 +6,11 @@ function! dict#StringToDict(dic, reverse) abort
             continue
         endif
         if a:reverse
-            let [val, key] = split(r, "=")
+            let [val; key] = split(r, "=")
+            let key = join(key, "=")
         else
-            let [key, val] = split(r, "=")
+            let [key; val] = split(r, "=")
+            let val = join(val, "=")
         endif
         let key = string#Strip(key)
         let val = string#Strip(val)
