@@ -56,6 +56,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'glench/vim-jinja2-syntax'
 "Plug 'docunext/closetag.vim'
 Plug 'mattn/emmet-vim'
+let g:user_emmet_settings = {
+\    'html': {
+\        'empty_element_suffix': ' />',
+\    },
+\}
 
 "Colors
 Plug 'tomasr/molokai'
