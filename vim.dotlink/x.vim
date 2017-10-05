@@ -150,6 +150,7 @@ nnoremap <c-p> :<c-u>CtrlP<cr>
 
 " fugitive
 command! -nargs=+ GCommit Gcommit -m<q-args>
+command! -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args> <bar> edit
 
 " make AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
