@@ -93,9 +93,9 @@ inoremap <expr> <Up> pumvisible()? "\<C-E>\<Up>":"\<Up>"
 let g:echodoc_enable_at_startup = 1
 let g:UltiSnipsExpandTrigger=";;"
 inoremap ;2 ;;
-let g:UltiSnipsListSnippets=";l"
-let g:UltiSnipsJumpForwardTrigger=";;"
-let g:UltiSnipsJumpBackwardTrigger=";<tab>"
+let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsEditSplit="normal"
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
