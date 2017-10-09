@@ -5,6 +5,8 @@
 "
 
 map <buffer> <F5> <Plug>(IPyRun)
+imap ,, <end>,
+imap ,) <end>)
 
 let &l:errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#
