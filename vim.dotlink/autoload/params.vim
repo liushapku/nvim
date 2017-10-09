@@ -74,8 +74,8 @@ function! params#SelectNextEqual() abort
     let saved_pattern = @/
     let saved_hi = &l:hlsearch
     setlocal nohlsearch
-    if getline('.')[col('.')-1] != '='
-        silent normal! /[=)]
+    if getline('.')[col('.')-1] !~ '^[=]'
+        silent normal! /[=),]
     endif
     let nextchar = getline('.')[col('.')-1]
     if nextchar == ',' || nextchar == ')'
