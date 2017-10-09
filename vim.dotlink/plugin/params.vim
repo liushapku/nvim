@@ -1,9 +1,10 @@
 
-nmap  ;a vi,
-imap  ;a <esc>],;a
-xmap  ;a <esc>],;a
-"noremap  ;a :<c-u>call SelectNextPara()<cr>
-"inoremap ;a <c-o>:call SelectNextPara()<cr>
+"nmap  ;a vi,
+"imap  ;a <esc>],;a
+"xmap  ;a <esc>],;a
+noremap  ;a :<c-u>call params#SelectNextPara()<cr>
+snoremap ;a <esc>:call params#SelectNextPara()<cr>
+inoremap ;a <c-o>:call params#SelectNextPara()<cr>
 noremap  ;b :<c-u>call params#SelectNextEqual()<cr>
 snoremap ;b <esc>:call params#SelectNextEqual()<cr>
 inoremap ;b <c-o>:call params#SelectNextEqual()<cr>
