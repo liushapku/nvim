@@ -54,10 +54,10 @@ augroup END
 function! STabWrap() abort
     if pumvisible()
         return "\<C-P>"
-    elseif strpart( getline('.'), 0, col('.') - 1 ) =~ '^\s*$'
-        return "\<S-tab>"
-    elseif 1
-        return jedi#complete_string(0)
+    let line = getline('.')
+    let cl = col('.')
+    if getline('.')[col('.')-1] =~ "[({\[<'\"]"
+        return "\<Plug>delimitMateS-Tab"
     elseif &omnifunc != ''
         return "\<C-X>\<C-O>"
     else
@@ -82,7 +82,7 @@ nmap <a-\> :<c-u>call deoplete#toggle()<cr>
 " power tab
 inoremap <silent><expr> <C-G> deoplete#undo_completion()
 inoremap <silent><expr><tab> TabWrap()
-"inoremap <silent><expr><s-tab> STabWrap()
+"imap <silent><expr><s-tab> STabWrap()
 imap <silent><expr> <BS> BSWrap()
 inoremap <silent><expr> <Esc> pumvisible() ? "<C-y><Esc>" : "<Esc>"
 "inoremap <silent><expr> <cr> CRWrap()
