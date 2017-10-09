@@ -141,6 +141,7 @@ let g:ctrlp_custom_ignore= {
 
 nnoremap <c-p>m :<c-u>CtrlPMRUFiles<cr>
 nnoremap <c-p>b :<c-u>CtrlPBuffer<cr>
+nnoremap <c-p>. :<c-u>CtrlP .<cr>
 nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
 nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
 nnoremap <c-p>w :<c-u>CtrlP $WORKSPACE<cr>
@@ -151,6 +152,7 @@ nnoremap <c-p> :<c-u>CtrlP<cr>
 " fugitive
 command! -nargs=+ GCommit Gcommit -m<q-args>
 command! -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args> <bar> edit
+command! -nargs=* GDiff only | Gdiff <args>
 
 " make AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
