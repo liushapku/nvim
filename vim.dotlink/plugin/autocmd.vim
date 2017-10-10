@@ -15,6 +15,7 @@ augroup FileTypeAu
     autocmd!
     autocmd FileType qf call AdjustWindowHeight(3, 10)
     autocmd FileType markdown,html nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
+    autocmd FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
 
 augroup WinAu
