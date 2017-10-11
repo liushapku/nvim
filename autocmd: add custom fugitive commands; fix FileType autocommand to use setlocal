@@ -32,19 +32,6 @@ augroup FileAu
     autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
     autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
 augroup END
-" fugitive
-function! FugitiveAddCustomCommands()
-  let in_git = exists('b:git_dir') || fugitive#extract_git_dir(expand('%:p')) !=# ''
-  let has_custom_commands = get(b:, 'fugitive_custom_commands', 0)
-  if in_git && !has_custom_commands
-    let b:fugitive_custom_commands = 1
-    command -buffer -nargs=+ GCommit Gcommit -m<q-args>
-    command -buffer -nargs=+ Gamend Gcommit --amend -m<q-args>
-    command -buffer -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
-    command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
-    command -buffer -nargs=* GDiff only | Gdiff <args>
-  endif
-endfunction
 
 
 augroup QuickFixCmdPostAu
