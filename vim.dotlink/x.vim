@@ -48,8 +48,11 @@ Plug 'junkblocker/patchreview-vim'
 "python
 Plug 'tell-k/vim-autopep8'
 Plug 'nvie/vim-flake8'
+
 "javascript
 Plug 'pangloss/vim-javascript'
+"json
+Plug 'elzr/vim-json'
 
 "html
 "Plug 'othree/html5.vim'
@@ -362,3 +365,7 @@ imap ;ys <esc>lys
 imap ;yss <esc>lyss
 imap ;yS <esc>lyS
 imap ;ySS <esc>lySS
+
+
+" vim-json
+let g:vim_json_syntax_conceal = 0
