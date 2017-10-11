@@ -14,27 +14,20 @@ set virtualedit=block
 set timeoutlen=400
 set clipboard=unnamedplus,unnamed
 set hidden
-set autoindent
 set undofile
+set autoindent cindent
 "set smartindent
-set cindent
 set hlsearch
 set noincsearch
 set diffopt+=vertical
 set scrollback=10000
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set keymodel=startsel,stopsel
 set backspace=indent,eol,start
 set dictionary+=/usr/share/dict/words
-set number
 "set relativenumber
-set ruler
-set mouse=a
-set showcmd
-set noshowmode
+set number ruler mouse=a
+set showcmd noshowmode
 set autowrite
 set autowriteall
 set whichwrap=b,s,<,>,[,]  " use <Left><Right> to move to previous/next line
@@ -45,13 +38,17 @@ set laststatus=2
 set wildmode=longest:full,full
 set wildmenu
 set showtabline=2
-set splitright
+" this also affects which window is held no expansion when close window
+"set splitright
 "set autochdir
 set noea
 "set cursorline
 set switchbuf+=useopen
 set cmdheight=2
 set nostartofline
+set grepprg=ag\ --vimgrep\ $*
+set grepformat=%f:%l:%c:%m
+set suffixes^=.ipynb
 
 filetype plugin indent on
 
@@ -70,13 +67,7 @@ noremap <C-F10> :set mouse=
 
 
 let tempdir=fnamemodify(tempname(), ':h')
-
-
-"imap <S-Tab> <C-O><<
-"map <S-Tab> <<
-
 nmap Y y$
-" buf-kill
 
 function! ExeLines()
     let file = tempname()
@@ -85,7 +76,6 @@ function! ExeLines()
 endfunction
 nnoremap <leader>e :exe getline(".")<CR>
 vnoremap <leader>e :<C-U>call ExeLines()<CR>
-
 command! -register ExeReg exe getreg(<q-reg>)
 
 """"""""""""""""""""""
@@ -96,6 +86,12 @@ function! Redir(command)
     redir END
     return temp
 endfunction
+" command -range=-1 and default to the current line, pass MagicRange(<count>)
+" as argument
+function! MagicRange(count)
+    return a:count ==-1? line('.') : a:count
+endfunction
+
 command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(Redir(<q-args>), "\n"))
 
 function! TestOp() range
@@ -160,37 +156,13 @@ nnoremap <Space>/ :<C-U>set invhlsearch<CR>
 
 cabbr RR AsyncRun
 
-function! JoinLines(...)
-    if a:0 == 0
-        let s = @*
-    else
-        let s = a:1
-    endif
-    let s = substitute(s, "\"\n\"", "\" \n\"", "")
-    let r= join(split(s, "\n"), "")
-    if a:0 == 0
-        let @* = r
-    endif
-    return r
-endfunction
-noremap gy y:call JoinLines()<cr>
 noremap g<cr> :<c-u>normal i<c-v><cr><cr>
 
-cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbr <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
+cnoreabbr <> '<,'>
 
-cabbr <> '<,'>
-
-
-" command -range=-1 and default to the current line, pass MagicRange(<count>)
-" as argument
-function! MagicRange(count)
-    return a:count ==-1? line('.') : a:count
-endfunction
 
 nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
-cnoremap <a-/> <c-c>/
-cnoremap <a-?> <c-c>?
-cnoremap <a-;> <c-c>:
 
 function! ToggleFoldMethod()
     if &foldmethod != 'manual'
@@ -209,7 +181,6 @@ command! EditPlugin exe "edit ~/.vim/ftplugin/" . &filetype . ".vim"
 
 command! -complete=command -nargs=+ SubOutput call SubOutput('', <f-args>)
 command! -complete=command -nargs=+ FSubOutput call SubOutput(<f-args>)
-
 function! SubOutput(filterpattern, pattern, ...)
   if a:0 == 0
     return
