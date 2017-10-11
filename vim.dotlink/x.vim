@@ -154,7 +154,9 @@ nnoremap <c-p> :<c-u>CtrlP<cr>
 
 " fugitive
 command! -nargs=+ GCommit Gcommit -m<q-args>
-command! -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args> <bar> edit
+command! -nargs=+ Gamend Gcommit --amend -m<q-args>
+command! -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
+command! -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
 command! -nargs=* GDiff only | Gdiff <args>
 
 " make AsyncRun

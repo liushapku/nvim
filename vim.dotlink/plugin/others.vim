@@ -207,3 +207,25 @@ command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
 command! EditPlugin exe "edit ~/.vim/ftplugin/" . &filetype . ".vim"
 
+command! -complete=command -nargs=+ SubOutput call SubOutput('', <f-args>)
+command! -complete=command -nargs=+ FSubOutput call SubOutput(<f-args>)
+
+function! SubOutput(filterpattern, pattern, ...)
+  if a:0 == 0
+    return
+  endif
+  let command = join(a:000, ' ')
+  let pat = split(a:pattern, a:pattern[0]) + ['', '']
+  redir => output
+    if a:filterpattern is ''
+        silent exe command
+    else
+        silent exe 'filter ' . a:filterpattern . ' ' . command
+    endif
+  redir END
+  for out in split(output, "\n")
+      let p = pat[0] is ''? @/: pat[0]
+      let newout = substitute(out, pat[0], pat[1], pat[2])
+      echo newout
+  endfor
+endfunction
