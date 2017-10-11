@@ -1,6 +1,10 @@
 call plug#begin('~/.vim/bundle')
 Plug 'neovim/python-client', { 'do': ':UpdateRemotePlugins' }
+
+" git
 Plug 'tpope/vim-fugitive'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 " database
 Plug 'vim-scripts/dbext.vim'
@@ -14,14 +18,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'chrisbra/csv.vim'
 Plug 'mattn/calendar-vim'
-Plug 'mattn/webapi-vim'
+Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-eunuch'
-Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'  " language friendly searches, substitutions, and abbreviations
+Plug 'tpope/vim-rhubarb' " run vim -u NONE -c "helptags vim-rhubarb/doc" -c q
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdcommenter'
@@ -152,12 +156,13 @@ nnoremap <c-p>d :<c-u>CtrlP ~/dotfiles<cr>
 nnoremap <c-p>v :<c-u>CtrlP ~/dotfiles/vim.dotlink<cr>
 nnoremap <c-p> :<c-u>CtrlP<cr>
 
-" fugitive
-command! -nargs=+ GCommit Gcommit -m<q-args>
-command! -nargs=+ Gamend Gcommit --amend -m<q-args>
-command! -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
-command! -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
-command! -nargs=* GDiff only | Gdiff <args>
+
+" gist
+let g:gist_list_vsplit = 1
+let g:gist_show_privates = 1
+let g:gist_post_private = 0
+let g:gist_open_browser_after_post = 1
+let g:gist_detect_filetype = 1
 
 " make AsyncRun
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
