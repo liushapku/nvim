@@ -6,7 +6,7 @@ python3 pass
 "; print('Welcome to VIM with:', sys.version_info)
 
 so ~/.vim/x.vim
-set runtimepath+=~/.vim/custom
+set runtimepath^=~/.vim/custom/
 
 let host = hostname()
 
