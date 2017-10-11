@@ -4,7 +4,7 @@ Plug 'neovim/python-client', { 'do': ':UpdateRemotePlugins' }
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
+Plug 'liushapku/gist-vim'
 
 " database
 Plug 'vim-scripts/dbext.vim'

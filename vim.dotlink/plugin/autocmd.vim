@@ -15,8 +15,9 @@ augroup FileTypeAu
     autocmd!
     autocmd FileType qf call AdjustWindowHeight(3, 10)
     autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
-    autocmd FileType markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType vim,markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
 augroup END
+command! -nargs=1 TabSet setlocal tabstop=<args> softtabstop=<args> shiftwidth=<args>
 
 augroup WinAu
     autocmd!
