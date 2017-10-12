@@ -35,7 +35,7 @@ augroup FileAu
     autocmd!
     autocmd BufNewFile,BufReadPost *.ipynb set filetype=json
     autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
-    autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
+    "autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
     autocmd BufNewFile,BufReadPost */.git/index nmap OD :only <bar> normal dv<cr>
 augroup END
 " fugitive
@@ -52,6 +52,11 @@ function! FugitiveAddCustomCommands()
   endif
 endfunction
 
+    "command -nargs=+ GCommit Gcommit -m<q-args>
+    "command -nargs=+ Gamend Gcommit --amend -m<q-args>
+    "command -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
+    "command -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
+    "command -nargs=* GDiff only | Gdiff <args>
 
 augroup QuickFixCmdPostAu
     autocmd!
