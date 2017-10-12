@@ -15,9 +15,13 @@ augroup FileTypeAu
     autocmd!
     autocmd FileType qf call AdjustWindowHeight(3, 10)
     autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
-    autocmd FileType vim,markdown setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd FileType vim,markdown TabSet 2
 augroup END
-command! -nargs=1 TabSet setlocal tabstop=<args> softtabstop=<args> shiftwidth=<args>
+command! -nargs=1 -bang TabSet call s:tab_set(<bang>0, <args>)
+function! s:tab_set(bang, n)
+  let set = a:bang? 'set': 'setlocal'
+  exe printf('%s expandtab tabstop=%d softtabstop=%d shiftwidth=%d', set, a:n, a:n, a:n)
+endfunction
 
 augroup WinAu
     autocmd!
