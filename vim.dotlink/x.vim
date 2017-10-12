@@ -153,7 +153,7 @@ nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
 nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
 nnoremap <c-p>w :<c-u>CtrlP $WORKSPACE<cr>
 nnoremap <c-p>d :<c-u>CtrlP ~/dotfiles<cr>
-nnoremap <c-p>v :<c-u>CtrlP ~/dotfiles/vim.dotlink<cr>
+nnoremap <c-p>v :<c-u>CtrlP ~/.vim<cr>
 nnoremap <c-p> :<c-u>CtrlP<cr>
 
 
