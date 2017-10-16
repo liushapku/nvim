@@ -13,8 +13,8 @@ augroup BufAu
   " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
   autocmd BufReadPost quickfix nnoremap <buffer> v <c-w><cr><C-w>L
   autocmd BufReadPost quickfix nnoremap <buffer> s <c-w><cr><C-w>K
-  autocmd BufReadPost quickfix nmap <buffer> dv <c-w><cr>:only <bar> Gvdiff<cr>
-  autocmd BufReadPost quickfix nmap <buffer> ds <c-w><cr>:only <bar> Gsdiff<cr>
+  autocmd BufReadPost quickfix nmap <buffer> dv <cr>:only <bar> Gvdiff<cr>
+  autocmd BufReadPost quickfix nmap <buffer> ds <cr>:only <bar> Gsdiff<cr>
 augroup END
 
 augroup FileTypeAu
@@ -41,7 +41,7 @@ augroup FileAu
   autocmd!
   autocmd BufNewFile,BufReadPost *.ipynb set filetype=json
   autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
-  "autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
+  autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
 augroup END
 " fugitive
 function! FugitiveAddCustomCommands()
@@ -50,6 +50,7 @@ function! FugitiveAddCustomCommands()
   if in_git && !has_custom_commands
   let b:fugitive_custom_commands = 1
   command -buffer -nargs=+ GCommit Gcommit -m<q-args>
+  command -buffer -nargs=* GStatus Gstats | wincmd K
   command -buffer -nargs=+ Gamend Gcommit --amend -m<q-args>
   command -buffer -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
   command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
