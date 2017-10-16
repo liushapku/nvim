@@ -34,21 +34,50 @@ function! WriteVariable(data, file)
     call writefile(split(a:data, "\n", 1), a:file)
 endfunction
 
-function! SetQF(data, ...)
-    let opts = a:0 == 0? {} : a:1
-    let tempfile = Tempname()
-    let data = a:data
-    let strs = filter(split(data, "\n", 1), 'v:val != ""')
-    call writefile(strs, tempfile)
-    let position = get(opts, 'location', 'quickfix')
-    let cmd = position == 'quickfix' ? 'cg ' : 'lg '
-    let oldefm = &efm
-    let &efm = get(opts, 'efm', &efm)
-    exec cmd . tempfile
-    let &efm = oldefm
+" read qf list from data (string list), optional value is a dict, which may
+" contain the following keys:
+" 'location': 'quickfix' (default). Any other string uses location list
+" 'efm': errorformat, default to the current &efm
+function! SetQF(data, nojump, ...)
+  if a:data is ''
+    call setqflist([])
+    cclose
+    return
+  endif
+  let opts = a:0 == 0? {} : a:1
+  let tempfile = Tempname()
+  let data = type(a:data) == v:t_string?  split(a:data, "\n") : a:data
+  let strs = filter(data, 'v:val != ""')
+  call writefile(strs, tempfile)
+  let position = get(opts, 'location', 'quickfix')
+  let cmd = position == 'quickfix' ? 'cg ' : 'lg '
+  let oldefm = &efm
+  let &efm = get(opts, 'efm', &efm)
+  exec cmd . tempfile
+  let &efm = oldefm
+  bo cw
+  if a:nojump
+    normal "\<cr>"
+  else
+    wincmd p
+  endif
 endfunction
 
-function! GetQF(type) abort
+function! LocateQF()
+  let l1 = search('Traceback', 'b')
+  if l1 == 0
+    echoerr 'LocateQF: cannot find traceback'
+    return ''
+  endif
+  let l2 = search('^\(\d\+: \)\?\S\+Error', 'W')
+  if l2 == 0
+    echoerr 'LocateQF: cannot find traceback'
+    return ''
+  endif
+  return getline(l1+1, l2)
+endfunction
+
+function! GetQFFromNeoterm(type) abort
     let switch=buffer#SwitchToBuffer('neoterm-' . g:current_neoterm)
     let temp = @"
     normal G
@@ -70,11 +99,12 @@ function! GetQF(type) abort
     bo cw
 endfunction
 
-"vmap ;qf y:call SetQF(@@)<cr>
-vnoremap ;qf ""y:call SetQF(@", {})<cr>:bo cw<cr>
-nnoremap ;qf :<c-u>?Traceback?+1;/^\(\d\+: \)\?\w\+Error/y "<cr>:call SetQF(@", {'efm': g:python_traceback_format})<cr>:Qw<cr>
-command! CQF :setqflist([]) | cw
-command! QF call GetQF('python')
-command! QFi call GetQF('ipython')
-command! RQF call setqflist(reverse(getqflist()))
-command! -register SQF call SetQF(@<reg>)
+vnoremap ;qf :call SetQF(getline(line("'<"), line("'>")), 1)<cr>
+nnoremap ;qf :call SetQF(LocateQF(), 1)<cr>
+command! QFClear :call setqflist([]) | cw
+" get QF list from neoterm
+command! -bang QFFromNeoterm call GetQFFromNeoterm(<bang>0? 'python': 'ipython')
+" reverse the QF list
+command! QFReverse call setqflist(reverse(getqflist()))
+" set QF from a register, if bang, then do not jump to the first one
+command! -register -bang QFSet call SetQF(@<reg>, <bang>0)
