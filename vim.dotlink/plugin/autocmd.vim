@@ -48,13 +48,13 @@ function! FugitiveAddCustomCommands()
   let in_git = exists('b:git_dir') || fugitive#extract_git_dir(expand('%:p')) !=# ''
   let has_custom_commands = get(b:, 'fugitive_custom_commands', 0)
   if in_git && !has_custom_commands
-  let b:fugitive_custom_commands = 1
-  command -buffer -nargs=+ GCommit Gcommit -m<q-args>
-  command -buffer -nargs=* GStatus Gstats | wincmd K
-  command -buffer -nargs=+ Gamend Gcommit --amend -m<q-args>
-  command -buffer -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
-  command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
-  command -buffer -nargs=* GDiff only | Gdiff <args>
+    let b:fugitive_custom_commands = 1
+    command -buffer -nargs=+ GCommit Gcommit -m<q-args>
+    command -buffer -nargs=* GStatus Gstatus | wincmd K
+    command -buffer -nargs=+ Gamend Gcommit --amend -m<q-args>
+    command -buffer -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
+    command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
+    command -buffer -nargs=* GDiff only | Gdiff <args>
   endif
 endfunction
 
