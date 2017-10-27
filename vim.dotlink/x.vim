@@ -36,7 +36,7 @@ Plug 'mbbill/undotree'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'tommcdo/vim-exchange'
 Plug 'godlygeek/tabular'
-Plug 'kana/vim-operator-user'
+Plug 'liushapku/vim-operator-user'  "forked
 Plug 'kana/vim-operator-replace'
 Plug 'peterrincker/vim-argumentative'
 Plug 'hynek/vim-python-pep8-indent'
@@ -293,6 +293,7 @@ nmap <Space>w <Plug>(quickhl-cword-toggle)
 xmap <Space>w <Plug>(quickhl-cword-toggle)
 nmap <Space>M <Plug>(quickhl-manual-reset)
 xmap <Space>M <Plug>(quickhl-manual-reset)
+map <Space>h <Plug>(operator-quickhl-manual-this-motion)
 command! -bang -nargs=1 Hll  :call quickhl#manual#add("^.*" . <q-args> . ".*$", <bang>1)
 command! -bang -nargs=* Hlld  :call quickhl#manual#del(map(<q-args>, '"^.*" . v:val . ".*$"'), <bang>1)
 command! -bang -nargs=1 Hl   :call quickhl#manual#add(<q-args>, <bang>1)
@@ -300,7 +301,6 @@ command! -bang -nargs=* Hld  :call quickhl#manual#del(<q-args>, <bang>1)
 
 "nmap <Space>j <Plug>(quickhl-cword-toggle)
 "nmap <Space>] <Plug>(quickhl-tag-toggle)
-map <a-m> <Plug>(operator-quickhl-manual-this-motion)
 
 
 let g:extra_whitespace_ignored_filetypes = ['unite']
