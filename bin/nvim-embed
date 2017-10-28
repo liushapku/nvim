@@ -1,11 +1,16 @@
 #!/usr/bin/env python
+import os, re, sys, time
+import argparse
 
 try:
-    import argparse
-    import neovim, os, re, sys, time
+    import neovim
 except:
-    os.execvp('nvim', sys.argv)
-    exit(0)
+    try:
+        os.execvp('nvim', sys.argv)
+    except:
+        os.execvp('vim', sys.argv)
+    finally:
+        exit(0)
 
 
 # Get a list of buffers that haven't been deleted. `nvim.buffers` includes
