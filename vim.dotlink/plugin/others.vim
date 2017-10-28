@@ -14,7 +14,6 @@ set virtualedit=block
 set timeoutlen=400
 set clipboard=unnamedplus,unnamed
 set hidden
-set undofile
 set autoindent cindent
 "set smartindent
 set hlsearch
@@ -49,6 +48,9 @@ set nostartofline
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 set suffixes^=.ipynb
+if has('nvim')
+  set undofile
+endif
 
 filetype plugin indent on
 
