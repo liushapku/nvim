@@ -55,6 +55,7 @@ Plug 'nvie/vim-flake8'
 
 "javascript
 Plug 'pangloss/vim-javascript'
+Plug 'moll/vim-node'
 "json
 Plug 'elzr/vim-json'
 
