@@ -12,7 +12,6 @@ except:
     finally:
         exit(0)
 
-
 # Get a list of buffers that haven't been deleted. `nvim.buffers` includes
 # buffers that have had `:bdelete` called on them and aren't in the buffer
 # list, so we have to filter those out.
@@ -20,6 +19,12 @@ def get_listed_buffers(nvim):
     # print(*(buf.number for buf in nvim.buffers))
     return set(buf.number for buf in nvim.buffers \
         if nvim.eval('buflisted(%d)' % buf.number))
+
+pid = os.getpid()
+ppid =os.getppid()
+pgid = os.getpgid(pid)
+sid = os.getsid(pid)
+print('process:', pid, pgid, ppid, sid)
 
 # print(sys.argv)
 argparser = argparse.ArgumentParser()
@@ -54,7 +59,7 @@ filenames = [
     re.sub(' ', '\ ', os.path.abspath(arg))
         for arg in argv if not arg[0] in ['-', '+']
 ]
-newfiles = [f for f in filenames if nvim.eval('bufnr("{}")'.format(f)) == -1]
+newfiles = [f for f in filenames if not nvim.call('buflisted', f)]
 print('allfiles:', filenames)
 print('newfiles:', newfiles)
 if myargs.win is not None:
@@ -69,71 +74,56 @@ elif myargs.split == 'v':
 else:
     pass
 
+# if pid != pgid, then it belongs to another process group
+if pid == pgid:
+    def opened_by_other(filename):
+        regexes = [
+            r'.git/COMMIT_EDITMSG$',
+            r'.git/rebase-merge/git-rebase-todo$',
+            r'ipython_edit_.*\.py',
+            r'/crontab$',
+        ]
+        return any(re.search(regex, filename) for regex in regexes)
+    exit()
 
-def opened_by_other(filename):
-    regexes = [
-        r'.git/COMMIT_EDITMSG$',
-        r'.git/rebase-merge/git-rebase-todo$',
-        r'ipython_edit_.*\.py',
-        r'/crontab$',
-    ]
-    return any(re.search(regex, filename) for regex in regexes)
+print('nvim launched by other process')
+assert len(filenames) == 1, 'should open one file at a time'
+nvim.command('args %s' % ' '.join(filenames))
+all_buffers = get_listed_buffers(nvim)
+new_buffers = all_buffers.difference(existing_buffers)
 
-if any(opened_by_other(filename) for filename in filenames):
-    print('nvim launched by git or ipython ...')
-    assert len(filenames) == 1, 'should open one file at a time'
-    nvim.command('args %s' % ' '.join(filenames))
-    channel_id = nvim.channel_id
-    buffer = nvim.eval('bufnr(argv()[0])')
-    nvim.command('setlocal bufhidden=delete')
-    nvim.command('autocmd! BufDelete <buffer={}> write | call rpcnotify({}, "existing")'.format(buffer, channel_id))
-    nvim.next_message() # block until `rpcnotify` is called
-    print('nvim exited')
-    nvim.command('autocmd! BufDelete <buffer={}>'.format(buffer))
-    nvim.command('argdel *')
+channel_id = nvim.channel_id
+buffer = nvim.eval('bufnr(argv()[0])')
+nvim.command('setlocal bufhidden=delete')
+nvim.command('autocmd! BufDelete <buffer={}> write | call rpcnotify({}, "Finished", bufname(""))'.format(buffer, channel_id))
 
+if 0:
+    msg = nvim.next_message() # block until `rpcnotify` is called
+    # msg is either of
+    # - ('reqeust', name, args, response)  (response is a msgpack_rpc.async_session.Response object)
+    # - ('notification', name, args)
+    # if it is 'request', call response.send(value, error=False) to respond
+    assert msg[0] == 'notification' and msg[1] == 'Finished', 'something unexpected happened'
 else:
-    # if newfiles:
-    nvim.command('args %s' % ' '.join(filenames))
+    # alternatively:
+    # this is an example to demonstrate how to write onreqest, it will never be invoked
+    def onrequest(name, args):
+        if name == 'Finished':
+            raise neovim.ErrorResponse('please send Finished through rpcnotify')
+        else:
+            raise ValueError('unknown method:', name)
+        return 'no response'
 
-    all_buffers = get_listed_buffers(nvim)
-    new_buffers = all_buffers.difference(existing_buffers)
+    def onnotification(name, args):
+        assert name == 'Finished' and len(args) == 1
+        print('Finished: ', args[0])
+        open_buffers = [window.buffer.number for window in nvim.windows]
+        stay_open = any([buffer in open_buffers for buffer in new_buffers])
+        if not stay_open:
+            nvim.stop_loop()
+    nvim.run_loop(onrequest, onnotification)
+nvim.command('argdel *')
+print('nvim exited')
 
-    # The '-f' flag is a signal that we're in a situation like a `git commit`
-    # invocation where we need to block until the user is done with the file(s).
-    # ADDED: for git commit, -f flag actually does not exist
-    # It should be handled by the open_by_other function
-    if '-f' in argv and len(new_buffers) > 0:
-        # The rule here is that the user is 'done' with the opened files when none
-        # of them are visible onscreen. This allows for use cases like hitting `:q`
-        # on a `git commit` tempfile. However, we can't just poll to see if they're
-        # visible, because using `nvim.windows`, `nvim.eval()`, or `nvim.call()`
-        # will interrupt any multi-key mappings the user may be inputting. The
-        # solution is to set a buffer-local autocmd on each opened buffer so that
-        # we only check for visibility immediately after the user either closes or
-        # hides one of the buffers.
-        channel_id = nvim.channel_id
-        for buffer in new_buffers:
-            nvim.command((
-                'autocmd BufDelete,BufHidden <buffer=%d> ' +
-                'call rpcnotify(%d, "check_buffers")'
-            ) % (buffer, channel_id))
 
-        stay_open = True
-        while stay_open:
-            nvim.next_message() # block until `rpcnotify` is called
-            open_buffers = [window.buffer.number for window in nvim.windows]
-            stay_open = any([buffer in open_buffers for buffer in new_buffers])
-
-        # Now that none of the opened files are visible anymore, we do a few
-        # cleanup steps before ending the script:
-        #  * Clear the arg list, since otherwise `:next` would reopen the tempfile
-        #    or whatever.
-        #  * Clear the autocmds we added, since `bdelete` just hides the buffer and
-        #    the autocmds will still be active if the user reopens the file(s).
-        #  * Delete each of the buffers we created.
-        nvim.command('argdel *')
-        for buffer in new_buffers:
-            nvim.command('autocmd! BufDelete,BufHidden <buffer=%d>' % buffer)
-            nvim.command('bdelete! %d' % buffer)
 
