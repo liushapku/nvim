@@ -6,40 +6,49 @@ function! autocmd#BufWinLeave()
 endfunction
 
 function! autocmd#BufWinEnter()
-    if &ft == 'csv' && b:delimiter == "\t"
-        setlocal conceallevel=0
-    else
-        setlocal conceallevel=2
-    endif
+  "Echo "bufwinenter"
+  if &ft == 'csv' && b:delimiter == "\t"
+      setlocal conceallevel=0
+  else
+      setlocal conceallevel=2
+  endif
+  if &buftype == 'quickfix' && w:quickfix_title =~ 'git.*log'
+    nnoremap <buffer> v <c-w><cr><C-w>L
+    nnoremap <buffer> s <c-w><cr><C-w>K
+    nmap <buffer> dv <cr>:only <bar> Gvdiff<cr>
+    nmap <buffer> ds <cr>:only <bar> Gsdiff<cr>
+  endif
 endfunction
 
 function! autocmd#WinEnter()
-    if &buftype == 'quickfix'
-        stopinsert
-    endif
+  "Echo "winenter"
+  if &buftype == 'quickfix'
+    stopinsert
+  endif
 endfunction
 
 function! autocmd#BufEnter()
-    call buffer#AutoRestoreWinView()
-    if &buftype == 'quickfix'
-    endif
+  "Echo  "bufenter"
+  call buffer#AutoRestoreWinView()
+  if &buftype == 'quickfix'
+  endif
 
-    if &buftype == 'help'
-        nnoremap <buffer> q :<c-u>q<cr>
-        stopinsert
-    elseif &buftype == 'terminal'
-        if expand('%') =~ 'neoterm-[0-9]\+$'
-            let g:current_neoterm = substitute(expand('%'), '.*neoterm-\([0-9]\)\+$', '\1', 0)
-            set ft=neoterm
-        endif
-    endif
+  if &buftype == 'help'
+      nnoremap <buffer> q :<c-u>q<cr>
+      stopinsert
+  elseif &buftype == 'terminal'
+      if expand('%') =~ 'neoterm-[0-9]\+$'
+          let g:current_neoterm = substitute(expand('%'), '.*neoterm-\([0-9]\)\+$', '\1', 0)
+          set ft=neoterm
+      endif
+  endif
 
 
-    if bufname('%') =~ '\.input\(.[0-9]\+\)\?'
-        "set filetype=sh
-    elseif bufname('%') =~ '\.git/COMMIT_EDITMSG' || bufname('%') =~ 'ipython_edit.*py'
-        setlocal bufhidden=delete
-    endif
+  if bufname('%') =~ '\.input\(.[0-9]\+\)\?'
+      "set filetype=sh
+  elseif bufname('%') =~ '\.git/COMMIT_EDITMSG' || bufname('%') =~ 'ipython_edit.*py'
+      setlocal bufhidden=delete
+  endif
 endfunction
 
 function! autocmd#BufLeave()

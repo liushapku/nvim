@@ -11,10 +11,6 @@ augroup BufAu
   autocmd BufDelete *#neoterm-* call autocmd#TBufDelete()
 
   " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
-  autocmd BufReadPost quickfix nnoremap <buffer> v <c-w><cr><C-w>L
-  autocmd BufReadPost quickfix nnoremap <buffer> s <c-w><cr><C-w>K
-  autocmd BufReadPost quickfix nmap <buffer> dv <cr>:only <bar> Gvdiff<cr>
-  autocmd BufReadPost quickfix nmap <buffer> ds <cr>:only <bar> Gsdiff<cr>
 augroup END
 
 augroup FileTypeAu
@@ -41,6 +37,7 @@ augroup FileAu
   autocmd!
   autocmd BufNewFile,BufReadPost *.ipynb set filetype=json
   autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
+  autocmd BufNewFile,BufReadPost * echomsg 'file open'
   autocmd BufNewFile,BufReadPost * call FugitiveAddCustomCommands()
 augroup END
 " fugitive
@@ -66,11 +63,23 @@ endfunction
 
 augroup QuickFixCmdPostAu
   autocmd!
-  autocmd QuickFixCmdPost [^l]* botright cwindow
-  autocmd QuickFixCmdPost l* botright lwindow
-  autocmd QuickFixCmdPost Glog botright cwindow
-  autocmd QuickFixCmdPost Gllog botright lwindow
+  autocmd QuickFixCmdPost [^l]* call QuickFixAuFunc('c')
+  autocmd QuickFixCmdPost l*   call QuickFixAuFunc('l')
+  "autocmd QuickFixCmdPost *git* echomsg 'git'
+  "autocmd QuickFixCmdPost git botright cwindow | call s:SetQFMapsForGlog()
+  "autocmd QuickFixCmdPost  botright lwindow | call s:SetQFMapsForGlog()
 augroup END
+function! QuickFixAuFunc(mode)
+  "Echo 'quickfix'
+  if a:mode == 'l'
+    botright lwindow
+  elseif a:mode == 'c'
+    botright cwindow
+  else
+    return
+  endif
+endfunction
+
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
