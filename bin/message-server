@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import logging
 log = logging.getLogger('werkzeug')
-log.setLevel(logging.ERROR)
+log.setLevel(logging.DEBUG)
+# log.setLevel(logging.ERROR)
 
 import flask
 import sys
@@ -21,8 +22,46 @@ from flask import (
     Response,
 )
 
-app = Flask(__name__)
+def list_routes(app):
+    import urllib.parse
+    output = []
+    with app.app_context():
+        for rule in app.url_map.iter_rules():
 
+            options = {}
+            for arg in rule.arguments:
+                options[arg] = "[{0}]".format(arg)
+
+            methods = ','.join(rule.methods)
+            url = url_for(rule.endpoint, **options)
+            line = urllib.parse.unquote("{:50s} {:20s} {}".format(rule.endpoint, methods, url))
+            output.append(line)
+
+        for line in sorted(output):
+            print(line)
+
+from jsonrpc.backend.flask import api
+app = Flask(__name__)
+# app.config['SERVER_NAME'] = 'localhost:'
+app.register_blueprint(api.as_blueprint(), url_prefix='/api')
+
+@api.dispatcher.add_method
+def echomsg(msg):
+    # print(kwargs)
+    # msg = kwargs['msg']
+    if msg:
+        print('[', datetime.datetime.now(), '] ', msg, sep='')
+    elif msg == '':
+        print('==========================')
+
+@api.dispatcher.add_method
+def echoerr(msg):
+    if msg:
+        print('\033[31m[', datetime.datetime.now(), '] ', msg, '\033[0m', sep='')
+    elif msg == '':
+        print('==========================')
+
+# list_routes(app)
 @app.route('/vim', methods=['POST'])
 def handle_vim():
     msg = request.form.get('msg')
