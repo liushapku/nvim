@@ -24,7 +24,7 @@ pid = os.getpid()
 ppid =os.getppid()
 pgid = os.getpgid(pid)
 sid = os.getsid(pid)
-print('process:', pid, pgid, ppid, sid)
+print('pid:', pid, 'pgid:', pgid, 'ppid:', ppid, 'sid:', sid)
 
 # print(sys.argv)
 argparser = argparse.ArgumentParser()
@@ -37,17 +37,16 @@ myargs, argv = argparser.parse_known_args()
 # needs right now.
 try:
     nvim_socket = os.environ["NVIM_LISTEN_ADDRESS"]
+    nvim = neovim.attach('socket', path=nvim_socket)
     isembed = True
 except KeyError:
-    isembed = False
     # If we aren't running inside a `:terminal`, just exec nvim.
-
-if not isembed:
     os.execvp('nvim', [sys.argv[0]] + argv)
-    exit(0)
-
-nvim = neovim.attach('socket', path=nvim_socket)
-
+    exit(1)
+except FileNotFoundError:
+    print('socket does not exist, creating new instance and listen to', nvim_socket)
+    os.execvp('nvim', [sys.argv[0]] + argv)
+    exit(2)
 
 existing_buffers = get_listed_buffers(nvim)
 if myargs.cmd is not None:
