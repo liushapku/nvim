@@ -1,3 +1,4 @@
+let g:plug_url_format="git@github.com:%s.git"
 call plug#begin('~/.vim/bundle')
 
 " git
