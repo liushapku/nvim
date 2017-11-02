@@ -1,5 +1,4 @@
 call plug#begin('~/.vim/bundle')
-Plug 'neovim/python-client', { 'do': ':UpdateRemotePlugins' }
 
 " git
 Plug 'tpope/vim-fugitive'
@@ -25,7 +24,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-abolish'  " language friendly searches, substitutions, and abbreviations
-Plug 'tpope/vim-rhubarb' " run vim -u NONE -c "helptags vim-rhubarb/doc" -c q
+"Plug 'tpope/vim-rhubarb' " run vim -u NONE -c "helptags vim-rhubarb/doc" -c q
 Plug 'kien/ctrlp.vim'
 Plug 'majutsushi/tagbar'
 Plug 'scrooloose/nerdcommenter'
@@ -84,7 +83,7 @@ Plug 'kassio/neoterm'
 Plug 'shougo/unite.vim'
 Plug 'shougo/neoyank.vim'
 Plug 'kana/vim-textobj-user'
-Plug 'bfredl/nvim-ipy', { 'do': ':UpdateRemotePlugins' }
+"Plug 'bfredl/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 
 " Complete
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
