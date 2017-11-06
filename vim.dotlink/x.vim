@@ -3,7 +3,7 @@ call plug#begin('~/.vim/bundle')
 
 " git
 Plug 'tpope/vim-fugitive'
-Plug 'mattn/webapi-vim'
+Plug 'liushapku/webapi-vim'
 Plug 'liushapku/gist-vim'
 
 " database
