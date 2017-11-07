@@ -24,7 +24,7 @@ pid = os.getpid()
 ppid =os.getppid()
 pgid = os.getpgid(pid)
 sid = os.getsid(pid)
-print('pid:', pid, 'pgid:', pgid, 'ppid:', ppid, 'sid:', sid)
+# print('pid:', pid, 'pgid:', pgid, 'ppid:', ppid, 'sid:', sid)
 
 # print(sys.argv)
 argparser = argparse.ArgumentParser()

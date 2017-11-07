@@ -29,27 +29,23 @@ function! TabWrap() abort
     elseif prefix == '' || prefix =~ '\s\+$'
         echo 'TabWrap: empty string'
         return "\<tab>"
-    elseif g:deoplete_tab_called == 1 && &filetype == 'python'
-        echo 'TabWrap: jedi'
-        let g:deoplete_tab_called = 0
-        return jedi#complete_string(0)
-    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && g:deoplete_tab_called == 0 && &filetype != 'vim'
+    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && &filetype != 'vim'
         echo 'TabWrap: deoplete'
-        let g:deoplete_tab_called = 1
+        "let g:deoplete_tab_called = 1
         let result=deoplete#mappings#manual_complete()
         return result
     elseif &omnifunc != ''
         echo 'TabWrap: omnifunc'
         return "\<C-X>\<C-O>"
     else
-        echo 'TabWrap: nothing' g:deoplete_tab_called
+        "echo 'TabWrap: nothing' g:deoplete_tab_called
         return "\<tab>"
     endif
 endfunction
 
-augroup TabWrap
-    au!  InsertEnter,CursorMovedI,CompleteDone * let g:deoplete_tab_called = 0
-augroup END
+"augroup TabWrap
+"    au!  InsertEnter,CursorMovedI,CompleteDone * let g:deoplete_tab_called = 0
+"augroup END
 
 function! STabWrap() abort
     if pumvisible()

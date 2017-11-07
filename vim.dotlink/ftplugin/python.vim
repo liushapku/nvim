@@ -3,10 +3,41 @@
 
 "echom 'Enter: '. expand('%:p')
 "
+let b:deoplete_tab_called = 0
+function! s:TabWrap() abort
+    let prefix = strpart( getline('.'), 0, col('.') - 1 )
+    if pumvisible()
+        echo 'TabWrap: pumvisible'
+        return "\<C-N>"
+    elseif prefix == '' || prefix =~ '\s\+$'
+        echo 'TabWrap: empty string'
+        return "\<tab>"
+    elseif b:deoplete_tab_called == 1 && &filetype == 'python'
+        echo 'TabWrap: jedi'
+        let b:deoplete_tab_called = 0
+        return jedi#complete_string(0)
+    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && b:deoplete_tab_called == 0 && &filetype != 'vim'
+        echo 'TabWrap: deoplete'
+        let b:deoplete_tab_called = 1
+        let result=deoplete#mappings#manual_complete()
+        return result
+    elseif &omnifunc != ''
+        echo 'TabWrap: omnifunc'
+        return "\<C-X>\<C-O>"
+    else
+        echo 'TabWrap: nothing' b:deoplete_tab_called
+        return "\<tab>"
+    endif
+endfunction
+
+augroup PyTabWrap
+    au!  InsertEnter,CursorMovedI,CompleteDone <buffer> let b:deoplete_tab_called = 0
+augroup END
+inoremap <buffer><silent><expr><tab> TabWrap()
 
 map <buffer> <F5> <Plug>(IPyRun)
-imap ,, <end>,
-imap ,) <end>)
+imap <buffer> ,, <end>,
+imap <buffer> ,) <end>)
 
 let &l:errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#
