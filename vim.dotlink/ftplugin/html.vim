@@ -1,3 +1,3 @@
-imap <c-y><cr> <cr><cr><up>
+so ~/.vim/ftplugin/javascript.vim
 
-TabSet 2
+imap <c-y><cr> <cr><cr><up>
