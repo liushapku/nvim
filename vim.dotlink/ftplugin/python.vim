@@ -35,9 +35,12 @@ augroup PyTabWrap
 augroup END
 inoremap <buffer><silent><expr><tab> TabWrap()
 
+command! -buffer Print3 s/print\s\+\(.*\)$/print(\1)/
+
 map <buffer> <F5> <Plug>(IPyRun)
 imap <buffer> ,, <end>,
 imap <buffer> ,) <end>)
+
 
 let &l:errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#
