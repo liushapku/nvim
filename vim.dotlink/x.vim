@@ -84,7 +84,7 @@ Plug 'kassio/neoterm'
 Plug 'shougo/unite.vim'
 Plug 'shougo/neoyank.vim'
 Plug 'kana/vim-textobj-user'
-"Plug 'bfredl/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
+Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 
 " Complete
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }

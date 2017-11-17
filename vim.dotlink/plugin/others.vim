@@ -202,3 +202,5 @@ function! SubOutput(filterpattern, pattern, ...)
       echo newout
   endfor
 endfunction
+
+command! -complete=file -nargs=* Vnew botright vnew <args>
