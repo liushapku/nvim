@@ -37,7 +37,8 @@ inoremap <buffer><silent><expr><tab> TabWrap()
 
 command! -buffer Print3 s/print\s\+\(.*\)$/print(\1)/
 
-map <buffer> <F5> <Plug>(IPyRun)
+call SetIPyMappings()
+
 imap <buffer> ,, <end>,
 imap <buffer> ,) <end>)
 
