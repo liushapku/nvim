@@ -42,6 +42,8 @@ call SetIPyMappings()
 imap <buffer> ,, <end>,
 imap <buffer> ,) <end>)
 
+nmap <buffer> ]} ]m
+nmap <buffer> [{ [m
 
 let &l:errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#
