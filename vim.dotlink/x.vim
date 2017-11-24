@@ -177,7 +177,7 @@ let g:tagbar_width=30
 " NERDTree
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\~$', '__pycache__', '__init__.py']
+let g:NERDTreeIgnore=['\~$', '__pycache__']
 
 
 
