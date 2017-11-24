@@ -143,7 +143,8 @@ cnoremap <C-R><C-D> <C-R>=expand('%:p:h') . '/'<cr>
 "full name for autoload
 cnoremap <C-R><C-L> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '') . '/'<cr>
 "cwd
-cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
+"cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
+cnoremap <C-R><C-J> <C-R>=getcwd()<cr>
 function! g:InputBufName()
     let n = str2nr(input('bufnr: '))
     return n==0? '' : bufname(n)
@@ -204,3 +205,4 @@ function! SubOutput(filterpattern, pattern, ...)
 endfunction
 
 command! -complete=file -nargs=* Vnew botright vnew <args>
+command! DoFileType doautocmd FileType
