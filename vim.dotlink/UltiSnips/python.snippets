@@ -2,3 +2,9 @@
 snippet "\s*([^=]+)\s*\?\s*(.+)\s*:\s*(.*)\s*\?\?" "tenary" r
 `!p snip.rv = ' '.join(['', match.group(2), 'if', match.group(1), 'else', match.group(3)])`
 endsnippet
+
+# options:
+# b: beginning of line
+snippet docln "one line doc string (triple quotes)" b
+"""$1"""
+endsnippet

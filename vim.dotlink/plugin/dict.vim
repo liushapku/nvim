@@ -5,7 +5,7 @@ call operator#user#define('DictGET', 'dict#GET')
 call operator#user#define('DictReverse', 'dict#Reverse')
 map dc <Plug>(operator-DictReplace)
 map dg <Plug>(operator-DictGet)
-map dG <Plug>(operator-DictGET)
+map DG <Plug>(operator-DictGET)
 map dr <Plug>(operator-DictReverse)
 
 

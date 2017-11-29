@@ -1,6 +1,9 @@
 let g:plug_url_format="git@github.com:%s.git"
+set rtp+=~/repos/jupyter_nvim
 call plug#begin('~/.vim/bundle')
 
+"Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug '~/repos/jupyter_nvim'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'liushapku/webapi-vim'
@@ -84,7 +87,7 @@ Plug 'kassio/neoterm'
 Plug 'shougo/unite.vim'
 Plug 'shougo/neoyank.vim'
 Plug 'kana/vim-textobj-user'
-Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
+"Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 
 " Complete
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
@@ -144,7 +147,7 @@ let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_custom_ignore= {
     \ 'dir':'__pycache__',
-    \ 'file':'__init__.py'
+    \ 'file':'*.swp'
     \ }
 
 nnoremap <c-p>m :<c-u>CtrlPMRUFiles<cr>
