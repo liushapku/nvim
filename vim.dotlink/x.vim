@@ -16,7 +16,7 @@ Plug 'gioele/vim-autoswap'
 " database
 Plug 'vim-scripts/dbext.vim'
 
-Plug 'jeetsukumaran/vim-indentwise'
+"Plug 'jeetsukumaran/vim-indentwise'
 Plug 't9md/vim-quickhl'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'qpkorr/vim-bufkill'
@@ -87,9 +87,9 @@ Plug 'vim-scripts/ingo-library'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'shougo/vimproc.vim', {'do': 'make'}
-Plug 'kassio/neoterm'
+"Plug 'kassio/neoterm'
 Plug 'shougo/unite.vim'
-Plug 'shougo/neoyank.vim'
+"Plug 'shougo/neoyank.vim'
 Plug 'kana/vim-textobj-user'
 "Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 
