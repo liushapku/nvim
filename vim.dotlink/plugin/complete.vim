@@ -12,8 +12,8 @@ let g:deoplete#sources.python = ['jedi'] + g:deoplete_mysources
 let g:deoplete#auto_complete_delay = 50
 let g:deoplete#auto_refresh_delay = 100
 "let g:deoplete#disable_auto_complete = 1
-call deoplete#custom#set('ultisnips', 'rank', 9999)
-call deoplete#custom#set('_', 'matchers', ['matcher_head'])
+call deoplete#custom#source('ultisnips', 'rank', 9999)
+call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 
 let g:deoplete#ignore_sources = {}
 let g:deoplete#ignore_sources.python = ['member', 'buffer', 'tag']

@@ -1,4 +1,5 @@
-let g:plug_url_format="git@github.com:%s.git"
+"let g:plug_url_format="git@github.com:%s.git"
+let g:plug_url_format="https://github.com/%s.git"
 set rtp+=~/repos/jupyter_nvim
 call plug#begin('~/.vim/bundle')
 
@@ -8,6 +9,9 @@ call plug#begin('~/.vim/bundle')
 Plug 'tpope/vim-fugitive'
 Plug 'liushapku/webapi-vim'
 Plug 'liushapku/gist-vim'
+
+" vim
+Plug 'gioele/vim-autoswap'
 
 " database
 Plug 'vim-scripts/dbext.vim'
@@ -275,7 +279,7 @@ let g:flake8_show_in_gutter=1
 
 
 " neoterm
-let g:neoterm_position='vertical'
+let g:neoterm_default_mod='vertical'
 let g:neoterm_autoscroll=1
 
 
@@ -361,7 +365,7 @@ vnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line("'<"), line("'>")), 
 function! SetIPyMappings()
   map <buffer> <silent> <F5>           <Plug>(IPyRun)
   imap <buffer> <silent> <C-F> <Plug>(IPy-Complete)
-  map <buffer> <silent> <F8> <Plug>(IPy-Interrupt)
+  map <buffer> <silent> <leader>. <Plug>(IPy-Interrupt)
   map <buffer> <silent> <leader>? <Plug>(IPy-WordObjInfo)
 endfunction
 

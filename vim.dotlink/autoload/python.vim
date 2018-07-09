@@ -7,11 +7,11 @@ function! python#NumIncrease(count)
   endif
   if l:cword ==# "True"
     if a:count % 2
-      exe "normal caw\<space>False"
+      exe "normal cawFalse"
     endif
   elseif l:cword ==# 'False'
     if a:count % 2
-      exe "normal caw\<space>True"
+      exe "normal cawTrue"
     endif
   elseif a:count > 0
     exec "normal! " . a:count . "\<C-A>"
