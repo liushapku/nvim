@@ -287,6 +287,8 @@ let g:neoterm_autoscroll=1
 " futgitive
 command! GInitDir call fugitive#detect(resolve(expand('%:h')))
 autocmd BufReadPost fugitive://* set bufhidden=delete
+command! Gs tab Gstatus
+command! Gd tabedit % | Gvdiff
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 "
 
