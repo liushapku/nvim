@@ -59,6 +59,8 @@ Plug 'junkblocker/patchreview-vim'
 "python
 Plug 'tell-k/vim-autopep8'
 Plug 'nvie/vim-flake8'
+"qt
+Plug 'peterhoeg/vim-qml'
 
 "javascript
 Plug 'pangloss/vim-javascript'
