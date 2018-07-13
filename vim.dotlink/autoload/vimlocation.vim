@@ -22,7 +22,6 @@ endfunction
 function! vimlocation#function(name)
     try
         let ret = split(Redir('verb function ' . a:name), "\n")
-        echo ret
         return substitute(ret[1], '\s*Last set from ', '', '')
     catch
         "echoerr 'function not found'
