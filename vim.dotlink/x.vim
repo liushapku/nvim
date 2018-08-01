@@ -359,7 +359,8 @@ vmap cx <Plug>(Exchange)
 
 "=======DelimitMate
 let delimitMate_balance_matchpairs = 1
-let delimitMate_excluded_regions = "Comment,String"
+"let delimitMate_excluded_regions = "Comment,String"
+let delimitMate_expand_cr = 2
 
 
 "=======nvim-ipy
