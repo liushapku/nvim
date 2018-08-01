@@ -11,11 +11,9 @@ set runtimepath^=~/.vim/custom/
 let host = hostname()
 
 if $COLORTYPE == "truecolor"
-    set termguicolors
-    colorscheme desert
-else
-    colorscheme desert
+  set termguicolors
 endif
+colorscheme gruvbox
 
 syntax on
 hi Normal guibg=grey10

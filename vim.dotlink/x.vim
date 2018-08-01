@@ -80,11 +80,12 @@ let g:user_emmet_settings = {
 \}
 
 "Colors
-Plug 'tomasr/molokai'
+"Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'iCyMind/NeoSolarized'
-Plug 'vim-scripts/ArgsAndMore'
-Plug 'vim-scripts/ingo-library'
+Plug 'flazz/vim-colorschemes'
+"Plug 'vim-scripts/ArgsAndMore'
+"Plug 'vim-scripts/ingo-library'
 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
