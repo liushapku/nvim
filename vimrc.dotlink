@@ -10,10 +10,10 @@ let host = hostname()
 if $COLORTYPE == "truecolor"
   set termguicolors
 endif
-colorscheme gruvbox
 
 so ~/.vim/x.vim
 set runtimepath^=~/.vim/custom/
+colorscheme gruvbox
 
 " see https://github.com/neovim/neovim/issues/7049
 " this fix strange cursor "\x1b[%p1%d q"
