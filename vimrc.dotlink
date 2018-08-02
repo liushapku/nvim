@@ -14,12 +14,12 @@ endif
 so ~/.vim/x.vim
 set runtimepath^=~/.vim/custom/
 colorscheme gruvbox
+set completeopt=menuone,longest,preview
 
 " see https://github.com/neovim/neovim/issues/7049
 " this fix strange cursor "\x1b[%p1%d q"
 set guicursor=
 set background=dark
-hi Normal guibg=grey10
 syntax on
 
 let mapleader=';'
