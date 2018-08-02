@@ -44,7 +44,7 @@ function! Tdo(n, clear, cmd)
 endfunction
 command! Tnew
 \ let g:current_neoterm = g:neoterm.last_id + 1 |
-\ silent call neoterm#tnew() |
+\ silent call neoterm#new({'mod': <q-mods>}) |
 \ call airline#extensions#tabline#buffers#invalidate()
 command! TNEW let g:neoterm_split_on_tnew=0 | exe "Tnew" | let g:neoterm_split_on_tnew=1
 silent! nunmap ;pw
