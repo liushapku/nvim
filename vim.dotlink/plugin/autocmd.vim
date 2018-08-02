@@ -8,7 +8,6 @@ augroup BufAu
   autocmd BufLeave * call autocmd#BufLeave()
   autocmd BufWinLeave * call autocmd#BufWinLeave()
   autocmd BufWinEnter * call autocmd#BufWinEnter()
-  autocmd BufDelete *#neoterm-* call autocmd#TBufDelete()
 
   " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
 augroup END
@@ -28,9 +27,9 @@ endfunction
 augroup WinAu
   autocmd!
   autocmd WinEnter * call autocmd#WinEnter()
-  autocmd WinEnter term://*neoterm* startinsert
+  autocmd WinEnter term://* normal i
   autocmd WinLeave * call autocmd#WinLeave()
-  autocmd WinLeave term://*neoterm* stopinsert
+  autocmd WinLeave term://* stopinsert
 augroup END
 
 augroup FileAu

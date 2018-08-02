@@ -335,22 +335,12 @@ endfunction
 
 " if <bang>, use cpaste
 function! buffer#SendToIPython(ipython, bang) range abort
-    let old = @a
-    let @a = ''
-    let search = a:ipython ? 'g/\(>>>\|\.\.\.\) /' : ''
-    exe a:firstline . ',' . a:lastline . search . 'y A'
-    let oldplus = @+
-    let @+ = substitute(@a, "^\n\\+", "", "")
-    if a:bang
-        call g:neoterm.instances[g:current_neoterm].do('%cpaste')
-		for x in split(@+, "\n")
-			echo x
-			call g:neoterm.instances[g:current_neoterm].do(x)
-		endfor
-    else
-        call g:neoterm.instances[g:current_neoterm].do('%paste')
-	endif
-    let @a = old
+  call neoterm#repl#handlers()  " only to load the autoload module
+  let lines = getline(a:firstline, a:lastline)
+  let old = @+
+  let @+ = join(lines, "\n")
+  call g:neoterm.repl.exec(['%paste'])
+  return
 endfunction
 
 " switches to expr and returns [current_bufnr, current_winid, alternative_filename]
