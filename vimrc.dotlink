@@ -3,21 +3,25 @@ let g:python2_path=resolve(expand('~/usr/bin/python2'))
 let g:python_host_prog=g:python2_path
 let g:python3_host_prog=g:python3_path
 python3 pass
+let host = hostname()
 "; print('Welcome to VIM with:', sys.version_info)
 
-so ~/.vim/x.vim
-set runtimepath^=~/.vim/custom/
-
-let host = hostname()
 
 if $COLORTYPE == "truecolor"
   set termguicolors
 endif
 colorscheme gruvbox
-set background=dark
 
-syntax on
+so ~/.vim/x.vim
+set runtimepath^=~/.vim/custom/
+
+" see https://github.com/neovim/neovim/issues/7049
+" this fix strange cursor "\x1b[%p1%d q"
+set guicursor=
+set background=dark
 hi Normal guibg=grey10
+syntax on
+
 let mapleader=';'
 let maplocalleader=';'
 nnoremap \ ;
