@@ -90,7 +90,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'shougo/vimproc.vim', {'do': 'make'}
-"Plug 'kassio/neoterm'
+Plug 'kassio/neoterm'
 Plug 'shougo/unite.vim'
 "Plug 'shougo/neoyank.vim'
 Plug 'kana/vim-textobj-user'
