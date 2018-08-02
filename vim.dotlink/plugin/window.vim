@@ -56,6 +56,7 @@ command! -complete=command -nargs=* BELOWE botright <args>
 command! -complete=command -nargs=* TabE tab <args>
 command! -complete=command -nargs=* Nosplit call window#NoSplitExec(<q-args>)
 command! -complete=help -nargs=* Help call window#NoSplitExec('help ' . <q-args>)
+command! -complete=help -nargs=* H call window#NoSplitExec('help ' . <q-args>)
 
 command! -complete=buffer -nargs=* Left vertical above sb <args>
 command! -complete=buffer -nargs=* LEFT vertical topleft sb <args>
