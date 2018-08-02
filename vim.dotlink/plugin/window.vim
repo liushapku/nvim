@@ -4,34 +4,34 @@ inoremap <A-k> <C-O><C-W>k
 inoremap <A-l> <C-O><C-W>l
 inoremap <A-n> <C-O><C-W>w
 inoremap <A-p> <C-O><C-W>W
-inoremap <a-pageup> <esc>gT
-inoremap <a-pagedown> <esc>gt
-imap <a-[> <a-pageup>
-imap <a-]> <a-pagedown>
-
 nnoremap <A-h> <C-W>h
 nnoremap <A-j> <C-W>j
 nnoremap <A-k> <C-W>k
 nnoremap <A-l> <C-W>l
 nnoremap <A-n> <C-W>w
 nnoremap <A-p> <C-W>W
-nnoremap <a-pageup> gT
-nnoremap <a-pagedown> gt
-nmap <a-[> <a-pageup>
-nmap <a-]> <a-pagedown>
-
 tnoremap <A-h> <C-\><C-n><C-W>h
 tnoremap <A-j> <C-\><C-n><C-W>j
 tnoremap <A-k> <C-\><C-n><C-W>k
 tnoremap <A-l> <C-\><C-n><C-W>l
 tnoremap <A-n> <C-\><C-n><C-W>w
 tnoremap <A-p> <C-\><C-n><C-W>W
-tnoremap <Esc><ESC> <C-\><C-n>
-tnoremap <esc>gw <c-\><c-n>
+
+inoremap <a-pageup> <esc>gT
+inoremap <a-pagedown> <esc>gt
+nnoremap <a-pageup> gT
+nnoremap <a-pagedown> gt
 tnoremap <a-pageup> <c-\><c-n>gT
 tnoremap <a-pagedown> <c-\><c-n>gt
+imap <a-[> <a-pageup>
+imap <a-]> <a-pagedown>
+nmap <a-[> <a-pageup>
+nmap <a-]> <a-pagedown>
 tmap <a-[> <a-pageup>
 tmap <a-]> <a-pagedown>
+
+tnoremap <Esc><ESC> <C-\><C-n>
+tnoremap <esc>gw <c-\><c-n>
 tnoremap <silent> <expr> <esc>gw v:count==0?"\<c-\>\<c-n>\<C-W>p":("\<c-\>\<c-n>". v:count . "\<C-W>\<C-W>")
 
 
