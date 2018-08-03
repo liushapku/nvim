@@ -45,7 +45,9 @@ Plug 'mhinz/vim-signify'            "show symbols at the leftmost columns
 Plug 'wesq3/vim-windowswap'         "swap windows
 "Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 Plug 'easymotion/vim-easymotion'    "easily move by selection
-Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
