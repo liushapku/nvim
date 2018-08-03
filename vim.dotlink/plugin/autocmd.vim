@@ -24,6 +24,11 @@ function! s:tab_set(bang, n)
   exe printf('%s expandtab tabstop=%d softtabstop=%d shiftwidth=%d', set, a:n, a:n, a:n)
 endfunction
 
+augroup TermAU
+  autocmd!
+  au TermOpen * startinsert
+augroup END
+
 augroup WinAu
   autocmd!
   autocmd WinEnter * call autocmd#WinEnter()

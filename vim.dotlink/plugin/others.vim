@@ -158,6 +158,7 @@ nnoremap <A-/> :<C-U>noh<CR>:redraw<CR>
 nnoremap <Space>/ :<C-U>set invhlsearch<CR>
 
 cabbr RR AsyncRun
+command! -nargs=+ R new term://<args>
 
 noremap g<cr> :<c-u>normal i<c-v><cr><cr>
 

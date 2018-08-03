@@ -6,142 +6,72 @@ call plug#begin('~/.vim/bundle')
 "Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug '~/repos/jupyter_nvim'
 " git
-Plug 'tpope/vim-fugitive'
-Plug 'liushapku/webapi-vim'
-Plug 'liushapku/gist-vim'
-
-" vim
-Plug 'gioele/vim-autoswap'
-
-" database
-Plug 'vim-scripts/dbext.vim'
-
-"Plug 'jeetsukumaran/vim-indentwise'
-Plug 't9md/vim-quickhl'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'qpkorr/vim-bufkill'
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'chrisbra/csv.vim'
-Plug 'mattn/calendar-vim'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-fugitive'         "git
+Plug 'liushapku/webapi-vim'       "webapi
+Plug 'liushapku/gist-vim'         "gist
+Plug 'kien/ctrlp.vim'             "file lookup
+Plug 'majutsushi/tagbar'          "tag generation and listing
+Plug 'scrooloose/nerdcommenter'   "comment and uncomment text
+Plug 'houtsnip/vim-emacscommandline'  "emacs keybinding in command mode
+Plug 'tommcdo/vim-exchange'         "exchange two strings
+Plug 'liushapku/vim-operator-user'  "user defined operator
+Plug 'kana/vim-operator-replace'    "replace as a operator
+Plug 'raimondi/delimitmate'  "autocompletion for quotes, brackets...
+Plug 'tpope/vim-surround'    "surround text using [( etc
+Plug 'tpope/vim-unimpaired'  "navigate using [ and ]
+Plug 'tpope/vim-eunuch'      "os actions like Delete and Remove
+Plug 'tpope/vim-repeat'      "enable repeat user defined editing
+Plug 'gioele/vim-autoswap'   "handles swap files
+Plug 'qpkorr/vim-bufkill'    "handle window after buf is deleted
+Plug 'vim-airline/vim-airline'                "statsline
+Plug 'vim-airline/vim-airline-themes'         "statsline
+Plug 'bronson/vim-trailing-whitespace'        "trailing whitespace
+Plug 'peterrincker/vim-argumentative'         "nativate in parameter list and change order
+Plug 'mbbill/undotree'           "undo tree
+Plug 'scrooloose/nerdtree'       "directory tree
+Plug 'jistr/vim-nerdtree-tabs'   "directory tree
 Plug 'tpope/vim-abolish'  " language friendly searches, substitutions, and abbreviations
-"Plug 'tpope/vim-rhubarb' " run vim -u NONE -c "helptags vim-rhubarb/doc" -c q
-Plug 'kien/ctrlp.vim'
-Plug 'majutsushi/tagbar'
-Plug 'scrooloose/nerdcommenter'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'mhinz/vim-signify'
-Plug 'mbbill/undotree'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'tommcdo/vim-exchange'
-Plug 'godlygeek/tabular'
-Plug 'liushapku/vim-operator-user'  "forked
-Plug 'kana/vim-operator-replace'
-Plug 'peterrincker/vim-argumentative'
-Plug 'hynek/vim-python-pep8-indent'
-Plug 'wesq3/vim-windowswap'
-Plug 'houtsnip/vim-emacscommandline'
-Plug 'raimondi/delimitmate'
-
-"diff
-Plug 'chrisbra/vim-diff-enhanced'
-Plug 'andrewradev/linediff.vim'
-Plug 'junkblocker/patchreview-vim'
-
-"python
-Plug 'tell-k/vim-autopep8'
-"Plug 'nvie/vim-flake8'
-"qt
-Plug 'peterhoeg/vim-qml'
-
-"javascript
-Plug 'pangloss/vim-javascript'
-Plug 'moll/vim-node'
-"json
-Plug 'elzr/vim-json'
-
-"html
-"Plug 'othree/html5.vim'
-Plug 'glench/vim-jinja2-syntax'
-"Plug 'docunext/closetag.vim'
-Plug 'mattn/emmet-vim'
-let g:user_emmet_settings = {
-\    'html': {
-\        'empty_element_suffix': ' />',
-\    },
-\}
-
-"Colors
-"Plug 'tomasr/molokai'
-Plug 'altercation/vim-colors-solarized'
-Plug 'iCyMind/NeoSolarized'
-Plug 'flazz/vim-colorschemes'
-"Plug 'vim-scripts/ArgsAndMore'
-"Plug 'vim-scripts/ingo-library'
-
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'shougo/vimproc.vim', {'do': 'make'}
-Plug 'kassio/neoterm'
-Plug 'shougo/unite.vim'
-"Plug 'shougo/neoyank.vim'
-Plug 'kana/vim-textobj-user'
+Plug 'flazz/vim-colorschemes'   "color scheme
+Plug 'kassio/neoterm'      "terminal
+Plug 'kana/vim-textobj-user'   "user defined textobject
+Plug 't9md/vim-quickhl'   "quick highlight
+Plug 'andrewradev/linediff.vim'     "diff blocks and merge
+Plug 'chrisbra/vim-diff-enhanced'   "smart diff
+Plug 'junkblocker/patchreview-vim'  "????
+Plug 'skywind3000/asyncrun.vim'     "asyncrun shell commands
+Plug 'SirVer/ultisnips'             "snippets framework
+Plug 'honza/vim-snippets'           "predefined snippets
+Plug 'mhinz/vim-signify'            "show symbols at the leftmost columns
+Plug 'wesq3/vim-windowswap'         "swap windows
 "Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
+Plug 'easymotion/vim-easymotion'    "easily move by selection
+Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
 
 " Complete
-"Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/echodoc.vim'
 Plug 'davidhalter/jedi-vim'
 
+
+" filetype extensions
+Plug 'vim-scripts/dbext.vim' " database
+Plug 'chrisbra/csv.vim'
+Plug 'mattn/calendar-vim'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
+Plug 'godlygeek/tabular'
+Plug 'peterhoeg/vim-qml'   "Qt
+Plug 'elzr/vim-json'  "json
+Plug 'moll/vim-node'  "nodejs
+Plug 'pangloss/vim-javascript' "javascript
+Plug 'glench/vim-jinja2-syntax' "html
+Plug 'mattn/emmet-vim'          "html
+
+
 call plug#end()
 
 "===ENDPLUG===
-" unite
-let g:unite_source_history_yank_enable = 1
-let g:unite_source_yank_history_save_clipboard = 1
-let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
-call unite#custom#profile('default', 'context', {
-\   'winheight': 10,
-\   'direction': 'botright'
-\ })
-call unite#custom#profile('files', 'filters', 'sorter_rank')
-"\   'direction': 'botright',
-"\   'vertical_preview': 1,
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source('file,file/new,buffer,file_rec',
-\ 'matchers', 'matcher_fuzzy')
-let g:unite_source_grep_command = 'ag'
-"let g:unite_source_grep_default_opts =
-"\ '--nogroup --nocolor --column ' .
-"\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-let g:unite_source_grep_default_opts =
-\ '-i --vimgrep --hidden --ignore ' .
-\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-let g:unite_source_grep_recursive_opt = ''
-let g:unite_enable_start_insert=0
-let g:unite_enable_ignore_case = 1
-let g:unite_enable_smart_case = 1
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
 
 " CtrlP
 let g:ctrlp_map = '<c-p><c-p>'
@@ -250,15 +180,6 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
 
 "=========vim-signify
 let g:signify_realtime = 1
@@ -276,9 +197,6 @@ vmap gp <Plug>(operator-replace)  " the same as p
 nmap gpp gp_
 nmap ;P ^Pa<space><esc>
 nmap ;p $a<space><esc>p
-
-" flake8
-let g:flake8_show_in_gutter=1
 
 
 " neoterm
@@ -402,3 +320,10 @@ imap ;ySS <esc>lySS
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
+
+"===========emmet
+let g:user_emmet_settings = {
+\    'html': {
+\        'empty_element_suffix': ' />',
+\    },
+\}

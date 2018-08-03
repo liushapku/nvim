@@ -35,20 +35,6 @@ function! g:Jobid(num)
     return buffer#NeotermJobid(a:num)
 endfunction
 
-
-"Copy from Ipython in and out
-command! -bang -nargs=* -range=-1 Tcp call append(MagicRange(<count>), buffer#CopyIPython(<bang>0, <f-args>))
-command! -bar Tl Tline
-command! -range -bang Tpy <line1>,<line2>call buffer#SendToIPython(0, <bang>0)
-command! -range -bang Tipy <line1>,<line2>call buffer#SendToIPython(1, <bang>0)
-
-
-" bang: only cd for the latest terminal. without bang, cd for all terminal
-command! -nargs=? -complete=dir -bang Tcd call buffer#Cd(<q-args>, <bang>0)
-command! -nargs=1 Tb exe "b neoterm-" . <args>
-command! -count=0 -complete=shellcmd -nargs=* Tt <count>TS | T <args>
-command! -nargs=0 Tc T 
-
 command! WipeNoName call buffer#WipeNoName()
 
 
