@@ -37,7 +37,8 @@ inoremap <buffer><silent><expr><tab> TabWrap()
 
 command! -buffer Print3 s/print\s\+\(.*\)$/print(\1)/
 
-call SetIPyMappings()
+" disabled nvim-ipy plugin
+"call SetIPyMappiVngs()
 
 imap <buffer> ,, <end>,
 imap <buffer> ,) <end>)
@@ -75,3 +76,10 @@ command! -buffer -nargs=* Import call python#Import(<f-args>)
 command! -buffer -nargs=+ ImportFrom call python#ImportFrom(<f-args>)
 command! -buffer -bar Hashbang :0put ='#!/usr/bin/env python' | w | Chmod a+x
 let b:delimitMate_expand_cr = 1
+
+map <buffer> <F5> :TREPLSendLine<cr>
+map <buffer> <F17> :TREPLSendFile<cr>   " <S-F5>
+"map <buffer> <F29> :TREPLSendLine<cr>   " <C-F5>
+command! -buffer IPy  Tnew | TREPLSetTerm! 0
+
+

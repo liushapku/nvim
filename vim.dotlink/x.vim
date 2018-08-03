@@ -364,29 +364,29 @@ let delimitMate_expand_cr = 2
 
 
 "=======nvim-ipy
-let g:nvim_ipy_perform_mappings = 0
-nnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line('.'), line('.') + v:count1 - 1), "\n"))<cr>
-vnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line("'<"), line("'>")), "\n"))<cr>
+"let g:nvim_ipy_perform_mappings = 0
+"nnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line('.'), line('.') + v:count1 - 1), "\n"))<cr>
+"vnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line("'<"), line("'>")), "\n"))<cr>
 
-function! SetIPyMappings()
-  map <buffer> <silent> <F5>           <Plug>(IPyRun)
-  imap <buffer> <silent> <C-F> <Plug>(IPy-Complete)
-  map <buffer> <silent> <leader>. <Plug>(IPy-Interrupt)
-  map <buffer> <silent> <leader>? <Plug>(IPy-WordObjInfo)
-endfunction
+"function! SetIPyMappings()
+"  map <buffer> <silent> <F5>           <Plug>(IPyRun)
+"  imap <buffer> <silent> <C-F> <Plug>(IPy-Complete)
+"  map <buffer> <silent> <leader>. <Plug>(IPy-Interrupt)
+"  map <buffer> <silent> <leader>? <Plug>(IPy-WordObjInfo)
+"endfunction
 
-let g:ipy_celldef = '^##'
-augroup NVIM-IPY
-  au BufEnter \[jupyter\] call SetIPyMappings()
-augroup END
-" with bang, it is silent
-command! -range -bang IPyRun call IPyRun(join(getline(<line1>, <line2>), "\n"), <bang>0)
-command! -nargs=+ -bang IPyExe call IPyRun(<q-args>, <bang>0)
-command! -nargs=+ -bang I call IPyRun(<q-args>, <bang>0)
-command! IPyExit call IPyTerminate()
-nmap <a-.> <Plug>(IPy-Interrupt)
-imap <silent> <C-F> <Plug>(IPy-Complete)
-map <silent> <leader>? <Plug>(IPy-WordObjInfo)
+"let g:ipy_celldef = '^##'
+"augroup NVIM-IPY
+"  au BufEnter \[jupyter\] call SetIPyMappings()
+"augroup END
+"" with bang, it is silent
+"command! -range -bang IPyRun call IPyRun(join(getline(<line1>, <line2>), "\n"), <bang>0)
+"command! -nargs=+ -bang IPyExe call IPyRun(<q-args>, <bang>0)
+"command! -nargs=+ -bang I call IPyRun(<q-args>, <bang>0)
+"command! IPyExit call IPyTerminate()
+"nmap <a-.> <Plug>(IPy-Interrupt)
+"imap <silent> <C-F> <Plug>(IPy-Complete)
+"map <silent> <leader>? <Plug>(IPy-WordObjInfo)
 
 " dbext
 let g:dbext_default_profile_pgsql = 'type=PGSQL'
