@@ -59,7 +59,7 @@ command! Delete call s:Delete(<q-args>)
 cmap <a-b> <esc>b
 cmap <a-f> <esc>f
 
-hi Normal guibg=grey10
+hi Normal guibg=black
 hi Pmenu guifg=Blue guibg=Violet
 hi DiffChange guibg=gray30
 hi DiffText guibg=DarkViolet
