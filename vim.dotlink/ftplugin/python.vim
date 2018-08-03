@@ -81,6 +81,6 @@ nmap <buffer> <F5> :TREPLSendLine<cr><Down>
 vmap <buffer> <F5> :TREPLSendLine<cr>'><Down>
 map <buffer> <F17> :TREPLSendFile<cr>   " <S-F5>
 "map <buffer> <F29> :TREPLSendLine<cr>   " <C-F5>
-command! -buffer IPy  Tnew | TREPLSetTerm! 0
+command! -buffer IPy  Tnew | TREPLSetTerm 0
 
 
