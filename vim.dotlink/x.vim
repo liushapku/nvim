@@ -48,6 +48,7 @@ Plug 'easymotion/vim-easymotion'    "easily move by selection
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'chrisbra/colorizer'
 
 " Complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
