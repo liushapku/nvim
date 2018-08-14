@@ -46,7 +46,7 @@ Plug 'wesq3/vim-windowswap'         "swap windows
 "Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 Plug 'easymotion/vim-easymotion'    "easily move by selection
 "Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/colorizer'
 
@@ -204,6 +204,7 @@ nmap ;p $a<space><esc>p
 
 " neoterm
 let g:neoterm_default_mod='vertical'
+let g:term_autoinsert = 1
 let g:neoterm_autoscroll=1
 
 
