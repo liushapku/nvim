@@ -5,4 +5,4 @@ endfor
 
 command! -buf -nargs=? TogglePlug call buffer#TogglePlug(<q-args>)
 command! -buf -nargs=? ToggleFtPlug call buffer#ToggleFtPlug(<q-args>)
-nmap g# :<c-u>TogglePlug<cr>
+nmap <buffer> g# :<c-u>TogglePlug<cr>
