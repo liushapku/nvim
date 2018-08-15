@@ -73,8 +73,8 @@ function! buffer#BufferAt(n)
     endif
 endfunction
 function! buffer#BufferNext(next)
-    let term_auto_insert = g:term_auto_insert
-    let g:term_auto_insert = 0
+    let term_autoinsert = g:term_autoinsert
+    let g:term_autoinsert = 0
     let buflist = buffer#BufferList()
     let cb = bufnr('%')
     let idx = index(buflist, cb)
@@ -91,7 +91,7 @@ function! buffer#BufferNext(next)
             silent exec 'b' . buflist[-1]
         endif
     endif
-    let g:term_auto_insert = term_auto_insert
+    let g:term_autoinsert = term_autoinsert
 endfunction
 
 function! buffer#NextNeoterm(start)
