@@ -1,13 +1,12 @@
-let g:term_auto_insert = 1
-
 augroup BufAu
   autocmd!
-  autocmd TermOpen * echo 'termopen' | call autocmd#TermOpen()
   autocmd BufEnter * call autocmd#BufEnter()
-  "autocmd BufEnter * :echo <afile>
   autocmd BufLeave * call autocmd#BufLeave()
   autocmd BufWinLeave * call autocmd#BufWinLeave()
   autocmd BufWinEnter * call autocmd#BufWinEnter()
+
+  autocmd BufWinEnter term://* normal i
+  autocmd BufWinLeave term://* stopinsert
 
   " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
 augroup END
@@ -32,9 +31,9 @@ augroup END
 augroup WinAu
   autocmd!
   autocmd WinEnter * call autocmd#WinEnter()
-  autocmd WinEnter term://* normal i
+  "autocmd WinEnter term://* normal i
   autocmd WinLeave * call autocmd#WinLeave()
-  autocmd WinLeave term://* stopinsert
+  "autocmd WinLeave term://* stopinsert
 augroup END
 
 augroup FileAu

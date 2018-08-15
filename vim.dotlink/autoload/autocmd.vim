@@ -58,25 +58,6 @@ function! autocmd#BufLeave()
     "endif
 endfunction
 
-function! autocmd#TBufDelete()
-    let this= substitute(expand("<afile>"), '.*neoterm-\([0-9]\+\)$', '\1', '')
-    if this != g:current_neoterm
-        return
-    endif
-    let next_buf_term = buffer#NextNeoterm(g:current_neoterm)
-    if next_buf_term == g:current_neoterm
-        unlet g:current_neoterm
-    else
-        let g:current_neoterm = next_buf_term
-    endif
-endfunction
-
-function! autocmd#TermOpen()
-    if !exists('g:current_neoterm')
-        let g:current_neoterm = 1
-    endif
-endfunction
-
 function! autocmd#WinLeave()
 endfunction
 
