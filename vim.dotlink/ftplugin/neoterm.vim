@@ -8,6 +8,7 @@ command! -buf -nargs=* Insert call TermInsert(<q-args>)
 tnoremap <buffer> <C-R><C-P> <C-\><C-n>:call terminal#TermInsert(getcwd())<cr>
 " directly set @* doesn't work, don't know reason
 tnoremap <buffer> <C-Y> <c-\><c-n>:let @a=terminal#CopyLastCommand()<cr>:let @*=@a<cr>
+tnoremap <buffer> <c-:> <c-\><c-n>:
 tnoremap <buffer> <MiddleMouse> <MiddleMouse>a
 
 setlocal isk&vim
