@@ -111,6 +111,7 @@ command! -bang -bar -nargs=+ SwapWin call window#SwapWin(<bang>0, <f-args>)
 " args: specify the order of windows to be restored
 command! -range -addr=windows -nargs=* Zoom call window#ZoomToggle(<line1>, <f-args>)
 nnoremap <silent> <A-z> :<c-u>call window#ZoomToggle(v:count?v:count:winnr())<CR>
+tnoremap <silent> <A-z> <c-\><c-n>:call window#ZoomToggle(v:count?v:count:winnr())<CR>a
 command! -register WinRun call window#MacroDo(<reg>)
 
 command! -nargs=? Width exe 'vert resize' (<q-args> is ''? (&buftype == 'terminal' ? 154 : 120) : <q-args>)
