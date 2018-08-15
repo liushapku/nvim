@@ -60,10 +60,10 @@ command! -buffer RunPythonLast call runpython#t_last()
 command! -buffer Doctest AsyncRun python -m doctest %
 vnoremap <buffer> ;ts "+y:silent call g:neoterm.instances[g:current_buf_term].do('%paste')<CR>
 
-setlocal equalprg=autopep8\ -
-nmap <buffer> g= :set operatorfunc=python#CallAutoPep8<CR>g@
-nmap <buffer> g== :exe "call python#CallAutopep8('--range " . line('.') . ' '  . line('.') . "')"<CR>
-vmap <buffer> g= :call python#CallAutopep8()<CR>
+"setlocal equalprg=autopep8\ -
+"nmap <buffer> g= :set operatorfunc=python#CallAutoPep8<CR>g@
+"nmap <buffer> g== :exe "call python#CallAutopep8('--range " . line('.') . ' '  . line('.') . "')"<CR>
+"vmap <buffer> g= :call python#CallAutopep8()<CR>
 nnoremap <buffer> ( F(
 nnoremap <buffer> ) f)
 nnoremap <buffer> [( F(
