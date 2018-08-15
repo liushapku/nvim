@@ -107,11 +107,3 @@ let g:jedi#popup_select_first=1
 let g:jedi#popup_on_dot=0
 let g:jedi#show_call_signatures_delay=200
 
-" ycm
-"let g:ycm_key_invoke_completion='<C-L>'
-let g:ycm_server_python_interpreter='python3'
-let ftdic= {
-      \ 'python': 1
-      \}
-"let g:ycm_filetype_specific_completion_to_disable = ftdic
-let g:ycm_filetype_blacklist = ftdic
