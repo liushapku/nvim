@@ -12,11 +12,11 @@ function! s:TabWrap() abort
     elseif prefix == '' || prefix =~ '\s\+$'
         echo 'TabWrap: empty string'
         return "\<tab>"
-    elseif b:deoplete_tab_called == 1 && &filetype == 'python'
+    elseif b:deoplete_tab_called == 1
         echo 'TabWrap: jedi'
         let b:deoplete_tab_called = 0
         return jedi#complete_string(0)
-    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && b:deoplete_tab_called == 0 && &filetype != 'vim'
+    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && b:deoplete_tab_called == 0
         echo 'TabWrap: deoplete'
         let b:deoplete_tab_called = 1
         let result=deoplete#mappings#manual_complete()

@@ -26,6 +26,7 @@ endfunction
 augroup TermAU
   autocmd!
   au TermOpen * startinsert
+  au TermOpen * nnoremap <buffer> <c-c> a<c-c>
 augroup END
 
 augroup WinAu

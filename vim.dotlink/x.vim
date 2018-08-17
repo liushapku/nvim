@@ -331,3 +331,7 @@ let g:user_emmet_settings = {
 \        'empty_element_suffix': ' />',
 \    },
 \}
+
+" fzf
+let g:fzf_layout = {'down': '~50%'}
+

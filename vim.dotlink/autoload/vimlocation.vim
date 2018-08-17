@@ -15,7 +15,7 @@ function! vimlocation#edit_command(mods, pedit, command)
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P
-  elseif a:mods
+  elseif !empty(a:mods)
     exe a:mods 'new' file
   else
     exe 'edit' file
@@ -57,7 +57,7 @@ function! vimlocation#edit_map(mods, pedit, type, command, ...)
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P
-  elseif a:mods
+  elseif !empty(a:mods)
     exe a:mods 'new' file
   else
     exe 'edit' file
@@ -91,7 +91,7 @@ function! vimlocation#edit_function(mods, pedit, function)
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P
-  elseif a:mods
+  elseif !empty(a:mods)
     exe a:mods 'new' file
   else
     exe 'edit' file
