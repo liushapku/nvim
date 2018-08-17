@@ -81,20 +81,13 @@ vnoremap <leader>e :<C-U>call ExeLines()<CR>
 command! -register ExeReg exe getreg(<q-reg>)
 
 """"""""""""""""""""""
-
-function! Redir(command)
-    redir! => temp
-    silent exec a:command
-    redir END
-    return temp
-endfunction
 " command -range=-1 and default to the current line, pass MagicRange(<count>)
 " as argument
 function! MagicRange(count)
     return a:count ==-1? line('.') : a:count
 endfunction
 
-command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(Redir(<q-args>), "\n"))
+command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
 
 function! TestOp() range
     echo a:firstline

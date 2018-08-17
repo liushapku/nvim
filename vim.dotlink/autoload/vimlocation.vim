@@ -1,6 +1,7 @@
 function! vimlocation#command(command)
   let acommand = a:command == ''? expand("<cword>") : a:command
-  let ret = split(Redir('verb comm ' . acommand), "\n")
+  let output = execute('verb comm ' . acommand)
+  let ret = split(output, "\n")
   for x in range(1, len(ret) - 1)
     if ret[x] =~ '\<' . acommand . '\>\s\+'
       return substitute(ret[x+1], '\s*Last set from ', '', '')
@@ -8,10 +9,11 @@ function! vimlocation#command(command)
   endfor
 endfunction
 function! vimlocation#edit_command(mods, pedit, command)
-  let file = vimlocation#command(a:command)
-  if file == ''
-    return
-  endif
+  try
+    let file = vimlocation#command(a:command)
+  catch
+    echoerr v:exception
+  endtry
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P
@@ -28,30 +30,33 @@ function! vimlocation#edit_command(mods, pedit, command)
   endif
 endfunction
 
+" echoerr inside try block (including the catch finally) will raise an exception
+" when a function contains echoerr, whether the code after echoerr will be
+" executed or not depends on whether the caller puts the function inside a try
+" block. This may cause inconsistence. So it is better to exit the function
+" whenever there is a need to call echoerr.
+
 function! vimlocation#map(type, command, index)
   let acommand = a:command == ''? expand("<cword>") : a:command
-  let ret = split(Redir('verb ' . a:type . 'map ' . acommand), "\n")
+  let output = execute('sverb ' . a:type . 'map ' . acommand)
+  let ret = split(output, "\n")
   if len(ret) == 2
     return substitute(ret[1], '\s*Last set from ', '', '')
   elseif a:index > 0
     return substitute(ret[2*a:index -1], '\s*Last set from ', '', '')
   else
     echoerr 'more than one match, please specify an index'
+    return
   endif
-  return ''
 endfunction
 function! vimlocation#edit_map(mods, pedit, type, command, ...)
   let acommand = a:command
-  if a:0 == 0
-    let index = 0
-  else
-    let index = a:1
-  endif
-  let file = call('vimlocation#map', [a:type, acommand, index])
-  if file == ''
-    echo a:type acommand file
-    return
-  endif
+  let index = a:0 == 0? 0 : a:1
+  try
+    let file = call('vimlocation#map', [a:type, acommand, index])
+  catch
+    echoerr v:exception
+  endtry
   let command = acommand[0] == ';'? ('\(<leader>\|;\)' . acommand[1:]) : acommand
   let pattern = '^\c.*map .*' . command . ' '
   if a:pedit
@@ -71,23 +76,18 @@ function! vimlocation#edit_map(mods, pedit, type, command, ...)
 endfunction
 
 function! vimlocation#function(functionname)
-  try
-    let ret = split(Redir('verb function ' . a:functionname), "\n")
-    return substitute(ret[1], '\s*Last set from ', '', '')
-  catch
-    echoerr v:exception
-    echoerr 'function not found'
-    return ''
-  endtry
+  let output = execute('verb function ' . a:functionname)
+  let ret = split(output, "\n")
+  return substitute(ret[1], '\s*Last set from ', '', '')
 endfunction
 
 function! vimlocation#edit_function(mods, pedit, function)
   let afunction = a:function == ''? expand("<cword>") : a:function
-  let file = vimlocation#function(afunction)
-  echo file
-  if file == ''
-      return
-  endif
+  try
+    let file = vimlocation#function(afunction)
+  catch
+    echoerr v:exception
+  endtry
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P

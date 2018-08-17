@@ -9,14 +9,16 @@ let g:deoplete#sources = {}
 let g:deoplete_mysources = ['ultisnips', 'file']
 let g:deoplete#sources._ = ['buffer', 'around', 'tag', 'dictionary'] + g:deoplete_mysources
 let g:deoplete#sources.python = ['jedi'] + g:deoplete_mysources
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources.python = ['member', 'buffer', 'tag']
+let g:deoplete#ignore_sources.vim = ['tag']
+
 let g:deoplete#auto_complete_delay = 50
 let g:deoplete#auto_refresh_delay = 100
 "let g:deoplete#disable_auto_complete = 1
 call deoplete#custom#source('ultisnips', 'rank', 9999)
 call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.python = ['member', 'buffer', 'tag']
 "call deoplete#custom#set('ultisnips', 'min_pattern_length', 2)
 "call deoplete#custom#set('ultisnips', 'max_pattern_length', 2)
 ""use <tab> for completion
@@ -29,7 +31,7 @@ function! TabWrap() abort
     elseif prefix == '' || prefix =~ '\s\+$'
         echo 'TabWrap: empty string'
         return "\<tab>"
-    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 && &filetype != 'vim'
+    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 " && &filetype != 'vim'
         echo 'TabWrap: deoplete'
         "let g:deoplete_tab_called = 1
         let result=deoplete#mappings#manual_complete()
@@ -78,7 +80,7 @@ nmap <a-\> :<c-u>call deoplete#toggle()<cr>
 " power tab
 inoremap <silent><expr> <C-G> deoplete#undo_completion()
 inoremap <silent><expr><tab> TabWrap()
-"imap <silent><expr><s-tab> STabWrap()
+imap <silent><expr><s-tab> STabWrap()
 imap <silent><expr> <BS> BSWrap()
 inoremap <silent><expr> <Esc> pumvisible() ? "<C-y><Esc>" : "<Esc>"
 "inoremap <silent><expr> <cr> CRWrap()
@@ -102,6 +104,7 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 "inoremap <silent><expr> <C-Space> deoplete#mappings#manual_complete()
 "" Escape: exit autocompletion, go to Normal mode
 "let g:jedi#completions_command="\<C-L>"
+"let g:jedi#auto_initialization = 0
 let g:jedi#show_call_signatures=0
 let g:jedi#popup_select_first=1
 let g:jedi#popup_on_dot=0
