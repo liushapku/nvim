@@ -97,9 +97,23 @@ nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
 nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
 nnoremap <c-p>w :<c-u>CtrlP $WORKSPACE<cr>
 nnoremap <c-p>d :<c-u>CtrlP ~/dotfiles<cr>
-nnoremap <c-p>v :<c-u>CtrlP ~/.vim<cr>
+nnoremap <c-p>v :<c-u>CtrlP ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p> :<c-u>CtrlP<cr>
 
+" fzf
+let g:fzf_layout = {'down': '~50%'}
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
+nnoremap <c-p>M :<c-u>History<cr>
+nnoremap <c-p>B :<c-u>Buffers<cr>
+nnoremap <c-p>H :<c-u>Files ~/<cr>
+nnoremap <c-p>W :<c-u>Files ~/$WORKSPACE<cr>
+nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
+nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
+nnoremap <c-p>p :<c-u>Files<cr>
 
 " gist
 let g:gist_list_vsplit = 1
@@ -213,7 +227,7 @@ let g:neoterm_autoscroll=1
 command! GInitDir call fugitive#detect(resolve(expand('%:h')))
 autocmd BufReadPost fugitive://* set bufhidden=delete
 command! Gs tab Gstatus
-command! Gd tabedit % | Gvdiff
+command! -nargs=* Gd tabedit % | Gvdiff <args>
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 "
 
@@ -331,7 +345,4 @@ let g:user_emmet_settings = {
 \        'empty_element_suffix': ' />',
 \    },
 \}
-
-" fzf
-let g:fzf_layout = {'down': '~50%'}
 

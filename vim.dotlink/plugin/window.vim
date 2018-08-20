@@ -55,7 +55,7 @@ command! -complete=command -nargs=* BelowE below <args>
 command! -complete=command -nargs=* BELOWE botright <args>
 command! -complete=command -nargs=* TabE tab <args>
 command! -complete=command -nargs=* Nosplit call window#NoSplitExec(<q-args>)
-command! -complete=help -nargs=* Help call window#NoSplitExec('help ' . <q-args>)
+command! -complete=help -nargs=* Help vert help <args>
 command! -complete=help -nargs=* H call window#NoSplitExec('help ' . <q-args>)
 
 command! -complete=buffer -nargs=* Left vertical above sb <args>
@@ -70,10 +70,11 @@ command! -complete=buffer -nargs=* Tab tab sb <args>
 command! -nargs=+ WinSplit call window#MatrixSplit(<f-args>)
 command! -nargs=* WinArg call window#EditArg(<f-args>)
 
+" [range]Pview [buf]
 command! -nargs=* -complete=buffer -range Pview call window#Preview(<q-mods>, <line1>, <line2>, <f-args>)
 " above 1,3Sview
 " above 1,3Sview buf
-command! -nargs=* -complete=buffer -range Vopen call window#Splitview(<q-mods>, <line1>, <line2>, <f-args>)
+command! -nargs=* -complete=buffer -range Sview call window#Splitview(<q-mods>, <line1>, <line2>, <f-args>)
 command! -nargs=? Vset call window#SetViewId(<q-args>) " bang -> append
 command! Vclose call window#CloseView()
 command! -nargs=0 -range Show call window#Show(<line1>, <line2>)

@@ -38,15 +38,26 @@ endfunction
 
 function! vimlocation#map(type, command, index)
   let acommand = a:command == ''? expand("<cword>") : a:command
-  let output = execute('sverb ' . a:type . 'map ' . acommand)
+  let output = execute('verb ' . a:type . 'map ' . acommand)
   let ret = split(output, "\n")
   if len(ret) == 2
     return substitute(ret[1], '\s*Last set from ', '', '')
   elseif a:index > 0
     return substitute(ret[2*a:index -1], '\s*Last set from ', '', '')
   else
-    echoerr 'more than one match, please specify an index'
-    return
+    echo "\n"
+    for i in range(len(ret))
+      if (i%2 == 0)
+        echo (i/2+1) ret[i] ret[i+1]
+      endif
+    endfor
+    let N = len(ret)/2
+    let prompt = printf("select [1-%d] >> ", N)
+    let n = 0
+    while (n > N || n < 1)
+      let n = str2nr(input(prompt))
+    endwhile
+    return substitute(ret[2*n -1], '\s*Last set from ', '', '')
   endif
 endfunction
 function! vimlocation#edit_map(mods, pedit, type, command, ...)
