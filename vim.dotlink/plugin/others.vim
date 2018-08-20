@@ -48,6 +48,10 @@ set nostartofline
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 set suffixes^=.ipynb
+set wildcharm=<tab>
+" select folder and complete files inside it
+cnoremap <c-s> /<bs><tab><tab>
+
 if has('nvim')
   set undofile
 endif

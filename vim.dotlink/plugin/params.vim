@@ -17,8 +17,7 @@ snoremap ;B <esc>:call params#SelectPrevEqual()<cr>
 inoremap ;B <c-o>:call params#SelectPrevEqual()<cr>
 
 imap <a-9> <c-r>=params#Echo()?'':''<cr>
-imap <a-0> <c-r>=params#Complete()<cr>
-imap ;) <c-r>=params#Complete()<cr>
+imap ;) <c-r>=params#Complete(1)<cr>
 
 
 nnoremap <silent> , :<c-u>call params#GotoNextPara()<cr>

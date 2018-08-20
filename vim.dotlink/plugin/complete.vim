@@ -22,66 +22,16 @@ call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 "call deoplete#custom#set('ultisnips', 'min_pattern_length', 2)
 "call deoplete#custom#set('ultisnips', 'max_pattern_length', 2)
 ""use <tab> for completion
-let g:deopelte_tab_called = 0
-function! TabWrap() abort
-    let prefix = strpart( getline('.'), 0, col('.') - 1 )
-    if pumvisible()
-        echo 'TabWrap: pumvisible'
-        return "\<C-N>"
-    elseif prefix == '' || prefix =~ '\s\+$'
-        echo 'TabWrap: empty string'
-        return "\<tab>"
-    elseif exists('g:loaded_deoplete') && g:loaded_deoplete == 1 " && &filetype != 'vim'
-        echo 'TabWrap: deoplete'
-        "let g:deoplete_tab_called = 1
-        let result=deoplete#mappings#manual_complete()
-        return result
-    elseif &omnifunc != ''
-        echo 'TabWrap: omnifunc'
-        return "\<C-X>\<C-O>"
-    else
-        "echo 'TabWrap: nothing' g:deoplete_tab_called
-        return "\<tab>"
-    endif
-endfunction
 
-"augroup TabWrap
-"    au!  InsertEnter,CursorMovedI,CompleteDone * let g:deoplete_tab_called = 0
-"augroup END
-
-function! STabWrap() abort
-    if pumvisible()
-        return "\<C-P>"
-    let line = getline('.')
-    let cl = col('.')
-    if getline('.')[col('.')-1] =~ "[({\[<'\"]"
-        return "\<Plug>delimitMateS-Tab"
-    elseif &omnifunc != ''
-        return "\<C-X>\<C-O>"
-    else
-        return "\<C-Space>"
-endfunction
-
-function! BSWrap()
-    if pumvisible()
-        return "\<c-h>"
-    else
-        return "\<plug>delimitMateBS"
-        "\<c-r>=delimitMate#BS()\<cr>"
-    endif
-endfunction
-function! CRWrap() abort
-    return pumvisible()? "\<c-y>\<cr>": "\<cr>"
-endfunction
 
 imap <expr><a-\>  deoplete#toggle()?'':''
 nmap <a-\> :<c-u>call deoplete#toggle()<cr>
 
 " power tab
 inoremap <silent><expr> <C-G> deoplete#undo_completion()
-inoremap <silent><expr><tab> TabWrap()
-imap <silent><expr><s-tab> STabWrap()
-imap <silent><expr> <BS> BSWrap()
+inoremap <silent><expr><tab> complete#TabWrap(0)
+imap <silent><expr><s-tab> complete#STabWrap()
+imap <silent><expr> <BS> complete#BSWrap()
 inoremap <silent><expr> <Esc> pumvisible() ? "<C-y><Esc>" : "<Esc>"
 "inoremap <silent><expr> <cr> CRWrap()
 "inoremap <expr> <ESC> pumvisible()? "\<C-E>" : "\<ESC>"

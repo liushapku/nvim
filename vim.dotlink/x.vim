@@ -91,7 +91,7 @@ let g:ctrlp_custom_ignore= {
     \ }
 
 nnoremap <c-p>m :<c-u>CtrlPMRUFiles<cr>
-nnoremap <c-p>b :<c-u>CtrlPBuffer<cr>
+"nnoremap <c-p>b :<c-u>CtrlPBuffer<cr>
 nnoremap <c-p>. :<c-u>CtrlP .<cr>
 nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
 nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
@@ -108,12 +108,14 @@ command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 nnoremap <c-p>M :<c-u>History<cr>
+nnoremap <c-p>b :<c-u>Buffers<cr>
 nnoremap <c-p>B :<c-u>Buffers<cr>
 nnoremap <c-p>H :<c-u>Files ~/<cr>
 nnoremap <c-p>W :<c-u>Files ~/$WORKSPACE<cr>
 nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p>p :<c-u>Files<cr>
+nnoremap <c-p>l :<c-u>Lines<cr>
 
 " gist
 let g:gist_list_vsplit = 1
@@ -298,31 +300,6 @@ let delimitMate_balance_matchpairs = 1
 "let delimitMate_excluded_regions = "Comment,String"
 let delimitMate_expand_cr = 2
 
-
-"=======nvim-ipy
-"let g:nvim_ipy_perform_mappings = 0
-"nnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line('.'), line('.') + v:count1 - 1), "\n"))<cr>
-"vnoremap <Plug>(IPyRun) :<c-u>call IPyRun(join(getline(line("'<"), line("'>")), "\n"))<cr>
-
-"function! SetIPyMappings()
-"  map <buffer> <silent> <F5>           <Plug>(IPyRun)
-"  imap <buffer> <silent> <C-F> <Plug>(IPy-Complete)
-"  map <buffer> <silent> <leader>. <Plug>(IPy-Interrupt)
-"  map <buffer> <silent> <leader>? <Plug>(IPy-WordObjInfo)
-"endfunction
-
-"let g:ipy_celldef = '^##'
-"augroup NVIM-IPY
-"  au BufEnter \[jupyter\] call SetIPyMappings()
-"augroup END
-"" with bang, it is silent
-"command! -range -bang IPyRun call IPyRun(join(getline(<line1>, <line2>), "\n"), <bang>0)
-"command! -nargs=+ -bang IPyExe call IPyRun(<q-args>, <bang>0)
-"command! -nargs=+ -bang I call IPyRun(<q-args>, <bang>0)
-"command! IPyExit call IPyTerminate()
-"nmap <a-.> <Plug>(IPy-Interrupt)
-"imap <silent> <C-F> <Plug>(IPy-Complete)
-"map <silent> <leader>? <Plug>(IPy-WordObjInfo)
 
 " dbext
 let g:dbext_default_profile_pgsql = 'type=PGSQL'

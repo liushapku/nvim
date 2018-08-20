@@ -39,8 +39,12 @@ function! params#GetParams()
 endfunction
 
 function! params#Complete(jump) abort
+  if !exists('b:echodoc')
+    return ''
+  else
     let [ident, params] = params#GetParams()
-    return join(params, ', ') . ')' . (a:jump? "\<esc>%":"")
+    return join(params, ', ') . (a:jump? "\<esc>%":"")
+  endif
 endfunction
 
 function! params#SelectNext()

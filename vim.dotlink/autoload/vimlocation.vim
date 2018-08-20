@@ -22,7 +22,8 @@ function! vimlocation#edit_command(mods, pedit, command)
   else
     exe 'edit' file
   endif
-  call search('^com.*\<'. a:command . '\>')
+  call search('com.*\<'. a:command . '\>')
+  call search(a:command)
   if a:pedit
     normal zt
   else
@@ -69,7 +70,7 @@ function! vimlocation#edit_map(mods, pedit, type, command, ...)
     echoerr v:exception
   endtry
   let command = acommand[0] == ';'? ('\(<leader>\|;\)' . acommand[1:]) : acommand
-  let pattern = '^\c.*map .*' . command . ' '
+  let pattern = '\c.*map .*' . command . ' '
   if a:pedit
     exe a:mods 'pedit' file
     wincmd P
@@ -79,6 +80,7 @@ function! vimlocation#edit_map(mods, pedit, type, command, ...)
     exe 'edit' file
   endif
   call search(pattern,  '')
+  call search(command)
   if a:pedit
     normal zt
   else
@@ -107,7 +109,8 @@ function! vimlocation#edit_function(mods, pedit, function)
   else
     exe 'edit' file
   endif
-  call search('^function!\?\s\+\<'. afunction . '\>')
+  call search('function!\?\s\+\<'. afunction . '\>')
+  call search(afunction)
   if a:pedit
     normal zt
   else
