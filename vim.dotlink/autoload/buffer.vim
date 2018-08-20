@@ -530,23 +530,18 @@ function! buffer#Cd(dir, notall)
     exe "cd" dir
     exe ((a:notall? "T": "TA") . ' cd ' . dir)
 endfunction
-function! buffer#TogglePlug(name)
+function! buffer#TogglePlug(name, ftplugin)
     let fname = len(a:name) == ''? expand('%:p') : a:name
     if fname =~# 'plugin'
         let fname = substitute(fname, 'plugin', 'autoload', '')
-    elseif fname =~# 'autoload'
-        let fname = substitute(fname, 'autoload', 'plugin', '')
-    else
-        return
-    endif
-    exe "edit" fname
-endfunction
-function! buffer#ToggleFtPlug(name)
-    let fname = len(a:name) == ''? expand('%:p') : a:name
-    if fname =~# 'ftplugin'
+    elseif fname =~# 'ftplugin'
         let fname = substitute(fname, 'ftplugin', 'autoload', '')
     elseif fname =~# 'autoload'
-        let fname = substitute(fname, 'autoload', 'ftplugin', '')
+        let fname = substitute(fname, 'autoload', 'plugin', '')
+        let fname2 = substitute(fname, 'autoload', 'ftplugin', '')
+        if (filereadable(fname2) || a:ftplugin)
+          let fname = fname2
+        endif
     else
         return
     endif
