@@ -119,6 +119,7 @@ nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p>p :<c-u>Files<cr>
 nnoremap <c-p>l :<c-u>Lines<cr>
+nnoremap <c-p>s :<c-u>Startify<cr>
 
 " gist
 let g:gist_list_vsplit = 1
@@ -270,9 +271,14 @@ let g:startify_lists = [
       \ { 'type': 'sessions',  'header': ['   Sessions']       },
       \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
       \ { 'type': 'files',     'header': ['   MRU']            },
-      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
       \ { 'type': 'commands',  'header': ['   Commands']       },
       \ ]
+      "\ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+let g:startify_bookmarks = [
+    \ {'x': '~/.vim/x.vim'},
+    \ {'o': '~/.vim/plugin/others.vim'},
+    \ '$WORKSPACE/scripts/stock-lasso-fit',
+    \ ]
 let g:startify_enable_special      = 0
 let g:startify_files_number        = 20
 let g:startify_relative_path       = 1
@@ -281,9 +287,8 @@ let g:startify_update_oldfiles     = 1
 let g:startify_session_autoload    = 1
 let g:startify_session_persistence = 1
 let g:startify_commands = [
-    \ ':help reference',
     \ ['Vim Reference', 'h ref'],
-    \ {'h': 'h ref'},
+    \ {'f': ['fzf files', 'Files']},
     \ {'m': ['My magical function', 'call Magic()']},
     \ ]
 
