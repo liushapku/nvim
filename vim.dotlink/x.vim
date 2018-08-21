@@ -49,6 +49,7 @@ Plug 'easymotion/vim-easymotion'    "easily move by selection
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/colorizer'
+Plug 'mhinz/vim-startify'
 
 " Complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -72,6 +73,8 @@ Plug 'glench/vim-jinja2-syntax' "html
 Plug 'mattn/emmet-vim'          "html
 
 
+" always load as the very last one
+"Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 "===ENDPLUG===
@@ -260,10 +263,16 @@ autocmd BufWritePre * if index(g:no_strip_whitespace, &ft) < 0 | FixWhitespace
 
 "======startify
 let g:startify_session_dir = '~/.vim/session'
-let g:startify_list_order = ['sessions', 'dir', 'bookmarks', 'files', 'commands']
 let g:startify_skiplist = [
     \ '.git/*',
     \ ]
+let g:startify_lists = [
+      \ { 'type': 'sessions',  'header': ['   Sessions']       },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+      \ { 'type': 'files',     'header': ['   MRU']            },
+      \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+      \ { 'type': 'commands',  'header': ['   Commands']       },
+      \ ]
 let g:startify_enable_special      = 0
 let g:startify_files_number        = 20
 let g:startify_relative_path       = 1
@@ -271,6 +280,12 @@ let g:startify_change_to_dir       = 0
 let g:startify_update_oldfiles     = 1
 let g:startify_session_autoload    = 1
 let g:startify_session_persistence = 1
+let g:startify_commands = [
+    \ ':help reference',
+    \ ['Vim Reference', 'h ref'],
+    \ {'h': 'h ref'},
+    \ {'m': ['My magical function', 'call Magic()']},
+    \ ]
 
 "=======autopep8
 let g:autopep8_diff_type='horizontal'
