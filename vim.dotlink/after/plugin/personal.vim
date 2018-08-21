@@ -61,8 +61,11 @@ cmap <a-f> <esc>f
 
 hi Normal guifg=white guibg=black
 hi Pmenu guifg=Blue guibg=Violet
-hi DiffChange guibg=gray30
-hi DiffText guibg=DarkViolet
+
+hi DiffAdd guifg=plum
+hi DiffDelete guifg=plum
+hi DiffChange guifg=PowderBlue
+hi DiffText guifg=LightYellow
 
 "=======vim-diff-enhanced
 EnhancedDiff patience
