@@ -39,8 +39,7 @@ Plug 'andrewradev/linediff.vim'     "diff blocks and merge
 Plug 'chrisbra/vim-diff-enhanced'   "smart diff
 Plug 'junkblocker/patchreview-vim'  "????
 Plug 'skywind3000/asyncrun.vim'     "asyncrun shell commands
-Plug 'SirVer/ultisnips'             "snippets framework
-Plug 'honza/vim-snippets'           "predefined snippets
+
 Plug 'mhinz/vim-signify'            "show symbols at the leftmost columns
 Plug 'wesq3/vim-windowswap'         "swap windows
 "Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
@@ -53,10 +52,14 @@ Plug 'mhinz/vim-startify'
 Plug 'jeetsukumaran/vim-indentwise'
 
 " Complete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
+Plug 'SirVer/ultisnips'             "snippets framework
+Plug 'honza/vim-snippets'           "predefined snippets
 Plug 'Shougo/echodoc.vim'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'         "vim jump
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'          "deoplete complete source for python
+Plug 'Shougo/neco-vim'              "deoplete complete source for vim
+Plug 'rip-rip/clang_complete'       "deoplete complete source for c/c++
 
 
 " filetype extensions
@@ -120,8 +123,10 @@ nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>H :<c-u>Files ~/<cr>
 nnoremap <c-p>W :<c-u>Files ~/$WORKSPACE<cr>
 nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
+
 nnoremap <c-p>p :<c-u>Files<cr>
 nnoremap <c-p>l :<c-u>Lines<cr>
+nnoremap <c-p>n :<c-u>Snippets<cr>
 nnoremap <c-p>s :<c-u>Startify<cr>
 
 " gist

@@ -20,7 +20,6 @@ set completeopt=menuone,longest,preview
 " this fix strange cursor "\x1b[%p1%d q"
 set guicursor=
 set background=dark
-syntax on
 
 let mapleader=';'
 let maplocalleader=';'

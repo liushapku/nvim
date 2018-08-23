@@ -30,8 +30,6 @@ set showcmd noshowmode
 set autowrite
 set autowriteall
 set whichwrap=b,s,<,>,[,]  " use <Left><Right> to move to previous/next line
-set sessionoptions-=curdir
-set sessionoptions+=sesdir
 set completeopt=menuone,longest,preview
 set laststatus=2
 set wildmode=longest:full,full

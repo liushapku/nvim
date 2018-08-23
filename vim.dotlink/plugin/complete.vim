@@ -2,26 +2,23 @@
 "=====deoplete
 "=====jedi
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_start_length = 3
 "let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#python_path=g:python3_path
-let g:deoplete#sources = {}
-let g:deoplete_mysources = ['ultisnips', 'file']
-let g:deoplete#sources._ = ['buffer', 'around', 'tag', 'dictionary'] + g:deoplete_mysources
-let g:deoplete#sources.python = ['jedi'] + g:deoplete_mysources
-let g:deoplete#ignore_sources = {}
-let g:deoplete#ignore_sources.python = ['member', 'buffer', 'tag']
-let g:deoplete#ignore_sources.vim = ['tag']
 
-let g:deoplete#auto_complete_delay = 50
-let g:deoplete#auto_refresh_delay = 100
-"let g:deoplete#disable_auto_complete = 1
+call deoplete#custom#option('sources', {
+      \ '_': ['ultisnips', 'file', 'buffer', 'around', 'tag', 'dictionary'],
+      \ 'python': ['ultisnips', 'file', 'jedi'],
+      \ })
+call deoplete#custom#option('ignore_sources', {
+      \ 'vim': ['tag'],
+      \ })
+call deoplete#custom#option({
+      \ 'auto_complete_delay': 50,
+      \ 'smart_case': 1,
+      \ 'auto_refresh_delay': 100,
+      \ 'min_pattern_length': 2
+      \ })
 call deoplete#custom#source('ultisnips', 'rank', 9999)
-call deoplete#custom#source('_', 'matchers', ['matcher_head'])
-
-"call deoplete#custom#set('ultisnips', 'min_pattern_length', 2)
-"call deoplete#custom#set('ultisnips', 'max_pattern_length', 2)
-""use <tab> for completion
+"call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 
 
 imap <expr><a-\>  deoplete#toggle()?'':''
