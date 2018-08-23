@@ -38,10 +38,12 @@ function! complete#TabWrap(verbose) abort
   elseif prefix == '' || prefix =~ '\s\+$'
     if a:verbose | echo 'TabWrap: empty string' | endif
     return "\<tab>"
-  elseif b:deoplete_tab_called == 0
+  elseif (!exists('b:deoplete_tab_called') || b:deoplete_tab_called == 0)
     if a:verbose | echo 'TabWrap: deoplete' | endif
     let result=deoplete#mappings#manual_complete()
-    let b:deoplete_tab_called = 1
+    if !exists('b:deoplete_donot_try_others')
+      let b:deoplete_tab_called = 1
+    endif
     return result
   elseif &filetype == 'python'
     if a:verbose | echo 'TabWrap: jedi' | endif

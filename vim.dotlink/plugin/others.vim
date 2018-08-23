@@ -1,4 +1,3 @@
-"buffer map: @
 
 
 "autocmd BufEnter * silent! lcd %:p:h
@@ -48,13 +47,12 @@ set grepformat=%f:%l:%c:%m
 set suffixes^=.ipynb
 set wildcharm=<tab>
 " select folder and complete files inside it
-cnoremap <c-s> /<bs><tab><tab>
-
 if has('nvim')
   set undofile
 endif
-
 filetype plugin indent on
+" commandline select folder and complete next level
+cnoremap <c-s> /<bs><tab><tab>
 
 nnoremap <F2> :<C-U>NERDTreeTabsToggle<CR>
 nnoremap <F3> :<C-U>w<cr>:so%<cr>
@@ -65,54 +63,57 @@ imap <F9> <C-O><leader>c<Space>
 
 noremap <C-S> :w<CR>
 imap <C-S> <Esc><C-S>
-noremap <leader>mks :mksession!
-noremap <leader>info :wviminfo!
-noremap <C-F10> :set mouse=
-
-
-let tempdir=fnamemodify(tempname(), ':h')
+noremap <leader>mks :SSave!
 nmap Y y$
 
-function! ExeLines()
+let tempdir=fnamemodify(tempname(), ':h')
+
+function! ExeLines() range
+  let tmp = SaveRegister("#")
+  try
     let file = tempname()
-    exe "'<,'>write " . file
+    exe ("silent " . a:firstline . "," . a:lastline . "write " . file)
     exe 'so'  file
+    call delete(file)
+  finally
+    call RestoreRegister("#", tmp)
+  endtry
 endfunction
-nnoremap <leader>e :exe getline(".")<CR>
-vnoremap <leader>e :<C-U>call ExeLines()<CR>
-command! -register ExeReg exe getreg(<q-reg>)
+nnoremap <leader>e :call ExeLines()<CR>
+vnoremap <leader>e :call ExeLines()<CR>
+function! ExeReg(reg)
+  exec substitute(eval("@".a:reg), "\n", "", "")
+endfunction
+command! -register ExeReg :<c-u>call ExeReg(<q-reg>)<cr>
 
 """"""""""""""""""""""
 " command -range=-1 and default to the current line, pass MagicRange(<count>)
 " as argument
 function! MagicRange(count)
-    return a:count ==-1? line('.') : a:count
+  return a:count ==-1? line('.') : a:count
 endfunction
-
 command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
 
 function! TestOp() range
-    echo a:firstline
-    echo a:lastline
-    echo 'good'
+  echo a:firstline
+  echo a:lastline
+  echo 'good222'
+  echo 'bad'
 endfunction
 
 function! GetMotionRange(type)
-    if a:type=='line'
-        return "'[V']"
-    elseif a:type=='char'
-        return "`[v`]"
-    else
-        return "`[\<C-V>`]"
-    endif
+  if a:type=='line'
+    return "'[V']"
+  elseif a:type=='char'
+    return "`[v`]"
+  else
+    return "`[\<C-V>`]"
+  endif
 endfunction
 
-function! ExecRegister()
-    let a=substitute(eval("@".v:register), "\n", "", "")
-    exec a
-endfunction
-
+" detect git folder
 nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
+" cd to folder containing current dir
 nmap <leader>cd :<C-U>silent exec "lcd " . expand('%:h')<bar>pwd<CR>
 
 noremap <space>- :<C-u>set invcursorline<cr>
@@ -121,9 +122,9 @@ noremap g<bar> :<C-u>set invrelativenumber<CR>
 
 
 function! g:IFuncWrapper(Func, key)
-    let F=function(a:Func)
-    call F()
-    return a:key
+  let F=function(a:Func)
+  call F()
+  return a:key
 endfunction
 inoremap <buffer> <expr> <A-;> g:IFuncWrapper('jedi#show_call_signatures', "")
 
@@ -141,8 +142,8 @@ cnoremap <C-R><C-L> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '')
 "cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
 cnoremap <C-R><C-J> <C-R>=getcwd()<cr>
 function! g:InputBufName()
-    let n = str2nr(input('bufnr: '))
-    return n==0? '' : bufname(n)
+  let n = str2nr(input('bufnr: '))
+  return n==0? '' : bufname(n)
 endfunction
 "buf name
 cnoremap <C-R><C-B> <C-R>=InputBufName()<cr>
@@ -159,44 +160,35 @@ noremap g<cr> :<c-u>normal i<c-v><cr><cr>
 
 cnoreabbr <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 cnoreabbr <> '<,'>
-
+imap ;) <esc>lys$)A
 
 nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
 
 function! ToggleFoldMethod()
-    if &foldmethod != 'manual'
-        set foldmethod=manual
-    else
-        set foldmethod=indent
-    endif
-    echo &foldmethod
+  if &foldmethod != 'manual'
+    set foldmethod=manual
+  else
+    set foldmethod=indent
+  endif
+  echo &foldmethod
 endfunction
 nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 
-
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
-command! -complete=command -nargs=+ SubOutput call SubOutput('', <f-args>)
-command! -complete=command -nargs=+ FSubOutput call SubOutput(<f-args>)
-function! SubOutput(filterpattern, pattern, ...)
-  if a:0 == 0
-    return
-  endif
-  let command = join(a:000, ' ')
-  let pat = split(a:pattern, a:pattern[0]) + ['', '']
-  redir => output
-    if a:filterpattern is ''
-        silent exe command
-    else
-        silent exe 'filter ' . a:filterpattern . ' ' . command
-    endif
-  redir END
-  for out in split(output, "\n")
-      let p = pat[0] is ''? @/: pat[0]
-      let newout = substitute(out, pat[0], pat[1], pat[2])
-      echo newout
-  endfor
+command! DoFileType doautocmd FileType
+command! Doft doautocmd FileType
+
+function! s:ftplugin_location(system)
+  return (a:system? expand("$VIMRUNTIME") : "~/.vim") . "/ftplugin/" . &filetype . ".vim"
+endfunction
+command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(<bang>0))
+inoremap ,, <end>,
+
+function! SaveRegister(reg)
+  return [getreg(a:reg), getregtype(a:reg)]
 endfunction
 
-command! -complete=file -nargs=* Vnew botright vnew <args>
-command! DoFileType doautocmd FileType
+function! RestoreRegister(reg, values)
+  call setreg(a:reg, a:values[0], a:values[1])
+endfunction

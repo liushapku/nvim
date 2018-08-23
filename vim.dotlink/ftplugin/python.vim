@@ -10,8 +10,6 @@ command! -buffer Print3 s/print\s\+\(.*\)$/print(\1)/
 " disabled nvim-ipy plugin
 "call SetIPyMappiVngs()
 
-imap <buffer> ,, <end>,
-imap <buffer> ,) <end>)
 
 nmap <buffer> ]} ]m
 nmap <buffer> [{ [m

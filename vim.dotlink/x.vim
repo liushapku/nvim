@@ -5,7 +5,6 @@ call plug#begin('~/.vim/bundle')
 
 "Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug '~/repos/jupyter_nvim'
-" git
 Plug 'tpope/vim-fugitive'         "git
 Plug 'liushapku/webapi-vim'       "webapi
 Plug 'liushapku/gist-vim'         "gist
@@ -42,9 +41,7 @@ Plug 'skywind3000/asyncrun.vim'     "asyncrun shell commands
 
 Plug 'mhinz/vim-signify'            "show symbols at the leftmost columns
 Plug 'wesq3/vim-windowswap'         "swap windows
-"Plug 'liushapku/nvim-ipy', { 'do': ':UpdateRemotePlugins' } " jupyter frontend
 Plug 'easymotion/vim-easymotion'    "easily move by selection
-"Plug 'Shougo/denite.nvim',   { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/colorizer'
@@ -109,12 +106,24 @@ nnoremap <c-p>v :<c-u>CtrlP ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p> :<c-u>CtrlP<cr>
 
 " fzf
-let g:fzf_layout = {'down': '~50%'}
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                         : fzf#vim#with_preview('right:50%', '?'),
   \                 <bang>0)
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+let g:fzf_layout = {'down': '~50%'}
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
 nnoremap <c-p>M :<c-u>History<cr>
 nnoremap <c-p>b :<c-u>Buffers<cr>
 nnoremap <c-p>B :<c-u>Buffers<cr>

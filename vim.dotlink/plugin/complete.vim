@@ -2,6 +2,7 @@
 "=====deoplete
 "=====jedi
 let g:deoplete#enable_at_startup = 1
+set completeopt-=preview
 "let g:deoplete#sources#jedi#show_docstring = 1
 
 call deoplete#custom#option('sources', {
@@ -52,8 +53,12 @@ let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 "" Escape: exit autocompletion, go to Normal mode
 "let g:jedi#completions_command="\<C-L>"
 "let g:jedi#auto_initialization = 0
+let g:jedi#max_doc_height=20
+let g:jedi#auto_vim_configuration=0
 let g:jedi#show_call_signatures=0
 let g:jedi#popup_select_first=1
 let g:jedi#popup_on_dot=0
 let g:jedi#show_call_signatures_delay=200
+
+autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
 

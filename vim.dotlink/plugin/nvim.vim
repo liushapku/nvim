@@ -1,4 +1,3 @@
-ca T// term://bash
 let g:terminal_scrollback_buffer_size=100000
 
 function! JobStart(cmd, Callback, extra)
