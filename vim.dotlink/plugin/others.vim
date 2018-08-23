@@ -178,8 +178,6 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
-command! EditPlugin exe "edit ~/.vim/ftplugin/" . &filetype . ".vim"
-
 command! -complete=command -nargs=+ SubOutput call SubOutput('', <f-args>)
 command! -complete=command -nargs=+ FSubOutput call SubOutput(<f-args>)
 function! SubOutput(filterpattern, pattern, ...)

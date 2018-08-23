@@ -8,6 +8,7 @@ endfor
 " exists
 " if in ftplugin or plugin, then switch to autoloasd
 command! -buf -bang -nargs=? TogglePlug call buffer#TogglePlug(<q-args>, <bang>0)
+command! -buf -bang -nargs=? EditPlug <mods> vsplit | call buffer#TogglePlug(<q-args>, <bang>0)
 nmap <buffer> g# :<c-u>TogglePlug<cr>
 
 set iskeyword+=:

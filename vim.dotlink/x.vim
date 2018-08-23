@@ -50,6 +50,7 @@ Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'chrisbra/colorizer'
 Plug 'mhinz/vim-startify'
+Plug 'jeetsukumaran/vim-indentwise'
 
 " Complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

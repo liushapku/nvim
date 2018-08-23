@@ -8,8 +8,8 @@ nnoremap <a-6> :<C-U>call buffer#BufferAt(v:count * 10 + 6)<CR>
 nnoremap <a-7> :<C-U>call buffer#BufferAt(v:count * 10 + 7)<CR>
 nnoremap <a-8> :<C-U>call buffer#BufferAt(v:count * 10 + 8)<CR>
 nnoremap <a-9> :<C-U>call buffer#BufferAt(v:count * 10 + 9)<CR>
-nnoremap <a--> :<C-U>call buffer#BufferNext(0)<CR>
-nnoremap <a-=> :<C-U>call buffer#BufferNext(1)<CR>
+nnoremap <a-[> :<C-U>call buffer#BufferNext(0)<CR>
+nnoremap <a-]> :<C-U>call buffer#BufferNext(1)<CR>
 tmap <a-0><a-0> <c-\><c-n><a-0>
 tmap <a-1><a-1> <c-\><c-n><a-1>
 tmap <a-2><a-2> <c-\><c-n><a-2>

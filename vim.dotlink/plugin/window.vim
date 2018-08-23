@@ -23,12 +23,12 @@ nnoremap <a-pageup> gT
 nnoremap <a-pagedown> gt
 tnoremap <a-pageup> <c-\><c-n>gT
 tnoremap <a-pagedown> <c-\><c-n>gt
-imap <a-[> <a-pageup>
-imap <a-]> <a-pagedown>
-nmap <a-[> <a-pageup>
-nmap <a-]> <a-pagedown>
-tmap <a-[> <a-pageup>
-tmap <a-]> <a-pagedown>
+imap <a-=> <a-pageup>
+imap <a--> <a-pagedown>
+nmap <a-=> <a-pageup>
+nmap <a--> <a-pagedown>
+tmap <a-=> <a-pageup>
+tmap <a--> <a-pagedown>
 
 tnoremap <Esc><ESC> <C-\><C-n>
 tnoremap <esc>gw <c-\><c-n>

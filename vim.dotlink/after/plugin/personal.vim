@@ -62,8 +62,8 @@ cmap <a-f> <esc>f
 hi Normal guifg=white guibg=black
 hi Pmenu guifg=Blue guibg=Violet
 
-hi DiffAdd guifg=plum
-hi DiffDelete guifg=plum
+hi DiffAdd guifg=violet
+hi DiffDelete guifg=violet
 hi DiffChange guifg=PowderBlue
 hi DiffText guifg=LightYellow
 
