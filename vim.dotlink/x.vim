@@ -101,6 +101,7 @@ nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
 nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
 nnoremap <c-p>w :<c-u>CtrlP $WORKSPACE<cr>
 nnoremap <c-p>d :<c-u>CtrlP ~/dotfiles<cr>
+nnoremap <c-p>c :<c-u>CtrlP $CONDA_PREFIX/lib/python3.*/site-packages<cr>
 nnoremap <c-p>v :<c-u>CtrlP ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p> :<c-u>CtrlP<cr>
 
@@ -114,9 +115,10 @@ command! -bang -nargs=* Ag
 nnoremap <c-p>M :<c-u>History<cr>
 nnoremap <c-p>b :<c-u>Buffers<cr>
 nnoremap <c-p>B :<c-u>Buffers<cr>
+nnoremap <c-p>C :<c-u>Files $CONDA_PREFIX/lib/python3.*/site-packages<cr>
+nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>H :<c-u>Files ~/<cr>
 nnoremap <c-p>W :<c-u>Files ~/$WORKSPACE<cr>
-nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
 nnoremap <c-p>p :<c-u>Files<cr>
 nnoremap <c-p>l :<c-u>Lines<cr>
