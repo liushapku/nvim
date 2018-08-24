@@ -34,14 +34,17 @@ function! diff#Patch0(file, basedir)
 endfunction
 
 function! diff#ReversePatch()
-   :call system("patch -R -o " . v:fname_out . " " . v:fname_in .
-   \  " < " . v:fname_diff)
+   call system("patch -R -o " . v:fname_out . " " . v:fname_in . " < " . v:fname_diff)
 endfunction
 function! diff#Patch(patchfile, reverse)
   if a:reverse
+    let oldpatchexpr = &patchexpr
     set patchexpr=diff#ReversePatch()
-    exe 'diffpatch' a:patchfile
-    set patchexpr=''
+    try
+      exe 'diffpatch' a:patchfile
+    finally
+      let &patchexpr = oldpatchexpr
+    endtry
   else
     exe 'diffpatch' a:patchfile
   endif

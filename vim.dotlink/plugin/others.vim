@@ -114,7 +114,6 @@ endfunction
 " detect git folder
 nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
 " cd to folder containing current dir
-nmap <leader>cd :<C-U>silent exec "lcd " . expand('%:h')<bar>pwd<CR>
 
 noremap <space>- :<C-u>set invcursorline<cr>
 noremap <space><bar> :<C-u>set invcursorcolumn<cr>
@@ -160,7 +159,8 @@ noremap g<cr> :<c-u>normal i<c-v><cr><cr>
 
 cnoreabbr <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 cnoreabbr <> '<,'>
-imap ;) <esc>lys$)A
+inoremap ,, <end>,
+imap ,) <esc>lys$)
 
 nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
 
@@ -183,7 +183,6 @@ function! s:ftplugin_location(system)
   return (a:system? expand("$VIMRUNTIME") : "~/.vim") . "/ftplugin/" . &filetype . ".vim"
 endfunction
 command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(<bang>0))
-inoremap ,, <end>,
 
 function! SaveRegister(reg)
   return [getreg(a:reg), getregtype(a:reg)]

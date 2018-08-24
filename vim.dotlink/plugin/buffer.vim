@@ -21,22 +21,19 @@ tmap <a-7><a-7> <c-\><c-n><a-7>
 tmap <a-8><a-8> <c-\><c-n><a-8>
 tmap <a-9><a-9> <c-\><c-n><a-9>
 tmap <esc>#     <c-\><c-n>:b#<cr>
-tmap <F2> <c-\><c-n>:b<space>
 
+" switch to alternative buffer
 nnoremap gb :<C-U>exec "b" . (v:count==0? "#":v:count)<CR>
+" switch to previous window or (when count is present) go to window n
 nnoremap <silent> <expr> gw v:count==0?"\<C-W>p":"\<C-W>\<C-W>"
+" goto preview window
 nnoremap gW <C-W>P
 tnoremap <esc>: <c-\><c-n>:
 
-command! TTab call buffer#TermsToTab()
 command! -bar -narg=0 Cd exe 'cd' expand('%:p:h')
-
-function! g:Jobid(num)
-    return buffer#NeotermJobid(a:num)
-endfunction
+nmap <leader>cd :<C-U>silent exec "lcd " . expand('%:p:h')<bar>pwd<CR>
 
 command! WipeNoName call buffer#WipeNoName()
-
 
 command! -nargs=+ -complete=command	WE call buffer#WinExec(<f-args>)
 command! -nargs=+ -complete=command	WEE call buffer#WinExecAll(<f-args>)
@@ -45,11 +42,14 @@ command! -nargs=+ -complete=command	VE call buffer#ViewExec(<q-args>)
 command! -nargs=+ -complete=command	RE call buffer#RegExec(<f-args>)
 command! -nargs=0 E call buffer#ViewExec('edit')
 
+" select a subset of buffers to construct args list
 command! -nargs=1 Args call buffer#Select(<q-args>, 'args')
+" select a subset of buffers to append to args list
 command! -nargs=1 Argadd call buffer#Select(<q-args>, 'append')
+" select a subset of buffers to construct to args list
 command! -nargs=1 Argselect call buffer#Select(<q-args>, 'replace')
+" select a subset of buffers to construct local args list
 command! -nargs=1 Arglocal call buffer#Select(<q-args>, 'local')
-
 
 function! Tempname()
     return buffer#Tempname()
