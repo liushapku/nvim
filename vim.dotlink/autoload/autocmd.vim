@@ -22,7 +22,7 @@ endfunction
 
 function! autocmd#BufEnter()
   "Echo  "bufenter"
-  call buffer#AutoRestoreWinView()
+  call buffer#restore_win_view()
   if &buftype == 'quickfix'
   endif
 
@@ -47,7 +47,7 @@ function! autocmd#BufEnter()
 endfunction
 
 function! autocmd#BufLeave()
-  call buffer#AutoSaveWinView()
+  call buffer#save_win_view()
   "if index(['python'], &filetype) > -1
   " silent! write
   "endif

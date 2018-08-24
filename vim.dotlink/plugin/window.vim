@@ -71,13 +71,13 @@ command! -nargs=+ WinSplit call window#MatrixSplit(<f-args>)
 command! -nargs=* WinArg call window#EditArg(<f-args>)
 
 " [range]Pview [buf]
-command! -nargs=* -complete=buffer -range Pview call window#Preview(<q-mods>, <line1>, <line2>, <f-args>)
+command! -nargs=* -complete=buffer -range Pview call window#preview(<q-mods>, <line1>, <line2>, <f-args>)
 " above 1,3Sview
 " above 1,3Sview buf
-command! -nargs=* -complete=buffer -range Sview call window#Splitview(<q-mods>, <line1>, <line2>, <f-args>)
+command! -nargs=* -complete=buffer -range Sview call window#splitview(<q-mods>, <line1>, <line2>, <f-args>)
 command! -nargs=? Vset call window#SetViewId(<q-args>) " bang -> append
 command! Vclose call window#CloseView()
-command! -nargs=0 -range Show call window#Show(<line1>, <line2>)
+command! -nargs=0 -range Show call window#show_lines(<line1>, <line2>)
 command! -range Top call window#SetTop(<line1>)
 
 
@@ -95,11 +95,9 @@ command! Qw botright cw
 command! Qo botright copen
 command! Qc botright cclose
 
-nnoremap Q :call window#StartRecording()<cr>
 
-"command! -count=0 SwapWith call window#SwapWith(<count>)
 "with bang, also swap alternative buf
-command! -bang -bar -nargs=+ SwapWin call window#SwapWin(<bang>0, <f-args>)
+command! -bang -bar -nargs=+ SwapWin call window#swap_win(<bang>0, <f-args>)
 
 " for this layout, default restore does not work (at least for cursor in
 " window 2
@@ -111,9 +109,11 @@ command! -bang -bar -nargs=+ SwapWin call window#SwapWin(<bang>0, <f-args>)
 " :Zoom 3 1 2 4 will work
 " args: specify the order of windows to be restored
 command! -range -addr=windows -nargs=* Zoom call window#ZoomToggle(<line1>, <f-args>)
-nnoremap <silent> <A-z> :<c-u>call window#ZoomToggle(v:count?v:count:winnr())<CR>
-tnoremap <silent> <A-z> <c-\><c-n>:call window#ZoomToggle(v:count?v:count:winnr())<CR>a
-command! -register WinRun call window#MacroDo(<reg>)
+nnoremap <silent> <A-z> :<c-u>call window#zoom(v:count?v:count:winnr())<CR>
+tnoremap <silent> <A-z> <c-\><c-n>:call window#zoom(v:count?v:count:winnr())<CR>a
+
+nnoremap Q :call window#start_recording()<cr>
+command! -register -addr=windows -range=% WinDoMacro call window#do_macro(<reg>, <line1>, <line2>)
 
 command! -nargs=? Width exe 'vert resize' (<q-args> is ''? (&buftype == 'terminal' ? 154 : 120) : <q-args>)
 command! -nargs=1 Height resize <args>

@@ -360,5 +360,9 @@ let g:user_emmet_settings = {
 \    },
 \}
 
-"colorschemes
+"============ linediff
+vmap <c-d> :Linediff<cr>
+
+"=============colorschemes
 colorscheme gruvbox
+
