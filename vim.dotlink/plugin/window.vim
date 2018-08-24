@@ -45,28 +45,28 @@ command! -bang -range -addr=windows CloseHoldRight call window#CloseHoldPrevious
 command! -bang -range -addr=windows CloseHoldBelow call window#CloseHoldPrevious(<line1>, <bang>1)
 
 
-command! -complete=command -nargs=* LeftE vertical above <args>
-command! -complete=command -nargs=* LEFTE vertical topleft <args>
-command! -complete=command -nargs=* RightE vertical below <args>
-command! -complete=command -nargs=* RIGHTE vertical botright <args>
-command! -complete=command -nargs=* AboveE above <args>
-command! -complete=command -nargs=* ABOVEE topleft <args>
-command! -complete=command -nargs=* BelowE below <args>
-command! -complete=command -nargs=* BELOWE botright <args>
-command! -complete=command -nargs=* TabE tab <args>
+command! -complete=command -nargs=* Left vertical above <args>
+command! -complete=command -nargs=* LEFT vertical topleft <args>
+command! -complete=command -nargs=* Right vertical below <args>
+command! -complete=command -nargs=* RIGHT vertical botright <args>
+command! -complete=command -nargs=* Above above <args>
+command! -complete=command -nargs=* ABOVE topleft <args>
+command! -complete=command -nargs=* Below below <args>
+command! -complete=command -nargs=* BELOW botright <args>
+command! -complete=command -nargs=* Tab tab <args>
 command! -complete=command -nargs=* Nosplit call window#NoSplitExec(<q-args>)
 command! -complete=help -nargs=* Help vert help <args>
 command! -complete=help -nargs=* H call window#NoSplitExec('help ' . <q-args>)
 
-command! -complete=buffer -nargs=* Left vertical above sb <args>
-command! -complete=buffer -nargs=* LEFT vertical topleft sb <args>
-command! -complete=buffer -nargs=* Right vertical below sb <args>
-command! -complete=buffer -nargs=* RIGHT vertical botright sb <args>
-command! -complete=buffer -nargs=* Above above sb <args>
-command! -complete=buffer -nargs=* ABOVE topleft sb <args>
-command! -complete=buffer -nargs=* Below below sb <args>
-command! -complete=buffer -nargs=* BELOW botright sb <args>
-command! -complete=buffer -nargs=* Tab tab sb <args>
+command! -complete=buffer -nargs=* Leftb vertical above sb <args>
+command! -complete=buffer -nargs=* LEFTB vertical topleft sb <args>
+command! -complete=buffer -nargs=* Rightb vertical below sb <args>
+command! -complete=buffer -nargs=* RIGHTB vertical botright sb <args>
+command! -complete=buffer -nargs=* Aboveb above sb <args>
+command! -complete=buffer -nargs=* ABOVEB topleft sb <args>
+command! -complete=buffer -nargs=* Belowb below sb <args>
+command! -complete=buffer -nargs=* BELOWB botright sb <args>
+command! -complete=buffer -nargs=* Tabb tab sb <args>
 command! -nargs=+ WinSplit call window#MatrixSplit(<f-args>)
 command! -nargs=* WinArg call window#EditArg(<f-args>)
 

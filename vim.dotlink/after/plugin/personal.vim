@@ -21,3 +21,7 @@ hi DiffText guifg=LightYellow
 
 "=======vim-diff-enhanced
 EnhancedDiff patience
+
+set completeopt=menuone,longest,preview
+set guicursor=
+set background=dark

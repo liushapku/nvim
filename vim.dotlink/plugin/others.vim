@@ -187,7 +187,15 @@ command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(
 function! SaveRegister(reg)
   return [getreg(a:reg), getregtype(a:reg)]
 endfunction
-
 function! RestoreRegister(reg, values)
   call setreg(a:reg, a:values[0], a:values[1])
 endfunction
+function! CopyRegister(regfrom, regto)
+  call setreg(a:regto, getreg(a:regfrom), getregtype(a:regfrom))
+endfunction
+command! -nargs=* RegCopy call CopyRegister(<f-args>)
+
+" show syntax group
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> under transparent<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> linked to <"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

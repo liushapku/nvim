@@ -360,3 +360,5 @@ let g:user_emmet_settings = {
 \    },
 \}
 
+"colorschemes
+colorscheme gruvbox

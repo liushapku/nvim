@@ -43,7 +43,9 @@ nnoremap ;qf :call qf#SetQF(qf#LocateQF(), {'nojump':1})<cr>
 command! QFClear :call qf#SetQF('')
 " get QF list from neoterm
 command! -bang QFFromNeoterm call qf#GetQFFromNeoterm('ipython', {'nojump':<bang>0})
+
 " reverse the QF list
 command! QFReverse call setqflist(reverse(getqflist()))
 " set QF from a register, if bang, then do not jump to the first one
-command! -register -bang QFSet call qf#SetQF(@<reg>, {'nojump':<bang>0})
+command! -register -bang QFSet call qf#SetQF(getreg(<q-reg>), {'nojump':<bang>0})
+
