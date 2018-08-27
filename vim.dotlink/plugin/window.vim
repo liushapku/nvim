@@ -97,6 +97,7 @@ command! Qc botright cclose
 
 
 "with bang, also swap alternative buf
+"SwapWin winnr1 winnr2
 command! -bang -bar -nargs=+ SwapWin call window#swap_win(<bang>0, <f-args>)
 
 " for this layout, default restore does not work (at least for cursor in
@@ -108,7 +109,7 @@ command! -bang -bar -nargs=+ SwapWin call window#swap_win(<bang>0, <f-args>)
 " |---------------|
 " :Zoom 3 1 2 4 will work
 " args: specify the order of windows to be restored
-command! -range -addr=windows -nargs=* Zoom call window#ZoomToggle(<line1>, <f-args>)
+command! -count -addr=windows -nargs=* Zoom call window#ZoomToggle(<line1>, <f-args>)
 nnoremap <silent> <A-z> :<c-u>call window#zoom(v:count?v:count:winnr())<CR>
 tnoremap <silent> <A-z> <c-\><c-n>:call window#zoom(v:count?v:count:winnr())<CR>a
 

@@ -60,5 +60,8 @@ let g:jedi#popup_select_first=1
 let g:jedi#popup_on_dot=0
 let g:jedi#show_call_signatures_delay=200
 
-autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
+augroup CompleteAu
+  autocmd!
+  autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
+augroup END
 

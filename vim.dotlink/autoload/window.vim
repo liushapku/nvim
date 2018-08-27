@@ -140,7 +140,7 @@ function! window#zoom(winnr, ...) abort
   if winnr != winnr()
     exe winnr 'wincmd w'
   endif
-  if exists('t:zoomed') && t:zoomed
+  if exists('t:zoomed')
     call call('s:winrestcmd', [winnr(),  t:zoom_winrestcmd] + a:000)
     unlet t:zoomed
   else
