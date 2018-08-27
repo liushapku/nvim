@@ -275,9 +275,7 @@ command! -bang -nargs=* Hld  :call quickhl#manual#del(<q-args>, <bang>1)
 "nmap <Space>] <Plug>(quickhl-tag-toggle)
 
 
-let g:extra_whitespace_ignored_filetypes = ['unite']
-let g:no_strip_whitespace = ['markdown']
-autocmd BufWritePre * if index(g:no_strip_whitespace, &ft) < 0 | FixWhitespace
+let g:extra_whitespace_ignored_filetypes = ['unite', 'markdown']
 
 "======startify
 let g:startify_session_dir = '~/.vim/session'

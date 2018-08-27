@@ -23,7 +23,7 @@ function! s:tab_set(bang, n)
   exe printf('%s expandtab tabstop=%d softtabstop=%d shiftwidth=%d', set, a:n, a:n, a:n)
 endfunction
 
-augroup TermAU
+augroup TermAu
   autocmd!
   au TermOpen * startinsert
   au TermOpen * nnoremap <buffer> <c-c> a<c-c>
@@ -65,3 +65,7 @@ augroup TabAu
   autocmd TabNew * Startify
 augroup END
 
+augroup BufWrite
+  autocmd!
+  autocmd BufWritePre * if (index(g:extra_whitespace_ignored_filetypes, &ft) < 0 && @% =~ expand("$HOME/conda")) | FixWhitespace
+augroup END
