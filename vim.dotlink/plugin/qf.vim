@@ -40,12 +40,13 @@ let g:python_traceback_format=join([g:python_traceback_format2, g:python_traceba
 
 vnoremap ;qf :call qf#SetQF(getline(line("'<"), line("'>")), {'nojump':1})<cr>
 nnoremap ;qf :call qf#SetQF(qf#LocateQF(), {'nojump':1})<cr>
-command! QFClear :call qf#SetQF('')
 " get QF list from neoterm
 command! -bang QFFromNeoterm call qf#GetQFFromNeoterm('ipython', {'nojump':<bang>0})
 
+command! -bar QFClear :call qf#SetQF('')
 " reverse the QF list
-command! QFReverse call setqflist(reverse(getqflist()))
+command! -bar QFReverse call setqflist(reverse(getqflist()))
 " set QF from a register, if bang, then do not jump to the first one
-command! -register -bang QFSet call qf#SetQF(getreg(<q-reg>), {'nojump':<bang>0})
+command! -register -bang -bar QFset call qf#SetQF(getreg(<q-reg>, 0), {'nojump':<bang>0})
+command! -register -bang -bar QFSet QFset <reg> | QFReverse
 

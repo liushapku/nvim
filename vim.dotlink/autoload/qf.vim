@@ -10,7 +10,7 @@ function! qf#SetQF(data, ...)
   endif
   let opts = a:0 == 0? {} : a:1
   let nojump = get(opts, 'nojump', 0)
-  let tempfile = Tempname()
+  let tempfile = buffer#tempname()
   let data = type(a:data) == v:t_string?  split(a:data, "\n") : a:data
   let strs = filter(data, 'v:val != ""')
   call writefile(strs, tempfile)
@@ -18,14 +18,17 @@ function! qf#SetQF(data, ...)
   let cmd = position == 'quickfix' ? 'cg ' : 'lg '
   let oldefm = &efm
   let &efm = get(opts, 'efm', &efm)
-  exec cmd . tempfile
-  let &efm = oldefm
-  bo cw
-  if nojump
-    wincmd p
-  else
-    normal "\<cr>"
-  endif
+  try
+    exec cmd . tempfile
+    bo cw
+    if nojump
+      wincmd p
+    else
+      exec "normal \<cr>"
+    endif
+  finally
+    let &efm = oldefm
+  endtry
 endfunction
 
 function! qf#GetQFFromNeoterm(type, ...) abort

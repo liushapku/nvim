@@ -170,7 +170,7 @@ function! window#stop_recording(cancel)
   nunmap q
   nnoremap Q :call window#start_recording()<cr>
   if !a:cancel
-    let macro = getreg(s:macro_reg)
+    let macro = getreg(s:macro_reg, 1)
     " the last q is recorded
     let macro = substitute(macro, "q$", "", "")
     call setreg(s:macro_reg, macro)

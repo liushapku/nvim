@@ -44,6 +44,7 @@ Plug 'wesq3/vim-windowswap'         "swap windows
 Plug 'easymotion/vim-easymotion'    "easily move by selection
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'chrisbra/colorizer'
 Plug 'mhinz/vim-startify'
 Plug 'jeetsukumaran/vim-indentwise'
@@ -95,16 +96,16 @@ let g:ctrlp_custom_ignore= {
     \ 'file':'*.swp'
     \ }
 
-nnoremap <c-p>m :<c-u>CtrlPMRUFiles<cr>
-"nnoremap <c-p>b :<c-u>CtrlPBuffer<cr>
-nnoremap <c-p>. :<c-u>CtrlP .<cr>
-nnoremap <c-p>h :<c-u>CtrlP ~/<cr>
-nnoremap <c-p>p :<c-u>CtrlP ~/python/<cr>
-nnoremap <c-p>w :<c-u>CtrlP $WORKSPACE<cr>
-nnoremap <c-p>d :<c-u>CtrlP ~/dotfiles<cr>
-nnoremap <c-p>c :<c-u>CtrlP $CONDA_PREFIX/lib/python3.*/site-packages<cr>
-nnoremap <c-p>v :<c-u>CtrlP ~/repos/nvim/vim.dotlink<cr>
-nnoremap <c-p> :<c-u>CtrlP<cr>
+nnoremap <c-p>P :<c-u>CtrlP<cr>
+nnoremap <c-p>B :<c-u>CtrlPBuffer<cr>
+nnoremap <c-p>C :<c-u>CtrlP $CONDA_PREFIX/lib/python3.*/site-packages<cr>
+nnoremap <c-p>D :<c-u>CtrlP ~/dotfiles<cr>
+nnoremap <c-p>H :<c-u>CtrlP ~/<cr>
+nnoremap <c-p>M :<c-u>CtrlPMRUFiles<cr>
+nnoremap <c-p>Q :<c-u>CtrlPQuickfix<cr>
+nnoremap <c-p>U :<c-u>CtrlPUndo<cr>
+nnoremap <c-p>V :<c-u>CtrlP ~/repos/nvim/vim.dotlink<cr>
+nnoremap <c-p>W :<c-u>CtrlP $WORKSPACE<cr>
 
 " fzf
 command! -bang -nargs=* Ag
@@ -125,19 +126,26 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-nnoremap <c-p>M :<c-u>History<cr>
+nnoremap <c-p>  :<c-u>Files<cr>
+nnoremap <c-p>~ :<c-u>Files ~/<cr>
+nnoremap <c-p>: :<c-u>History :<cr>
+nnoremap <c-p>/ :<c-u>History /<cr>
 nnoremap <c-p>b :<c-u>Buffers<cr>
-nnoremap <c-p>B :<c-u>Buffers<cr>
-nnoremap <c-p>C :<c-u>Files $CONDA_PREFIX/lib/python3.*/site-packages<cr>
-nnoremap <c-p>D :<c-u>Files ~/dotfiles<cr>
-nnoremap <c-p>H :<c-u>Files ~/<cr>
-nnoremap <c-p>W :<c-u>Files ~/$WORKSPACE<cr>
-nnoremap <c-p>V :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
-
-nnoremap <c-p>p :<c-u>Files<cr>
-nnoremap <c-p>l :<c-u>Lines<cr>
+nnoremap <c-p>c :<c-u>Files $CONDA_PREFIX/lib/python3.*/site-packages<cr>
+nnoremap <c-p>d :<c-u>Files ~/dotfiles<cr>
+nnoremap <c-p>g :<c-u>History<cr>
+nnoremap <c-p>h :<c-u>History<cr>
+nnoremap <c-p>k :<c-u>Marks<cr>
+nnoremap <c-p>l :<c-u>BLines<cr>
+nnoremap <c-p>L :<c-u>Lines<cr>
+nnoremap <c-p>m :<c-u>FZFMru<cr>
+nnoremap <c-p>M :<c-u>FZFMru <c-r>=expand('%:e')<cr>$<cr>
 nnoremap <c-p>n :<c-u>Snippets<cr>
 nnoremap <c-p>s :<c-u>Startify<cr>
+nnoremap <c-p>t :<c-u>BTags<cr>
+nnoremap <c-p>T :<c-u>Tags<cr>
+nnoremap <c-p>v :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
+nnoremap <c-p>w :<c-u>Files $WORKSPACE<cr>
 
 " gist
 let g:gist_list_vsplit = 1

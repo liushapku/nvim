@@ -19,6 +19,7 @@ call deoplete#custom#option({
       \ 'min_pattern_length': 2
       \ })
 call deoplete#custom#source('ultisnips', 'rank', 9999)
+call deoplete#custom#source('vim', 'min_pattern_length', 3)
 "call deoplete#custom#source('_', 'matchers', ['matcher_head'])
 
 

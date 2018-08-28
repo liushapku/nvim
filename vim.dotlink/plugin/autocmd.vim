@@ -13,10 +13,10 @@ augroup END
 
 augroup FileTypeAu
   autocmd!
-  autocmd FileType qf call autocmd#AdjustWindowHeight(3, 10)
   autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
   autocmd FileType vim,markdown TabSet 2
 augroup END
+" with !, set globally
 command! -nargs=1 -bang TabSet call s:tab_set(<bang>0, <args>)
 function! s:tab_set(bang, n)
   let set = a:bang? 'set': 'setlocal'
@@ -39,10 +39,10 @@ augroup END
 
 augroup FileAu
   autocmd!
-  autocmd BufNewFile,BufReadPost *.ipynb set filetype=json
-  autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
+  autocmd BufNewFile,BufRead *.ipynb setfiletype=json
+  autocmd BufNewFile,BufRead * call autocmd#FileOpen()
+  autocmd BufNewFile,BufRead * call autocmd#FugitiveAddCustomCommands()
   autocmd BufNewFile,BufReadPost * echomsg 'file open'
-  autocmd BufNewFile,BufReadPost * call autocmd#FugitiveAddCustomCommands()
 augroup END
 
   "command -nargs=+ GCommit Gcommit -m<q-args>
@@ -55,6 +55,7 @@ augroup QuickFixCmdPostAu
   autocmd!
   autocmd QuickFixCmdPost [^l]* call autocmd#QuickFixAuFunc('c')
   autocmd QuickFixCmdPost l*   call autocmd#QuickFixAuFunc('l')
+  autocmd QuickFixCmdPost * call autocmd#AdjustWindowHeight(3, 10)
   "autocmd QuickFixCmdPost *git* echomsg 'git'
   "autocmd QuickFixCmdPost git botright cwindow | call s:SetQFMapsForGlog()
   "autocmd QuickFixCmdPost  botright lwindow | call s:SetQFMapsForGlog()
@@ -65,7 +66,19 @@ augroup TabAu
   autocmd TabNew * Startify
 augroup END
 
+function! s:should_fix_whitespace()
+  if !has_key(b:, 'auto_fix_whitespace')
+    return index(g:extra_whitespace_ignored_filetypes, &ft) < 0 && @% !~# expand("$HOME/conda")
+  elseif get(b:, 'auto_fix_whitespace')
+    return 1
+  else
+    return 0
+  endif
+endfunction
 augroup BufWrite
   autocmd!
-  autocmd BufWritePre * if (index(g:extra_whitespace_ignored_filetypes, &ft) < 0 && @% =~ expand("$HOME/conda")) | FixWhitespace
+  autocmd BufWritePre * if s:should_fix_whitespace() | FixWhitespace
 augroup END
+command! DisableAutoFixWhitespace let b:auto_fix_whitespace=0
+command! EnableAutoFixWhitespace let b:auto_fix_whitespace=1
+command! DefaultAutoFixWhitespace unlet b:auto_fix_whitespace

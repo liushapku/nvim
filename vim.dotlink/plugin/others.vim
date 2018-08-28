@@ -185,13 +185,15 @@ endfunction
 command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(<bang>0))
 
 function! SaveRegister(reg)
-  return [getreg(a:reg), getregtype(a:reg)]
+  " if a:reg == "=", the second parameter 1 will make the function return the
+  " express instead of the number
+  return [getreg(a:reg, 1), getregtype(a:reg)]
 endfunction
 function! RestoreRegister(reg, values)
   call setreg(a:reg, a:values[0], a:values[1])
 endfunction
 function! CopyRegister(regfrom, regto)
-  call setreg(a:regto, getreg(a:regfrom), getregtype(a:regfrom))
+  call setreg(a:regto, getreg(a:regfrom, 1), getregtype(a:regfrom))
 endfunction
 command! -nargs=* RegCopy call CopyRegister(<f-args>)
 
