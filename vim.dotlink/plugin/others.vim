@@ -76,7 +76,7 @@ function! ExeLines() range
     exe 'so'  file
     call delete(file)
   finally
-    call RestoreRegister("#", tmp)
+    call RestoreRegister(tmp)
   endtry
 endfunction
 nnoremap <leader>e :call ExeLines()<CR>
@@ -187,10 +187,10 @@ command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(
 function! SaveRegister(reg)
   " if a:reg == "=", the second parameter 1 will make the function return the
   " express instead of the number
-  return [getreg(a:reg, 1), getregtype(a:reg)]
+  return [a:reg, getreg(a:reg, 1), getregtype(a:reg)]
 endfunction
-function! RestoreRegister(reg, values)
-  call setreg(a:reg, a:values[0], a:values[1])
+function! RestoreRegister(values)
+  call setreg(a:values[0], a:values[1], a:values[2])
 endfunction
 function! CopyRegister(regfrom, regto)
   call setreg(a:regto, getreg(a:regfrom, 1), getregtype(a:regfrom))

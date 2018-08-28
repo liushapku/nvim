@@ -42,7 +42,6 @@ augroup FileAu
   autocmd BufNewFile,BufRead *.ipynb setfiletype=json
   autocmd BufNewFile,BufRead * call autocmd#FileOpen()
   autocmd BufNewFile,BufRead * call autocmd#FugitiveAddCustomCommands()
-  autocmd BufNewFile,BufReadPost * echomsg 'file open'
 augroup END
 
   "command -nargs=+ GCommit Gcommit -m<q-args>

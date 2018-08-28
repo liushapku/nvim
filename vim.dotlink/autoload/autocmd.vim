@@ -66,15 +66,16 @@ endfunction
 " fugitive
 function! autocmd#FugitiveAddCustomCommands()
   let in_git = exists('b:git_dir') || fugitive#extract_git_dir(expand('%:p')) !=# ''
-  let has_custom_commands = get(b:, 'fugitive_custom_commands', 0)
-  if in_git && !has_custom_commands
+  if in_git && !get(b:, 'fugitive_custom_commands', 0)
     let b:fugitive_custom_commands = 1
     command -buffer -nargs=+ GCommit Gcommit -m<q-args>
-    command -buffer -nargs=* GStatus Gstatus | wincmd K
+    command -buffer GStatus Gstatus | wincmd K
+    command -buffer Gs tab Gstatus
     command -buffer -nargs=+ Gamend Gcommit --amend -m<q-args>
     command -buffer -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
     command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
     command -buffer -nargs=* GDiff only | Gdiff <args>
+    command -buffer -nargs=* Gd tabedit % | Gvdiff <args>
   endif
 endfunction
 

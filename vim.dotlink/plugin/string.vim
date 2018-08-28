@@ -1,6 +1,6 @@
 command! -register -nargs=? StripReg call setreg(<q-args> == ''? <q-reg>:<q-args>, string#TrimNewlines(getreg(<q-reg>)), 'v')
 " put character wise, with a <bang> work using P, otherwise p
-command! -register -bang -nargs=* Put call string#PutCharacterwise(<q-reg>, <bang>0, <q-args>)
+command! -register -bang -nargs=* Put call string#PutCharacterwise(<bang>0, <q-reg>, <q-args>)
 
 " force characterwise put
 nmap cp :<c-u>exe "Put " . v:register<cr>

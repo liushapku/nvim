@@ -291,3 +291,20 @@ function! buffer#Cd(dir, notall)
   exe "cd" dir
   exe ((a:notall? "T": "TA") . ' cd ' . dir)
 endfunction
+
+
+" with bang,
+" if in autoload, switch to ftplugin always. Otherwise, switch to ftplugin if it
+" exists
+" if in ftplugin or plugin, then switch to autoloasd
+function! buffer#TogglePlug(name, ftplugin)
+  let fname = len(a:name) == ''? expand('%:p') : a:name
+  if fname =~# '/plugin/'
+    let fname = substitute(fname, '/plugin/', '/autoload/', '')
+  elseif fname =~# '/autoload/'
+    let fname = substitute(fname, '/autoload/', '/plugin/', '')
+  else
+    return
+  endif
+  exe "edit" fname
+endfunction
