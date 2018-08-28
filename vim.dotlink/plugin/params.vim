@@ -15,6 +15,12 @@ inoremap ;A <c-o>:call params#SelectPrevPara()<cr>
 noremap  ;B :<c-u>call params#SelectPrevEqual()<cr>
 snoremap ;B <esc>:call params#SelectPrevEqual()<cr>
 inoremap ;B <c-o>:call params#SelectPrevEqual()<cr>
+nnoremap ( :<c-u>call params#GotoFunction(v:count1)<cr>
+nnoremap ) :<c-u>call params#GotoFunctionEnd(v:count1)<cr>
+nnoremap g( F(
+nnoremap g) f)
+nnoremap [( F(
+nnoremap ]( f(
 
 imap <a-9> <c-r>=params#Echo()?'':''<cr>
 imap ;) <c-r>=params#Complete(1)<cr>

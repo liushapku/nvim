@@ -35,4 +35,4 @@ vmap <buffer> ;d y:<c-u>EditFunction <c-r>*<cr>
 vmap <buffer> ;D y:<c-u>EditCommand <c-r>*<cr>
 
 setlocal iskeyword+=:
-nmap ;E :<c-u>so %<cr>
+nmap <buffer> ;E :<c-u>so %<cr>

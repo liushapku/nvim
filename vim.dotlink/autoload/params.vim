@@ -113,3 +113,40 @@ function! params#SelectPrevEqual() abort
   silent normal! ?[=,]?
   call SelectNextEqual()
 endfunction
+
+function! params#GotoFunction(times) abort
+  let line = getline('.')
+  let pos = col('.') - 1
+  let stack = a:times
+  for i in range(pos, 0, -1)
+    if line[i] == ')' && i!=pos
+      let stack += 1
+    elseif line[i] == '('
+      let stack -= 1
+    endif
+    if stack == 0
+      exe 'normal ' . (i+1) . '|'
+      " go to end of word
+      normal h
+      return
+    endif
+  endfor
+endfunction
+
+function! params#GotoFunctionEnd(times) abort
+  let line = getline('.')
+  let pos = col('.') - 1
+  let stack = a:times
+  for i in range(pos, col('$'))
+    if line[i] == '(' && i!=pos
+      let stack += 1
+    elseif line[i] == ')'
+      let stack -= 1
+    endif
+    if stack == 0
+      exe 'normal ' . (i+1) . '|'
+      normal l
+      return
+    endif
+  endfor
+endfunction

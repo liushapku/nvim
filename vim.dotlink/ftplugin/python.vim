@@ -32,12 +32,6 @@ vnoremap <buffer> ;ts "+y:silent call g:neoterm.instances[g:current_buf_term].do
 "nmap <buffer> g= :set operatorfunc=python#CallAutoPep8<CR>g@
 "nmap <buffer> g== :exe "call python#CallAutopep8('--range " . line('.') . ' '  . line('.') . "')"<CR>
 "vmap <buffer> g= :call python#CallAutopep8()<CR>
-nnoremap <buffer> ( F(
-nnoremap <buffer> ) f)
-nnoremap <buffer> [( F(
-nnoremap <buffer> ]( f(
-nnoremap <buffer> [) F)
-nnoremap <buffer> ]) f)
 
 
 command! -buffer -nargs=* Import call python#Import(<f-args>)

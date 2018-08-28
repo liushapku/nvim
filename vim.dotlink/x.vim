@@ -60,6 +60,7 @@ Plug 'rip-rip/clang_complete'       "deoplete complete source for c/c++
 
 
 " filetype extensions
+Plug 'lambacck/python_matchit'  "matchit for python
 Plug 'vim-scripts/dbext.vim' " database
 Plug 'chrisbra/csv.vim'
 Plug 'mattn/calendar-vim'
