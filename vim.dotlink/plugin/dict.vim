@@ -6,7 +6,7 @@ map dc <Plug>(operator-DictReplace)
 " get as key = val
 map dg <Plug>(operator-DictGet)
 " get as val = key
-map dG <Plug>(operator-DictGET)
+map dg; <Plug>(operator-DictGET)
 
 
 " function! dict#GetLines(line1, line2, reg, force, reverse) abort
