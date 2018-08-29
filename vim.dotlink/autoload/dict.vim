@@ -46,7 +46,7 @@ endfunction
 
 function! dict#Replace(motion_wiseness) abort
   " all are characterwise
-  let temp=@t
+  let saved = SaveRegister("t")
   silent normal! `[v`]"ty
   try
     let text = get(g:dict#replace_dic, string#Strip(@t))
@@ -55,7 +55,7 @@ function! dict#Replace(motion_wiseness) abort
       silent normal gv"=textp
     endif
   finally
-    let @t=temp
+    call RestoreRegister(saved)
   endtry
 endfunction
 

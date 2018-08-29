@@ -1,4 +1,3 @@
-
 function! s:auto_select()
   if exists('g:params#auto_select') && g:params#auto_select
     normal 
@@ -15,6 +14,7 @@ function! params#Echo()
     echon doc.text
     endif
   endfor
+  return ''
 endfunction
 
 function! params#GetParams()
@@ -150,3 +150,26 @@ function! params#GotoFunctionEnd(times) abort
     endif
   endfor
 endfunction
+
+function! params#Surround(motion_wiseness) abort
+  let x = nr2char(getchar())
+  let a = split("([{", '\zs')
+  let b = split(")]}", '\zs')
+  let i = index(b, x)
+  if i != -1
+    let x = a[i]
+  endif
+  let i = index(a, x)
+  let y = i==-1? x:b[i]
+  let saved = SaveRegister("t")
+  try
+    silent normal! `["td$
+    let line = getline('.')
+    let newline = line . x . @" . y
+    call setline(line('.'), newline)
+    startinsert!
+  finally
+    call RestoreRegister(saved)
+  endtry
+endfunction
+

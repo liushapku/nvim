@@ -22,11 +22,18 @@ nnoremap g) f)
 nnoremap [( F(
 nnoremap ]( f(
 
-imap <a-9> <c-r>=params#Echo()?'':''<cr>
-imap ;) <c-r>=params#Complete(1)<cr>
+inoremap ,, <end>,
+nnoremap ,, A,<esc>
+imap <a-9> <c-r>=params#Echo()<cr>
+imap <c-x>) <c-r>=params#Complete(1)<cr>
+imap ,) <esc>lys$)
+nmap ,) ys$)
 
 
 nnoremap <silent> , :<c-u>call params#GotoNextPara()<cr>
 nnoremap <silent> g, :<c-u>call params#GotoPrevPara()<cr>
 nnoremap <space>, ,
 nnoremap <space><space> ;
+
+call operator#user#define('InsertSurround', 'params#Surround')
+imap ;s <esc><Plug>(operator-InsertSurround)
