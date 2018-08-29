@@ -8,7 +8,7 @@ function! SendMessage(str, type)
   endif
 endfunction
 
-function! Echo(type, ...)
+function! EchoMsg(type, ...)
   let message = a:0 == 1? string(a:000[0]) : ''
   if g:echo_channel == 'server'
     call SendMessage(message, a:type)
@@ -21,5 +21,11 @@ function! Echo(type, ...)
   endif
 endfunction
 
-command! -bang -nargs=? Echo call Echo(<bang>0? 'error': 'info', <args>)
+function! Echo(escape, ...)
+  let list = a:escape? map(copy(a:000), {i, s->VimEscape(s, ' \')}): a:000
+  echo join(list, '|')
+endfunction
+
+command! -bang -nargs=? EchoMsg call EchoMsg(<bang>0? 'error': 'info', <args>)
+command! -bang -nargs=* Echo call Echo(<bang>1, <f-args>)
 

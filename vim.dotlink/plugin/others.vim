@@ -6,33 +6,30 @@
 "set termguicolors
 
 "set updatetime=4000
+"set tildeop  " ~ behaves like an operator
 set title
 set shortmess+=c
 set virtualedit=block
-"set tildeop  " ~ behaves like an operator
 set timeoutlen=400
 set clipboard=unnamedplus,unnamed
 set hidden
 set autoindent cindent
 "set smartindent
-set hlsearch
-set noincsearch
+set expandtab tabstop=4 softtabstop=4 shiftwidth=4
+set wildmode=longest:full,full wildmenu
+set hlsearch noincsearch
 set diffopt+=vertical
 set scrollback=10000
-set expandtab tabstop=4 softtabstop=4 shiftwidth=4
 set keymodel=startsel,stopsel
 set backspace=indent,eol,start
 set dictionary+=/usr/share/dict/words
 "set relativenumber
 set number ruler mouse=a
-set showcmd noshowmode
-set autowrite
-set autowriteall
-set whichwrap=b,s,<,>,[,]  " use <Left><Right> to move to previous/next line
 set completeopt=menuone,longest,preview
+set showcmd noshowmode
+set autowrite autowriteall
+set whichwrap=b,s,<,>,[,]  " use <Left><Right> to move to previous/next line
 set laststatus=2
-set wildmode=longest:full,full
-set wildmenu
 set showtabline=2
 " this also affects which window is held no expansion when close window
 "set splitright
@@ -159,8 +156,6 @@ noremap g<cr> :<c-u>normal i<c-v><cr><cr>
 
 cnoreabbr <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 cnoreabbr <> '<,'>
-inoremap ,, <end>,
-imap ,) <esc>lys$)
 
 nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
 
@@ -201,3 +196,8 @@ command! -nargs=* RegCopy call CopyRegister(<f-args>)
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> under transparent<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> linked to <"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+function! VimEscape(string, ...)
+  let esc = a:0? a:1: get(g:, 'vim_cmdline_escape', '\ ')
+  return escape(a:string, esc)
+endfunction

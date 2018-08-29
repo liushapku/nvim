@@ -212,11 +212,10 @@ function! buffer#arg_select(glob, type)
   endfor
   if a:type == 'args'
     exe 'args ' . join(result)
-  elseif a:type == 'replace'
-    argdelete *
-    exe 'argadd ' . join(result)
   elseif a:type == 'append'
     exe 'argadd ' . join(result)
+  elseif a:type == 'delete'
+    exe 'argdelete ' . join(result)
   elseif a:type == 'local'
     exe 'arglocal! ' . join(result)
   endif

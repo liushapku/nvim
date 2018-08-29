@@ -48,8 +48,8 @@ command! -nargs=0 E call buffer#ViewExec('edit')
 command! -nargs=1 Args call buffer#arg_select(<q-args>, 'args')
 " select a subset of buffers to append to args list
 command! -nargs=1 Argadd call buffer#arg_select(<q-args>, 'append')
-" select a subset of buffers to construct to args list
-command! -nargs=1 Argselect call buffer#arg_select(<q-args>, 'replace')
+" delete a subset of buffers from args list
+command! -nargs=1 Argdelete call buffer#arg_select(<q-args>, 'delete')
 " select a subset of buffers to construct local args list
 command! -nargs=1 Arglocal call buffer#arg_select(<q-args>, 'local')
 
