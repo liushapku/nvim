@@ -34,7 +34,7 @@ set showtabline=2
 " this also affects which window is held no expansion when close window
 "set splitright
 "set autochdir
-set noea
+set equalalways
 "set cursorline
 set switchbuf+=useopen
 set cmdheight=2
@@ -55,8 +55,13 @@ nnoremap <F2> :<C-U>NERDTreeTabsToggle<CR>
 nnoremap <F3> :<C-U>w<cr>:so%<cr>
 "nnoremap <F4> :<C-U>BD<CR>
 "nnoremap <F5> :<C-U>AsyncRun<Space>
-map <F9> <leader>c<Space>
-imap <F9> <C-O><leader>c<Space>
+map <F9> <Plug>NERDCommenterToggle
+imap <F9> <C-O><Plug>NERDCommenterToggle
+" show syntax group
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> under transparent<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> linked to <"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 
 noremap <C-S> :w<CR>
 imap <C-S> <Esc><C-S>
@@ -117,13 +122,6 @@ noremap <space><bar> :<C-u>set invcursorcolumn<cr>
 noremap g<bar> :<C-u>set invrelativenumber<CR>
 
 
-function! g:IFuncWrapper(Func, key)
-  let F=function(a:Func)
-  call F()
-  return a:key
-endfunction
-inoremap <buffer> <expr> <A-;> g:IFuncWrapper('jedi#show_call_signatures', "")
-
 "cWORD
 cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
 "cword
@@ -137,12 +135,12 @@ cnoremap <C-R><C-L> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '')
 "cwd
 "cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
 cnoremap <C-R><C-J> <C-R>=getcwd()<cr>
-function! g:InputBufName()
+function! s:InputBufName()
   let n = str2nr(input('bufnr: '))
   return n==0? '' : bufname(n)
 endfunction
 "buf name
-cnoremap <C-R><C-B> <C-R>=InputBufName()<cr>
+cnoremap <C-R><C-B> <C-R>=s:InputBufName()<cr>
 "full buf name
 cnoremap <C-R><C-N> <C-R>=fnamemodify(InputBufName(), ':p')<cr>
 
@@ -174,10 +172,6 @@ command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 command! DoFileType doautocmd FileType
 command! Doft doautocmd FileType
 
-function! s:ftplugin_location(system)
-  return (a:system? expand("$VIMRUNTIME") : "~/.vim") . "/ftplugin/" . &filetype . ".vim"
-endfunction
-command! -bang EditFtPlug <mods> exec (<q-mods> . " new " . s:ftplugin_location(<bang>0))
 
 function! SaveRegister(reg)
   " if a:reg == "=", the second parameter 1 will make the function return the
@@ -192,12 +186,22 @@ function! CopyRegister(regfrom, regto)
 endfunction
 command! -nargs=* RegCopy call CopyRegister(<f-args>)
 
-" show syntax group
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> under transparent<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> linked to <"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+function! SaveMark(mk)
+  let themark = "'" . a:mk
+  let saved = getpos(themark)
+  return [themark, saved]
+endfunction
+function! RestoreMark(saved)
+  call setpos(saved[0], saved[1])
+endfunction
 
 function! VimEscape(string, ...)
   let esc = a:0? a:1: get(g:, 'vim_cmdline_escape', '\ ')
   return escape(a:string, esc)
+endfunction
+
+function! CallFunction(Func, key)
+  let F=function(a:Func)
+  call F()
+  return a:key
 endfunction
