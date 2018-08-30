@@ -46,72 +46,71 @@ function! params#GetParams()
 endfunction
 
 function! params#Complete(jump) abort
-  if !exists('b:echodoc')
-  return ''
-  else
-  let [ident, params] = params#GetParams()
-  return join(params, ', ') . (a:jump? "\<esc>%":"")
-  endif
+  for i in range(a:times)
+    if !exists('b:echodoc')
+      return ''
+    else
+    let [ident, params] = params#GetParams()
+      return join(params, ', ') . (a:jump? "\<esc>%":"")
+    endif
+  endfor
 endfunction
 
-function! params#SelectNext()
-  silent normal! vi,
+function! params#GotoNextPara(times) abort
+  for i in range(a:times)
+    call search('[(,]\s*\zs\S')
+  endfor
+endfunction
+function! params#GotoPrevPara(times) abort
+  for i in range(a:times)
+    "call search('[),]', 'bc')
+    call search('[(,]\s*\zs\S', 'b')
+  endfor
+endfunction
+
+function! params#SelectNextPara(times) abort
+  call params#GotoNextPara(a:times)
+  normal vi,
+  call s:auto_select()
+endfunction
+function! params#SelectPrevPara(times) abort
+  call params#GotoPrevPara(a:times)
+  normal vi,
   call s:auto_select()
 endfunction
 
-function! params#GotoNextPara() abort
-  if search('[(,]', 'c')
-    call search('\S', '')
-  endif
-endfunction
-function! params#GotoPrevPara() abort
-  if search('[,)]', 'bc')
-    call search('[(,]\s*\S', 'be')
-  endif
-endfunction
 
-function! params#SelectNextPara() abort
-  if getline('.')[col('.')-1:] !~ '^[(,]'
-    if !search('[(,]', '', line('.')) | return | endif
-  endif
-  call search('\S')
-  silent normal vi,
-  call s:auto_select()
-endfunction
-
-function! params#SelectNextEqual() abort
-  if getline('.')[col('.')-1] != '='
-    call search('[=),]')
-  endif
-  let nextchar = getline('.')[col('.')-1]
-  if nextchar == ',' || nextchar == ')'
-    startinsert
-  else
-    silent normal! l
-    if getline('.')[col('.')-1] == ','
+function! params#SelectNextEqual(times) abort
+  "call search('[=),]'))
+  "call params#GotoNextPara(a:times)
+  "call search('[=),]')
+  for i in range(a:times)
+    if getline('.')[col('.')-1] != '='
+      call search('[=),]')
+    endif
+    let nextchar = getline('.')[col('.')-1]
+    if nextchar == ',' || nextchar == ')'
       startinsert
     else
-      normal v],h
-      call s:auto_select()
+      silent normal! l
+      if getline('.')[col('.')-1] == ','
+        startinsert
+      else
+        normal v],h
+        call s:auto_select()
+      endif
     endif
-  endif
+  endfor
 endfunction
 
-function! params#SelectPrevPara() abort
-  if getline('.')[col('.')-1:] !~ '^[),]'
-    silent normal! ?[),]
-  endif
-  silent normal ?[(,]?;/\S/
-  normal! v/[,)]/eh
-  call s:auto_select()
-endfunction
-
-function! params#SelectPrevEqual() abort
-  if getline('.')[col('.')-1:] !~ '^[),]'
-    silent normal! ?,?
-  endif
-  silent normal! ?[=,]?
-  call SelectNextEqual()
+function! params#SelectPrevEqual(times) abort
+  for i in range(a:times)
+    if getline('.')[col('.')-1:] !~ '^[),]'
+      silent normal! ?,?
+    endif
+    silent normal! ?[=,]?
+    call SelectNextEqual()
+  endfor
 endfunction
 
 function! params#GotoFunction(times) abort
@@ -137,7 +136,7 @@ function! params#GotoFunctionEnd(times) abort
   let line = getline('.')
   let pos = col('.') - 1
   let stack = a:times
-  for i in range(pos, col('$'))
+  for i in range(pos, col('$')-1)
     if line[i] == '(' && i!=pos
       let stack += 1
     elseif line[i] == ')'
