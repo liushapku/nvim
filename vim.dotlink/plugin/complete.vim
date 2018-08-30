@@ -66,3 +66,4 @@ augroup CompleteAu
   autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
 augroup END
 
+inoremap <buffer> <expr> <A-;> CallFunction('jedi#show_call_signatures', "")
