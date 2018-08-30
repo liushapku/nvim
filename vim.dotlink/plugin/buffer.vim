@@ -53,3 +53,4 @@ command! -nargs=1 Argdelete call buffer#arg_select(<q-args>, 'delete')
 " select a subset of buffers to construct local args list
 command! -nargs=1 Arglocal call buffer#arg_select(<q-args>, 'local')
 
+command! -bang FtPlug <mods> exec (<q-mods> . " new " . buffer#ftplugin_location(<bang>0))
