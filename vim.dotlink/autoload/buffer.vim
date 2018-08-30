@@ -307,3 +307,7 @@ function! buffer#TogglePlug(name, ftplugin)
   endif
   exe "edit" fname
 endfunction
+
+function! buffer#ftplugin_location(system)
+  return (a:system? expand("$VIMRUNTIME") : "~/.vim") . "/ftplugin/" . &filetype . ".vim"
+endfunction

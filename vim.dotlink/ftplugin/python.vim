@@ -14,7 +14,7 @@ command! -buffer Print3 s/print\s\+\(.*\)$/print(\1)/
 nmap <buffer> ]} ]m
 nmap <buffer> [{ [m
 
-let &l:errorformat= g:python_traceback_format
+let &errorformat= g:python_traceback_format
 setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,#
 setlocal completeopt-=preview
 "let b:deoplete_disable_auto_complete = 1
