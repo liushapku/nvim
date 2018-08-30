@@ -117,3 +117,59 @@ function! vimlocation#edit_function(mods, pedit, function) abort
   endif
 endfunction
 
+function! vimlocation#ExeLines() range
+  let tmp = vimlocation#SaveRegister("#")
+  try
+    let file = tempname()
+    exe ("silent " . a:firstline . "," . a:lastline . "write " . file)
+    exe 'so'  file
+    call delete(file)
+  finally
+    call vimlocation#RestoreRegister(tmp)
+  endtry
+endfunction
+
+function! vimlocation#ExeReg(reg)
+  exec substitute(eval("@".a:reg), "\n", "", "")
+endfunction
+
+" command -range=-1 and default to the current line, pass MagicRange(<count>)
+" as argument
+function! vimlocation#MagicRange(count)
+  return a:count ==-1? line('.') : a:count
+endfunction
+
+function! vimlocation#SaveRegister(reg)
+  " if a:reg == "=", the second parameter 1 will make the function return the
+  " express instead of the number
+  return [a:reg, getreg(a:reg, 1), getregtype(a:reg)]
+endfunction
+
+function! vimlocation#RestoreRegister(values)
+  call setreg(a:values[0], a:values[1], a:values[2])
+endfunction
+
+function! vimlocation#CopyRegister(regfrom, regto)
+  call setreg(a:regto, getreg(a:regfrom, 1), getregtype(a:regfrom))
+endfunction
+
+function! vimlocation#SaveMark(mk)
+  let themark = "'" . a:mk
+  let saved = getpos(themark)
+  return [themark, saved]
+endfunction
+
+function! vimlocation#RestoreMark(saved)
+  call setpos(saved[0], saved[1])
+endfunction
+
+function! vimlocation#VimEscape(string, ...)
+  let esc = a:0? a:1: get(g:, 'vim_cmdline_escape', '\ ')
+  return escape(a:string, esc)
+endfunction
+
+function! vimlocation#CallFunction(Func, key)
+  let F=function(a:Func)
+  call F()
+  return a:key
+endfunction

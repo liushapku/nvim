@@ -160,7 +160,7 @@ function! params#Surround(motion_wiseness) abort
   endif
   let i = index(a, x)
   let y = i==-1? x:b[i]
-  let saved = SaveRegister("t")
+  let saved = vimlocation#SaveRegister("t")
   try
     silent normal! `["td$
     let line = getline('.')
@@ -168,7 +168,7 @@ function! params#Surround(motion_wiseness) abort
     call setline(line('.'), newline)
     startinsert!
   finally
-    call RestoreRegister(saved)
+    call vimlocation#RestoreRegister(saved)
   endtry
 endfunction
 

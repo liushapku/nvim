@@ -70,31 +70,6 @@ nmap Y y$
 
 let tempdir=fnamemodify(tempname(), ':h')
 
-function! ExeLines() range
-  let tmp = SaveRegister("#")
-  try
-    let file = tempname()
-    exe ("silent " . a:firstline . "," . a:lastline . "write " . file)
-    exe 'so'  file
-    call delete(file)
-  finally
-    call RestoreRegister(tmp)
-  endtry
-endfunction
-nnoremap <leader>e :call ExeLines()<CR>
-vnoremap <leader>e :call ExeLines()<CR>
-function! ExeReg(reg)
-  exec substitute(eval("@".a:reg), "\n", "", "")
-endfunction
-command! -register ExeReg :<c-u>call ExeReg(<q-reg>)<cr>
-
-""""""""""""""""""""""
-" command -range=-1 and default to the current line, pass MagicRange(<count>)
-" as argument
-function! MagicRange(count)
-  return a:count ==-1? line('.') : a:count
-endfunction
-command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
 
 function! TestOp() range
   echo a:firstline
@@ -173,39 +148,6 @@ command! DoFileType doautocmd FileType
 command! Doft doautocmd FileType
 
 
-function! SaveRegister(reg)
-  " if a:reg == "=", the second parameter 1 will make the function return the
-  " express instead of the number
-  return [a:reg, getreg(a:reg, 1), getregtype(a:reg)]
-endfunction
-function! RestoreRegister(values)
-  call setreg(a:values[0], a:values[1], a:values[2])
-endfunction
-function! CopyRegister(regfrom, regto)
-  call setreg(a:regto, getreg(a:regfrom, 1), getregtype(a:regfrom))
-endfunction
-command! -nargs=* RegCopy call CopyRegister(<f-args>)
-
-function! SaveMark(mk)
-  let themark = "'" . a:mk
-  let saved = getpos(themark)
-  return [themark, saved]
-endfunction
-function! RestoreMark(saved)
-  call setpos(saved[0], saved[1])
-endfunction
-
-function! VimEscape(string, ...)
-  let esc = a:0? a:1: get(g:, 'vim_cmdline_escape', '\ ')
-  return escape(a:string, esc)
-endfunction
-
-function! CallFunction(Func, key)
-  let F=function(a:Func)
-  call F()
-  return a:key
-endfunction
-
 let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
 function! s:make_vim_server(on)
   if a:on
@@ -217,3 +159,5 @@ function! s:make_vim_server(on)
   endif
 endfunction
 command! -bang Serve call s:make_vim_server(<bang>0)
+
+command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))

@@ -48,13 +48,13 @@ function! string#MoveLine(noident, line1, line2, ...)
   endtry
 endfunction
 
-command -register -nargs=* TestReg echo "|" . <q-reg> . "|" . <q-args>
+command! -register -nargs=* TestReg echo "|" . <q-reg> . "|" . <q-args>
 " :TestReg abcd   > |a|bcd
 " :TestReg =abc   > ||=abc
 " :TestReg [abc   > ||[abc
 
 function! string#PutCharacterwise(putbefore, reg, others)
-  let savereg = SaveRegister('=')
+  let savereg = vimlocation#SaveRegister('=')
   try
     if a:others == ''
       let content = getreg(a:reg)
@@ -70,7 +70,7 @@ function! string#PutCharacterwise(putbefore, reg, others)
       normal "=tempp
     endif
   finally
-    call RestoreRegister(savereg)
+    call vimlocation#RestoreRegister(savereg)
   endtry
 endfunction
 
