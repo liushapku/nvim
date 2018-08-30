@@ -54,7 +54,6 @@ augroup QuickFixCmdPostAu
   autocmd!
   autocmd QuickFixCmdPost [^l]* call autocmd#QuickFixAuFunc('c')
   autocmd QuickFixCmdPost l*   call autocmd#QuickFixAuFunc('l')
-  autocmd QuickFixCmdPost * call autocmd#AdjustWindowHeight(3, 10)
   "autocmd QuickFixCmdPost *git* echomsg 'git'
   "autocmd QuickFixCmdPost git botright cwindow | call s:SetQFMapsForGlog()
   "autocmd QuickFixCmdPost  botright lwindow | call s:SetQFMapsForGlog()
@@ -74,10 +73,16 @@ function! s:should_fix_whitespace()
     return 0
   endif
 endfunction
-augroup BufWrite
+augroup BufWriteAu
   autocmd!
   autocmd BufWritePre * if s:should_fix_whitespace() | FixWhitespace
 augroup END
 command! DisableAutoFixWhitespace let b:auto_fix_whitespace=0
 command! EnableAutoFixWhitespace let b:auto_fix_whitespace=1
 command! DefaultAutoFixWhitespace unlet b:auto_fix_whitespace
+
+augroup VimAu
+  autocmd!
+  autocmd VimEnter * !touch /tmp/vimenter
+  autocmd VimLeave * !touch /tmp/vimleave
+augroup END

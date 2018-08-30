@@ -205,3 +205,15 @@ function! CallFunction(Func, key)
   call F()
   return a:key
 endfunction
+
+let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
+function! s:make_vim_server(on)
+  if a:on
+    if filereadable(g:listen_address_file)
+      call delete(g:listen_address_file)
+    endif
+  else
+    call writefile([$NVIM_LISTEN_ADDRESS], g:listen_address_file)
+  endif
+endfunction
+command! -bang Serve call s:make_vim_server(<bang>0)

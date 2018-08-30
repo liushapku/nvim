@@ -2,7 +2,7 @@
 function! autocmd#BufWinLeave()
   if &diff
     diffoff!
-       endif
+  endif
 endfunction
 
 function! autocmd#BufWinEnter()
@@ -11,18 +11,23 @@ function! autocmd#BufWinEnter()
   else
     setlocal conceallevel=2
   endif
+
+  if &buftype == 'quickfix'
+    call autocmd#AdjustWindowHeight(3, 10)
+  endif
 endfunction
 
 function! autocmd#WinEnter()
   "Echo "winenter"
   if &buftype == 'quickfix'
-  stopinsert
+    stopinsert
   endif
 endfunction
 
 function! autocmd#BufEnter()
   "Echo  "bufenter"
   call buffer#restore_win_view()
+
   if &buftype == 'quickfix'
   endif
 

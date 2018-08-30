@@ -28,25 +28,42 @@ sid = os.getsid(pid)
 
 # print(sys.argv)
 argparser = argparse.ArgumentParser()
-argparser.add_argument('--WIN', dest='win', help='window to execute cmd')
-argparser.add_argument('--CMD', dest='cmd', action='append', help='cmd to specify the window')
-argparser.add_argument('--SPLIT', dest='split', help='how to split, None or s or v')
+argparser.add_argument('-W', '--WIN', dest='win', help='window to execute cmd')
+argparser.add_argument('-C', '--CMD', dest='cmd', action='append', help='cmd to specify the window')
+argparser.add_argument('-S', '--SPLIT', dest='split', help='how to split, None or s or v')
+argparser.add_argument('-A', '--ATTACH', dest='attach', action='store_true', help='attach to an existing instance')
 myargs, argv = argparser.parse_known_args()
 # For now, treat all arguments that don't start with - or + as filenames. This
 # is good enough to recognize '-f' and `+11`, which is all this script really
 # needs right now.
-try:
-    nvim_socket = os.environ["NVIM_LISTEN_ADDRESS"]
-except KeyError:
+
+
+if not myargs.attach and 'NVIM_LISTEN_ADDRESS' not in os.environ:
     # If we aren't running inside a `:terminal`, just exec nvim.
     os.execvp('nvim', [sys.argv[0]] + argv)
     exit(1)
+
+if myargs.attach:
+    if not argv:
+        exit(1)
+    address_file = os.path.expanduser('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
+    nvim_socket = None
+    if os.path.exists(address_file):
+        for addr in open(address_file):
+            addr = addr.rstrip('\n')
+            if os.path.exists(addr):
+                nvim_socket = addr
+                break
+    # print(address_file, nvim_socket)
+else:
+    nvim_socket = os.environ['NVIM_LISTEN_ADDRESS']
+
 
 try:
     nvim = neovim.attach('socket', path=nvim_socket)
     print('embed')
     isembed = True
-except FileNotFoundError:
+except:
     print('socket does not exist, creating new instance and listen to', nvim_socket)
     os.execvp('nvim', [sys.argv[0]] + argv)
     exit(2)
@@ -65,6 +82,11 @@ newfiles = [f for f in filenames if not nvim.call('buflisted', f)]
 print('allfiles:', filenames)
 print('newfiles:', newfiles)
 
+if address_file:
+    nvim.command('argadd %s' % ' ' .join(filenames))
+    nvim.command('b %s' % filenames[0])
+    exit(0)
+
 if myargs.win is not None:
     nvim.command(myargs.win + 'wincmd w')
 if myargs.split is None:
@@ -74,6 +96,8 @@ elif myargs.split == 's':
     nvim.command('split')
 elif myargs.split == 'v':
     nvim.command('vert split')
+elif myargs.split == 't':
+    nvim.command('tabedit')
 else:
     pass
 
