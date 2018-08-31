@@ -52,8 +52,8 @@ augroup END
 
 augroup QuickFixCmdPostAu
   autocmd!
-  autocmd QuickFixCmdPost [^l]* call autocmd#QuickFixAuFunc('c')
-  autocmd QuickFixCmdPost l*   call autocmd#QuickFixAuFunc('l')
+  autocmd QuickFixCmdPost [^l]* call autocmd#QuickFixPostAuFunc('c')
+  autocmd QuickFixCmdPost l*   call autocmd#QuickFixPostAuFunc('l')
   "autocmd QuickFixCmdPost *git* echomsg 'git'
   "autocmd QuickFixCmdPost git botright cwindow | call s:SetQFMapsForGlog()
   "autocmd QuickFixCmdPost  botright lwindow | call s:SetQFMapsForGlog()

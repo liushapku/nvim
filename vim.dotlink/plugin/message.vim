@@ -22,7 +22,7 @@ function! EchoMsg(type, ...)
 endfunction
 
 function! Echo(escape, ...)
-  let list = a:escape? map(copy(a:000), {i, s->VimEscape(s, ' \')}): a:000
+  let list = a:escape? map(copy(a:000), {i, s->vimlocation#VimEscape(s, ' \')}): a:000
   echo join(list, '|')
 endfunction
 

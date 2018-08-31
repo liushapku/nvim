@@ -69,6 +69,9 @@ function! autocmd#FileOpen()
 endfunction
 
 " fugitive
+function! s:Gg(arg, ...)
+  let g:Ggrep_pattern = a:arg
+endfunction
 function! autocmd#FugitiveAddCustomCommands()
   let in_git = exists('b:git_dir') || fugitive#extract_git_dir(expand('%:p')) !=# ''
   if in_git && !get(b:, 'fugitive_custom_commands', 0)
@@ -81,17 +84,27 @@ function! autocmd#FugitiveAddCustomCommands()
     command -buffer -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
     command -buffer -nargs=* GDiff only | Gdiff <args>
     command -buffer -nargs=* Gd tabedit % | Gvdiff <args>
+    command -buffer -nargs=+ Gg call s:Gg(<f-args>) | Ggrep <args>
   endif
 endfunction
 
-function! autocmd#QuickFixAuFunc(mode)
+function! autocmd#QuickFixPostAuFunc(mode)
   "Echo 'quickfix'
+  if &grepprg =~# '^git\>.*\<grep\>' && exists('g:Ggrep_pattern')
+    let lst = getqflist()
+    for i in range(len(lst))
+      let item = lst[i]
+      let item.col = match(item.text, g:Ggrep_pattern) + 1
+      let lst[i] = item
+    endfor
+    unlet g:Ggrep_pattern
+    call setqflist(lst)
+  endif
+
   if a:mode == 'l'
     botright lwindow
   elseif a:mode == 'c'
     botright cwindow
-  else
-    return
   endif
 endfunction
 
