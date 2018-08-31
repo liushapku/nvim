@@ -10,16 +10,19 @@ function! qf#SetQF(data, ...)
   endif
   let opts = a:0 == 0? {} : a:1
   let nojump = get(opts, 'nojump', 0)
-  let tempfile = buffer#tempname()
   let data = type(a:data) == v:t_string?  split(a:data, "\n") : a:data
-  let strs = filter(data, 'v:val != ""')
-  call writefile(strs, tempfile)
-  let position = get(opts, 'location', 'quickfix')
-  let cmd = position == 'quickfix' ? 'cg ' : 'lg '
+  let qflist = filter(data, 'v:val != ""')
   let oldefm = &efm
   let &efm = get(opts, 'efm', &efm)
+  let position = get(opts, 'location', 'quickfix')
+  let cmd = position == 'quickfix'? 'cexpr qflist' : 'lexpr qflist'
+
   try
-    exec cmd . tempfile
+    if position == 'quickfix'
+      cexpr qflist
+    else
+      lexpr qflist
+    endif
     bo cw
     if nojump
       wincmd p
