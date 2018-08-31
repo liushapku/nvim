@@ -30,6 +30,7 @@ sid = os.getsid(pid)
 argparser = argparse.ArgumentParser()
 argparser.add_argument('-W', '--WIN', dest='win', help='window to execute cmd')
 argparser.add_argument('-C', '--CMD', dest='cmd', action='append', help='cmd to specify the window')
+argparser.add_argument('-D', '--DIFF', dest='diff', action='store_true', help='diff the files')
 argparser.add_argument('-S', '--SPLIT', dest='split', help='how to split, None or s or v')
 argparser.add_argument('-A', '--ATTACH', dest='attach', action='store_true', help='attach to an existing instance')
 myargs, argv = argparser.parse_known_args()
@@ -43,6 +44,7 @@ if not myargs.attach and 'NVIM_LISTEN_ADDRESS' not in os.environ:
     os.execvp('nvim', [sys.argv[0]] + argv)
     exit(1)
 
+address_file = None
 if myargs.attach:
     if not argv:
         exit(1)
@@ -82,24 +84,29 @@ newfiles = [f for f in filenames if not nvim.call('buflisted', f)]
 print('allfiles:', filenames)
 print('newfiles:', newfiles)
 
-if address_file:
-    nvim.command('argadd %s' % ' ' .join(filenames))
-    nvim.command('b %s' % filenames[0])
-    exit(0)
-
 if myargs.win is not None:
     nvim.command(myargs.win + 'wincmd w')
-if myargs.split is None:
+
+if myargs.diff:
+    nvim.command('tabnew')
+elif myargs.split is None:
     if myargs.win is None:
         nvim.command('split')
 elif myargs.split == 's':
-    nvim.command('split')
+    nvim.command('snew')
 elif myargs.split == 'v':
-    nvim.command('vert split')
+    nvim.command('vert snew')
 elif myargs.split == 't':
-    nvim.command('tabedit')
+    nvim.command('tabnew')
 else:
     pass
+
+if address_file:
+    nvim.command('arglocal | args %s' % ' ' .join(filenames))
+    if myargs.diff:
+        nvim.command('vert all')
+        nvim.command('windo diffthis')
+    exit(0)
 
 if pid == pgid:
     if filenames:
