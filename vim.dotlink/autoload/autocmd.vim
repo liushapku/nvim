@@ -98,7 +98,7 @@ function! autocmd#QuickFixPostAuFunc(mode)
       let lst[i] = item
     endfor
     unlet g:Ggrep_pattern
-    call setqflist(lst)
+    call setqflist(lst, 'r')
   endif
 
   if a:mode == 'l'

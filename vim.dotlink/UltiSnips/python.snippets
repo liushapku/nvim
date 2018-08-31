@@ -13,10 +13,17 @@ snippet "('[^']*')f" "fstring" r
 `!p snip.rv = "f" + match.group(1)`
 endsnippet
 
-snippet "\[(.*\])([qQ])" "quote each item" r
+snippet "\[(.*\])([qQ])" "quote each word" r
 `!p
 q = "'" if match.group(2) == 'q' else '"'
 snip.rv = "[" + re.sub(r'([^,]+)([],]) *', q + r'\1' + q + r'\2 ', match.group(1))[:-1]
+`
+endsnippet
+
+snippet "\((.*\))([qQ])" "quote each item" r
+`!p
+q = "'" if match.group(2) == 'q' else '"'
+snip.rv = "(" + re.sub(r'([^,]+)([),]) *', q + r'\1' + q + r'\2 ', match.group(1))[:-1]
 `
 endsnippet
 

@@ -96,18 +96,22 @@ endfunction
 function! vimlocation#edit_function(mods, pedit, function) abort
   let afunction = a:function == ''? expand("<cword>") : a:function
   try
-    let file = vimlocation#function(afunction)
+    if afunction =~# '^s:'
+      " the same file
+    else
+      let file = vimlocation#function(afunction)
+      if a:pedit
+        exe a:mods 'pedit' file
+        wincmd P
+      elseif !empty(a:mods)
+        exe a:mods 'new' file
+      else
+        exe 'edit' file
+      endif
+    endif
   catch
     echoerr v:exception
   endtry
-  if a:pedit
-    exe a:mods 'pedit' file
-    wincmd P
-  elseif !empty(a:mods)
-    exe a:mods 'new' file
-  else
-    exe 'edit' file
-  endif
   call search('function!\?\s\+\<'. afunction . '\>')
   call search(afunction)
   if a:pedit

@@ -2,9 +2,11 @@
 " qf#SetQF(lines[, option_dic])
 " option_dic: key:
 "   nojump: do not jump, default 0
-function! qf#SetQF(data, ...)
+function! qf#SetQF(data, ...) abort
+  let workspacepat = substitute($WORKSPACE, 'workspace[0-9]', 'workspace[0-9]', '')
+  let workspacetarget = $WORKSPACE
   if a:data is ''
-    call setqflist([])
+    call setqflist([], 'r')
     cclose
     return
   endif
@@ -12,6 +14,9 @@ function! qf#SetQF(data, ...)
   let nojump = get(opts, 'nojump', 0)
   let data = type(a:data) == v:t_string?  split(a:data, "\n") : a:data
   let qflist = filter(data, 'v:val != ""')
+  let qflist = map(qflist, 'substitute(v:val, "^/site/home", "/home", "")')
+  let qflist = map(qflist, 'substitute(v:val, workspacepat, workspacetarget, "")')
+  "echo join(qflist, "\n") . "\n"
   let oldefm = &efm
   let &efm = get(opts, 'efm', &efm)
   let position = get(opts, 'location', 'quickfix')
@@ -77,4 +82,24 @@ function! qf#LocateQF()
     return ''
   endif
   return getline(l1+1, l2)
+endfunction
+
+function! qf#Search(pat, backward, mode)
+  let lstinfo = getqflist({'winid':1, 'items':1})
+  let lst = lstinfo['items']
+  let winid = lstinfo['winid']
+  for i in range(len(lst))
+    let bufnr = lst[i].bufnr
+    if a:mode == 'file'
+      let match = (bufnr != 0 && bufname(bufnr) =~# a:pat)
+    elseif a:mode == 'text'
+      let match = lst[i].text =~# a:pat
+    else
+      let match = (bufnr != 0 && bufname(bufnr) =~# a:pat) || lst[i].text =~# a:pat
+    endif
+    if match
+      exec "cc" (i+1)
+      break
+    endif
+  endfor
 endfunction

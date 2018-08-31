@@ -83,6 +83,6 @@ command! DefaultAutoFixWhitespace unlet b:auto_fix_whitespace
 
 augroup VimAu
   autocmd!
-  autocmd VimEnter * !touch /tmp/vimenter
-  autocmd VimLeave * !touch /tmp/vimleave
+  "autocmd VimEnter * !touch /tmp/vimenter
+  "autocmd VimLeave * !touch /tmp/vimleave
 augroup END

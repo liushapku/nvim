@@ -15,8 +15,8 @@ nmap <buffer> [e :<c-u>call <SID>Next('4[0-9]', 1, v:count1)<cr>
 nmap <buffer> ]w :<c-u>call <SID>Next('3[0-9]', 0, v:count1)<cr>
 nmap <buffer> [w :<c-u>call <SID>Next('3[0-9]', 1, v:count1)<cr>
 
-nmap <buffer> ]c :call <SID>Next('5[0-9]', 0, v:count1)<cr>
-nmap <buffer> [c :call <SID>Next('5[0-9]', 1, v:count1)<cr>
+nmap <buffer> ]r :call <SID>Next('5[0-9]', 0, v:count1)<cr>
+nmap <buffer> [r :call <SID>Next('5[0-9]', 1, v:count1)<cr>
 
 nmap <buffer> ]d :call <SID>Next('1[0-9]', 0, v:count1)<cr>
 nmap <buffer> [d :call <SID>Next('1[0-9]', 1, v:count1)<cr>
