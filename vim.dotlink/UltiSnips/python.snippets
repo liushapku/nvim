@@ -1,10 +1,35 @@
 # change 'cond ? a : b ??' to a if cond else b
-snippet "\s*([^=]+)\s*\?\s*(.+)\s*:\s*(.*)\s*\?\?" "tenary" r
+snippet "\s*([^=]+)\s*\?\s*(.+)\s*:\s*(.*)\s*\?\?" "tenary: x if y else z" r
 `!p snip.rv = ' '.join(['', match.group(2), 'if', match.group(1), 'else', match.group(3)])`
 endsnippet
 
 # options:
 # b: beginning of line
-snippet docln "one line doc string (triple quotes)" b
+snippet "" "one line doc string (triple quotes)" b
 """$1"""
+endsnippet
+
+snippet "('[^']*')f" "fstring" r
+`!p snip.rv = "f" + match.group(1)`
+endsnippet
+
+snippet "\[(.*\])([qQ])" "quote each item" r
+`!p
+q = "'" if match.group(2) == 'q' else '"'
+snip.rv = "[" + re.sub(r'([^,]+)([],]) *', q + r'\1' + q + r'\2 ', match.group(1))[:-1]
+`
+endsnippet
+
+snippet "\{(.*\})([qQ])" "quote each key" r
+`!p
+q = "'" if match.group(2) == 'q' else '"'
+snip.rv = "{" + re.sub(r'([^:,]+) *:([^:,]+) *([},]) *', q+r'\1'+q + r' : \2\3 ', match.group(1))[:-1]
+`
+endsnippet
+
+snippet "\{(.*\})([qQ]{2})" "quote each key and val" r
+`!p
+q = "'" if match.group(2) == 'qq' else '"'
+snip.rv = "{" + re.sub(r'([^:,]+) *:([^:,]+) *([},]) *', q+r'\1'+q+r' : '+q+r'\2'+q+r'\3 ', match.group(1))[:-1]
+`
 endsnippet
