@@ -167,6 +167,6 @@ function! s:prepend_space(line1, line2)
   let x = getline(a:line1, a:line2)
   call map(x, 'substitute(v:val, "^", "    ", "g")')
   call setreg('*', x, 'l')
+  call setreg('"', x, 'l')
 endfunction
 command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
-						*'cmdheight'* *'ch'*
