@@ -1,7 +1,8 @@
 
 function! textobject#find_line_length(type, backward)
   let cline = line('.')
-  let ccol = len(getline(cline))
+  let length = len(getline(cline))
+  let ccol = col('.')
 
   if a:backward
     let lines = range(cline, 1, -1)
@@ -9,8 +10,7 @@ function! textobject#find_line_length(type, backward)
     let lines = range(cline, line('$'))
   endif
   for x in lines
-    let diff = len(getline(x)) - ccol
-    "echo x len(getline(x)) ccol diff a:type
+    let diff = len(getline(x)) - length
     if a:type == 'shorter' && diff < 0
       let x = a:backward? x+1: x-1
       break
@@ -24,12 +24,8 @@ function! textobject#find_line_length(type, backward)
   endfor
   if a:backward
     call setpos("'<", [0, x, ccol, 0])
-    "echo "normal" x . "G"
-    "pxe "normal" x . "G"
   else
     call setpos("'>", [0, x, ccol, 0])
-    "echo "normal" x . "G"
-    "exe "normal" x . "G"
   endif
 endfunction
 
