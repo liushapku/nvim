@@ -1,8 +1,8 @@
 
-function! textobject#find_line_length(type, backward)
-  let cline = line('.')
+function! textobject#find_line_length(type, backward, select)
+  let cline = a:backward? getpos("'<")[1]: getpos("'>")[1]
+  let ccol = a:backward? getpos("'<")[2]: getpos("'>")[2]
   let length = len(getline(cline))
-  let ccol = col('.')
 
   if a:backward
     let lines = range(cline, 1, -1)
@@ -23,14 +23,21 @@ function! textobject#find_line_length(type, backward)
     endif
   endfor
   if a:backward
+    let saveother = getpos("'>")
     call setpos("'<", [0, x, ccol, 0])
+    call setpos("'>", saveother)
   else
+    let saveother = getpos("'<")
     call setpos("'>", [0, x, ccol, 0])
+    call setpos("'<", saveother)
+  endif
+  if a:select
+    execute "normal gv" . (a:backward?'o':'')
   endif
 endfunction
 
 " define a visual mode motion and operator pending mode motion
 function! textobject#define(mapstr, command)
   exe "vmap" a:mapstr a:command
-  exe "omap" a:mapstr ":normal v" . a:mapstr . "<cr>"
+  exe "omap" a:mapstr ":normal V" . a:mapstr . "<cr>"
 endfunction
