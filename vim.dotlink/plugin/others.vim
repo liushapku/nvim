@@ -151,29 +151,3 @@ command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 
 command! Tc tabclose | tabprevious
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
-
-function! s:find_shorter_line(backward)
-  let cline = line('.')
-  let ccol = col('.')
-  if a:backward
-    let lines = range(cline, 1, -1)
-  else
-    let lines = range(cline, line('$'))
-  endif
-  for x in lines
-    if len(getline(x)) < ccol
-      break
-    endif
-  endfor
-  if !a:backward
-    exe "normal" (x-1) . "G"
-  else
-    exe "normal" (x+1) . "G"
-  endif
-endfunction
-nnoremap ;s :<c-u>GotoShorter<cr>
-nnoremap ;S :<c-u>GotoShorter!<cr>
-vnoremap ;s :<c-u>GotoShorter<cr>m>gvV
-vnoremap ;S :<c-u>GotoShorter!<cr>m<gvV
-onoremap ;s V:<c-u>GotoShorter<cr>
-onoremap ;S V:<c-u>GotoShorter!<cr>
