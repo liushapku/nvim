@@ -66,9 +66,13 @@ try:
     print('embed')
     isembed = True
 except:
+    if myargs.attach:
+        print(f'cannot attach to {nvim_socket}, maybe no server is running.\nExecute :Serve in the server')
+        exit(2)
+
     print('socket does not exist, creating new instance and listen to', nvim_socket)
     os.execvp('nvim', [sys.argv[0]] + argv)
-    exit(2)
+    exit(0)
 
 existing_buffers = get_listed_buffers(nvim)
 if myargs.cmd is not None:
