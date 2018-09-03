@@ -149,15 +149,24 @@ command! Doft doautocmd FileType
 
 
 let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
-function! s:make_vim_server(on)
-  if a:on
+function! s:make_vim_server(off)
+  if a:off
     if filereadable(g:listen_address_file)
       call delete(g:listen_address_file)
     endif
   else
     call writefile([$NVIM_LISTEN_ADDRESS], g:listen_address_file)
+    autocmd VimLeave * Serve!
   endif
 endfunction
 command! -bang Serve call s:make_vim_server(<bang>0)
 
 command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
+
+function! s:prepend_space(reg)
+  let x = getreg(a:reg, 1, 1)
+  let t = getregtype(a:reg)
+  call map(x, 'substitute(v:val, "^", "    ", "g")')
+  call setreg(a:reg, x, t)
+endfunction
+command! -range CopyCode :<line1>,<line2>yank | call s:prepend_space('"')

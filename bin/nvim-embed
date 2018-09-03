@@ -93,11 +93,11 @@ elif myargs.split is None:
     if myargs.win is None:
         nvim.command('split')
 elif myargs.split == 's':
-    nvim.command('snew')
+    nvim.command('split')
 elif myargs.split == 'v':
-    nvim.command('vert snew')
+    nvim.command('vsplit')
 elif myargs.split == 't':
-    nvim.command('tabnew')
+    nvim.command('tab split')
 else:
     pass
 
