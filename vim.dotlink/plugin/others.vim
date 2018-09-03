@@ -52,9 +52,7 @@ filetype plugin indent on
 cnoremap <c-s> /<bs><tab><tab>
 
 nnoremap <F2> :<C-U>NERDTreeTabsToggle<CR>
-nnoremap <F3> :<C-U>w<cr>:so%<cr>
-"nnoremap <F4> :<C-U>BD<CR>
-"nnoremap <F5> :<C-U>AsyncRun<Space>
+"nnoremap <F5> :<c-u>!xdg-open %<cr>
 map <F9> <Plug>NERDCommenterToggle
 imap <F9> <C-O><Plug>NERDCommenterToggle
 " show syntax group
@@ -71,23 +69,6 @@ nmap Y y$
 let tempdir=fnamemodify(tempname(), ':h')
 
 
-function! TestOp() range
-  echo a:firstline
-  echo a:lastline
-  echo 'good222'
-  echo 'bad'
-endfunction
-
-function! GetMotionRange(type)
-  if a:type=='line'
-    return "'[V']"
-  elseif a:type=='char'
-    return "`[v`]"
-  else
-    return "`[\<C-V>`]"
-  endif
-endfunction
-
 " detect git folder
 nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
 " cd to folder containing current dir
@@ -95,7 +76,6 @@ nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
 noremap <space>- :<C-u>set invcursorline<cr>
 noremap <space><bar> :<C-u>set invcursorcolumn<cr>
 noremap g<bar> :<C-u>set invrelativenumber<CR>
-
 
 "cWORD
 cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
@@ -161,7 +141,6 @@ function! s:make_vim_server(off)
 endfunction
 command! -bang Serve call s:make_vim_server(<bang>0)
 
-command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
 
 function! s:prepend_space(line1, line2)
   let x = getline(a:line1, a:line2)
@@ -170,3 +149,6 @@ function! s:prepend_space(line1, line2)
   call setreg('"', x, 'l')
 endfunction
 command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
+
+command! Tc tabclose | tabprevious
+command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada

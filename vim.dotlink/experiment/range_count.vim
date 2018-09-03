@@ -1,41 +1,37 @@
+command! -range                  TestRange1 : echo <count> <line1> <line2>
+command! -range=%                TestRange2 : echo <count> <line1> <line2>
+command! -range=3                TestRange3 : echo <count> <line1> <line2>
+command! -range=0                TestRange4 : echo <count> <line1> <line2>
+command! -range=-4               TestRange5 : echo <count> <line1> <line2>
+command! -range=-4 -addr=windows TestRange6 : echo <count> <line1> <line2>
+command! -range    -addr=windows TestRange7 : echo <count> <line1> <line2>
+command! -range    -addr=buffers TestRange8 : echo <count> <line1> <line2>
+command! -range=-999999          TestRange9 : echo <count> <line1> <line2>
+command! -count                  TestCount1 : echo <count> <line1> <line2>
+command! -count=3                TestCount2 : echo <count> <line1> <line2>
+command! -count=0                TestCount3 : echo <count> <line1> <line2>
+command! -count=-3               TestCount4 : echo <count> <line1> <line2>
+command!                         TestNoop1  : echo <count> <line1> <line2>
+command!           -addr=windows TestNoop2  : echo <count> <line1> <line2>
+command!           -addr=buffers TestNoop3  : echo <count> <line1> <line2>
 
-" For <line1>: when range is specified or range is not specified but -range=%
-" or -range, it will get a new value (c for -range, 1 for -range=%), otherwise it is c
-" psudo code
-" if hasrange
-"     line1 = line1
-" else
-"     use line1 default
-" where line1 default =
-" if has -range=%
-"     return = 1
-" else
-"     return = c
-*******************
-" for <count> and <line2>
-" if hascount
-"    count = line2 = count
-" elif hasrange
-"    count = line2 = line2
-" else
-"    use count default
-"    use line2 default
-"
-" where count default =
-" if has -count=N
-"    return N>=0? N: 0
-" elif has -range=N
-"    return N
-" else
-"    return -1
-"
-" where line2 default =
-" if has -range=%
-"    return $
-" else has -range
-"    if no -addr:
-"        return c
-"    else:
-"        return 1
-" else (-range=N or no -range)
-"    return 1
+" |                            | <count>   | <line1> | <line2>         |
+" | :mCommand                  | f(m)      | f(m)    | f(m)            |
+" | :0Command -range[=%]       | 1         | 1       | 1               |
+" | :0Command -{range,count}=N | 0         | 0       | 0               |
+" | :nCommand                  | n         | n       | n               |
+" | :-nCommand                 | c-n       | c-n     | c-n             |
+" | :l1,l2Command              | f(l2)     | f(l1)   | f(l2)           |
+" | :Command                   | ****      | ****    | ****            |
+" |     -range                 | -1        | c       | -addr=line? c:1 |
+" |     -range=%               | -1        | 1       | $               |
+" |     -range=N               | N         | c       | 1               |
+" |     -count                 | 0         | c       | 1               |
+" |     -count=N               | N>=0? N:0 | c       | 1               |
+" |     -nothing-              | -1        | c       | -addr=line? c:1 |
+
+"c = current line/buffer... depending on -addr
+"$ = the last line/buffer... depending on -addr
+"m is any integer, n is positive integer
+"l1,l2 should be a valid range,
+"-nothing- means no -range[=x] nor -count[=x] is specified
