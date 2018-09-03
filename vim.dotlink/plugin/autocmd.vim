@@ -17,9 +17,9 @@ augroup FileTypeAu
   autocmd FileType vim,markdown TabSet 2
 augroup END
 " with !, set globally
-command! -nargs=1 -bang TabSet call s:tab_set(<bang>0, <args>)
-function! s:tab_set(bang, n)
-  let set = a:bang? 'set': 'setlocal'
+command! -nargs=1 -bang TabSet call s:tab_set(<bang>1, <args>)
+function! s:tab_set(local, n)
+  let set = a:local? 'setlocal': 'set'
   exe printf('%s expandtab tabstop=%d softtabstop=%d shiftwidth=%d', set, a:n, a:n, a:n)
 endfunction
 

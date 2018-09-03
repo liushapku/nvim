@@ -16,3 +16,5 @@ vmap <buffer> ;D y:<c-u>EditCommand <c-r>*<cr>
 setlocal iskeyword+=:
 nnoremap <buffer> ;E :<c-u>so %<cr>
 inoremap <buffer> ;E <esc>:w<cr>:so %<cr>
+
+setlocal expandtab tabstop=2 softtabstop=2 shiftwidth=2
