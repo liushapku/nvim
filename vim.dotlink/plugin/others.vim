@@ -11,7 +11,7 @@ set title
 set shortmess+=c
 set virtualedit=block
 set timeoutlen=400
-set clipboard=unnamedplus,unnamed
+set clipboard=unnamed
 set hidden
 set autoindent cindent
 "set smartindent
@@ -163,10 +163,10 @@ command! -bang Serve call s:make_vim_server(<bang>0)
 
 command! -narg=+ -range=-1 Redir call append(MagicRange(<count>), split(execute(<q-args>), "\n"))
 
-function! s:prepend_space(reg)
-  let x = getreg(a:reg, 1, 1)
-  let t = getregtype(a:reg)
+function! s:prepend_space(line1, line2)
+  let x = getline(a:line1, a:line2)
   call map(x, 'substitute(v:val, "^", "    ", "g")')
-  call setreg(a:reg, x, t)
+  call setreg('*', x, 'l')
 endfunction
-command! -range CopyCode :<line1>,<line2>yank | call s:prepend_space('"')
+command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
+						*'cmdheight'* *'ch'*
