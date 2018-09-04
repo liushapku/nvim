@@ -42,6 +42,18 @@ function! textobject#define(mapstr, command, mode)
   endif
 endfunction
 
+":h map-expression
+" NOW we can use Cmd map, see :h map-cmd
+"Be very careful about side effects!  The expression is evaluated while
+"obtaining characters, you may very well make the command dysfunctional.
+"For this reason the following is blocked:
+"- Changing the buffer text |textlock|.
+"- Editing another buffer.
+"- The |:normal| command.
+"- Moving the cursor is allowed, but it is restored afterwards.
+"- If the cmdline is changed, the old text and cursor position are restored.
+"If you want the mapping to do any of these let the returned characters do
+"that. Or use a |<Cmd>| mapping (which doesn't have these restrictions).
 function! textobject#define_all(list)
   for x in a:list
     let [mapstr, acommand] = x[:2]  " allow the rest to be comments
