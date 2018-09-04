@@ -46,6 +46,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 let g:UltiSnipsEditSplit="normal"
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+command! Snip UltiSnipsEdit
 
 
 "" Enter: complete&close popup if visible (so next Enter works); else: break undo

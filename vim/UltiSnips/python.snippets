@@ -40,3 +40,11 @@ q = "'" if match.group(2) == 'qq' else '"'
 snip.rv = "{" + re.sub(r'([^:,]+) *:([^:,]+) *([},]) *', q+r'\1'+q+r' : '+q+r'\2'+q+r'\3 ', match.group(1))[:-1]
 `
 endsnippet
+
+snippet "^import (\S+)" "import => import from" r
+`!p snip.rv = "from " + match.group(1) + " import "`
+endsnippet
+
+snippet "^from (\S+) import.*" "import from => import" r
+`!p snip.rv = "import " + match.group(1)`
+endsnippet
