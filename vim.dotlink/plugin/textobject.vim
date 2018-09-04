@@ -81,25 +81,20 @@ vmap a. :<c-u>call <SID>Select(['.'], 0)<cr>
 omap i. :normal vi.<cr>
 omap a. :normal va.<cr>
 
-" from current line to the next line that is shorter than current (both exclusive)
-nnoremap ;s :<c-u>call textobject#find_line_length('shorter', 0)<cr>`>
-" from current line to the previous line that is shorter than current (both exclusive)
-nnoremap ;S :<c-u>call textobject#find_line_length('shorter', 1)<cr>`<
-call textobject#define(";s", ':<c-u>call textobject#find_line_length("shorter", 0)<cr>gvV')
-call textobject#define(";S", ':<c-u>call textobject#find_line_length("shorter", 1)<cr>gvV')
+" cline to next line shorter (exclusive)
+" cline to prev line shorter (exclusive)
+" cline to next line longer (exclusive)
+" cline to prev line longer (exclusive)
+" prev line shorter to next line shorter (exclusive)
+" prev line longer to next line longer (exclusive)
+" prev line having a different length to the next line having a different length (exclusive)
+call textobject#define_all([
+      \ [";s", '<SID>FindLineLen("<", 0)'],
+      \ [";S", '<SID>FindLineLen("<", 1)'],
+      \ [";l", '<SID>FindLineLen(">", 0)'],
+      \ [";L", '<SID>FindLineLen(">", 1)'],
+      \ ["il", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("<", 1)."o".<SID>FindLineLen("<", 0)'],
+      \ ["iL", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen(">", 1)."o".<SID>FindLineLen(">", 0)'],
+      \ ["i=", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("=", 1)."o".<SID>FindLineLen("=", 0)'],
+      \ ])
 
-" from current line to the next line that is longer than current (both exclusive)
-nnoremap ;l :<c-u>call textobject#find_line_length('longer', 0)<cr>`>
-" from current line to the previous line that is longer than current (both exclusive)
-nnoremap ;L :<c-u>call textobject#find_line_length('longer', 1)<cr>`<
-call textobject#define(";l", ':<c-u>call textobject#find_line_length("longer", 0)<cr>gvV')
-call textobject#define(";L", ':<c-u>call textobject#find_line_length("longer", 1)<cr>gvV')
-
-" from the previous line that is shorter to the next line that is shorter
-call textobject#define("il", ':<c-u>call textobject#find_line_length("shorter", 1)<cr>:call textobject#find_line_length("shorter", 0)<cr>gvV')
-" from the previous line that is longer to the next line that is longer (both
-" exclusive)
-call textobject#define("iL", ':<c-u>call textobject#find_line_length("longer", 1)<cr>:call textobject#find_line_length("longer", 0)<cr>gvV')
-" from the previous line that has a different length to the next line that has
-" a different length (both exclusive)
-call textobject#define("i=", ':<c-u>call textobject#find_line_length("equal", 1)<cr>:call textobject#find_line_length("equal", 0)<cr>gvV')
