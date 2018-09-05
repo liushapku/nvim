@@ -11,10 +11,16 @@ augroup BufAu
   " quickfix window  s/v to open in split window,  ,gd/,jd => quickfix window => open it
 augroup END
 
+"augroup TestAu
+"  autocmd!
+"  autocmd BufWritePost * echomsg "write done"
+"augroup END
+
 augroup FileTypeAu
   autocmd!
   autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
   autocmd FileType vim,markdown TabSet 2
+  autocmd FileType help set buftype=help
 augroup END
 " with !, set globally
 command! -nargs=1 -bang TabSet call s:tab_set(<bang>1, <args>)
@@ -43,12 +49,6 @@ augroup FileAu
   autocmd BufNewFile,BufRead * call autocmd#FileOpen()
   autocmd BufNewFile,BufRead * call autocmd#FugitiveAddCustomCommands()
 augroup END
-
-  "command -nargs=+ GCommit Gcommit -m<q-args>
-  "command -nargs=+ Gamend Gcommit --amend -m<q-args>
-  "command -nargs=+ Gwc Gwrite <bar> Gcommit -m<q-args>
-  "command -nargs=0 Gprev Gwrite <bar> Gcommit --amend --no-edit
-  "command -nargs=* GDiff only | Gdiff <args>
 
 augroup QuickFixCmdPostAu
   autocmd!

@@ -146,7 +146,7 @@ nnoremap <c-p>n :<c-u>Snippets<cr>
 nnoremap <c-p>s :<c-u>Startify<cr>
 nnoremap <c-p>t :<c-u>BTags<cr>
 nnoremap <c-p>T :<c-u>Tags<cr>
-nnoremap <c-p>v :<c-u>Files ~/repos/nvim/vim.dotlink<cr>
+nnoremap <c-p>v :<c-u>Files ~/repos/nvim/vim<cr>
 nnoremap <c-p>w :<c-u>Files $WORKSPACE<cr>
 
 " gist

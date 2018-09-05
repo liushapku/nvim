@@ -17,6 +17,7 @@ set autoindent cindent
 "set smartindent
 set wildmode=longest:full,full wildmenu
 set hlsearch noincsearch
+set inccommand=nosplit
 set diffopt+=vertical
 set scrollback=10000
 set keymodel=startsel,stopsel
@@ -36,7 +37,8 @@ set showtabline=2
 set equalalways
 "set cursorline
 set switchbuf+=useopen
-set cmdheight=2
+set cmdheight=3  " this is for the cmdline
+set cmdwinheight=10  " this is for the cmd window (opened using q:)
 set nostartofline
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
