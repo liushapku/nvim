@@ -30,7 +30,7 @@ Plug 'mbbill/undotree'                 " undo tree
 Plug 'scrooloose/nerdtree'             " directory tree
 Plug 'jistr/vim-nerdtree-tabs'         " directory tree
 Plug 'tpope/vim-abolish'               " language friendly searches, substitutions, and abbreviations
-Plug 'flazz/vim-colorschemes'          " color scheme
+Plug 'liushapku/vim-colorschemes'      " color scheme for gruvbox
 Plug 'kassio/neoterm'                  " terminal
 Plug 'kana/vim-textobj-user'           " user defined textobject
 Plug 't9md/vim-quickhl'                " quick highlight
