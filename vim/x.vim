@@ -310,7 +310,6 @@ let g:startify_lists = [
 let g:startify_bookmarks = [
     \ {'x': '~/.vim/x.vim'},
     \ {'o': '~/.vim/plugin/others.vim'},
-    \ '$WORKSPACE/scripts/stock-lasso-fit',
     \ ]
 let g:startify_enable_special      = 0
 let g:startify_files_number        = 20
