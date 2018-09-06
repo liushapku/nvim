@@ -42,7 +42,7 @@ myargs, argv = argparser.parse_known_args()
 if not myargs.attach and 'NVIM_LISTEN_ADDRESS' not in os.environ:
     # If we aren't running inside a `:terminal`, just exec nvim.
     os.execvp('nvim', [sys.argv[0]] + argv)
-    exit(1)
+    exit(0)
 
 address_file = None
 if myargs.attach:
