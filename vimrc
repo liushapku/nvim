@@ -12,7 +12,7 @@ if $COLORTYPE == "truecolor"
 endif
 
 so ~/.vim/x.vim
-set runtimepath^=~/.vim/custom/
+set runtimepath^=~/.vim/custom/vim
 
 " see https://github.com/neovim/neovim/issues/7049
 " this fix strange cursor "\x1b[%p1%d q"
