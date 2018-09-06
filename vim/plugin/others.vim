@@ -153,3 +153,4 @@ command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 
 command! Tc tabclose | tabprevious
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
+nnoremap ;E <Cmd>doautocmd FileType<cr>

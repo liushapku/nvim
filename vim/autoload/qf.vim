@@ -49,10 +49,10 @@ function! qf#GetQFFromNeoterm(type, ...) abort
   if a:type == 'ipython'
       let msg = substitute(@", "\n\n", "\n\n[FILE]:", "g")
       let msg = "[FILE]:" . msg
-      let efm = g:python_traceback_format_ipython
+      let efm = g:efm_python_ipython
   elseif a:type == 'python'
       let msg = string#SearchAndSubstitute(@", '\(\d\+: \)\?  File .*, line \d\+, in \w\+', "$", '():', '')
-      let efm = g:python_traceback_format
+      let efm = g:efm_python
   else
       let msg = @"
       let efm = &efm

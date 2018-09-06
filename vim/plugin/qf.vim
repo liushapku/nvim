@@ -1,34 +1,56 @@
 
 "errorformat=%C %.%#,%A  File "%f"\, line %l%.%#,%Z%[%^ ]%\@=%m
 "set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-"let g:python_traceback_format0='%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m'
-let g:python_traceback_format0=join([
-    \ '%A  File "%f"\, line %l\, %m',
-    \ '%A  File "%f"\, line %l',
-    \ "%Z%p^",
-    \ "%Z    %m",
-    \ ], ',')
-let g:python_traceback_format2=join([
-    \ '%A %#  File "%f"\, line %l\, %m',
-    \ '%A %#  File "%f"\, line %l',
-    \ "%Z%p^",
-    \ "%Z %#    %m",
-    \ ], ',')
+"let g:efm_python0='%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m'
+"
+"%# stands for regex *
+let g:efm_python0=join([
+      \ '%A  File "%f"\, line %l\, %m',
+      \ '%A  File "%f"\, line %l',
+      \ "%Z%p^",
+      \ "%Z    %m",
+      \ ], ',')
 " for result from ctest
-let g:python_traceback_format1=join([
-    \ '%A%\d%\+:  %#  File "%f"\, line %l\, %m',
-    \ '%A%\d%\+:  %#  File "%f"\, line %l',
-    \ '%Z%\d%\+: %p^',
-    \ '%Z%\d%\+:  %#    %m',
-    \ ], ',')
-let g:python_traceback_format_ipython=join([
-    \ '%A[FILE]:%f %m',
-    \ '%C %\+%\d%\+%.%#',
-    \ '%C-%\+> %l %m',
-    \ '%A%^%$'
-    \ ], ',')
+let g:efm_python_ctest=join([
+      \ '%A%\d%\+:  %#  File "%f"\, line %l\, %m',
+      \ '%A%\d%\+:  %#  File "%f"\, line %l',
+      \ '%Z%\d%\+: %p^',
+      \ '%Z%\d%\+:  %#    %m',
+      \ ], ',')
 
-let g:python_traceback_format=join([g:python_traceback_format2, g:python_traceback_format1], ',')
+let g:efm_python1=join([
+      \ '%A %#  File "%f"\, line %l\, %m',
+      \ '%A %#  File "%f"\, line %l',
+      \ "%Z%p^",
+      \ "%Z %#    %m",
+      \ ], ',')
+
+let g:efm_python_pptest=join([
+      \ '%A%.pptest%m',
+      \ '%AFile "%f"\, line %l\, in %s',
+      \ '%A      File "%f"\, line %l\, in %s',
+      \ '%AFAIL: Doctest: %m',
+      \ '%CFailed %m',
+      \ '%C        %m',
+      \ '%C%.%#',
+      \ '%-G===%#',
+      \ '%-G\s%#',
+      \ '%-GDoctest%.%#',
+      \ ], ',')
+
+let g:efm_python_ipython=join([
+      \ '%A[FILE]:%f %m',
+      \ '%C %\+%\d%\+%.%#',
+      \ '%C-%\+> %l %m',
+      \ '%A%^%$'
+      \ ], ',')
+
+let g:efm_python=join([
+      \ g:efm_python1,
+      \ g:efm_python_ctest,
+      \ ], ',')
+let &efm = g:efm_python_pptest
+let &efm = g:efm_python
 
 " read qf list from data (string list), optional value is a dict, which may
 " contain the following keys:

@@ -54,7 +54,7 @@ command! -register -nargs=* TestReg echo "|" . <q-reg> . "|" . <q-args>
 " :TestReg [abc   > ||[abc
 
 function! string#PutCharacterwise(putbefore, reg, others)
-  let savereg = vimlocation#SaveRegister('=')
+  let savereg = scripting#SaveRegister('=')
   try
     if a:others == ''
       let content = getreg(a:reg)
@@ -70,7 +70,7 @@ function! string#PutCharacterwise(putbefore, reg, others)
       normal "=tempp
     endif
   finally
-    call vimlocation#RestoreRegister(savereg)
+    call scripting#RestoreRegister(savereg)
   endtry
 endfunction
 
