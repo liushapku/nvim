@@ -3,46 +3,46 @@ let g:plug_url_format="https://github.com/%s.git"
 set rtp+=~/repos/jupyter_nvim
 call plug#begin('~/.vim/bundle')
 
-"Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug '~/repos/jupyter_nvim'
-Plug 'tpope/vim-fugitive'              " git
-Plug 'liushapku/webapi-vim'            " webapi
-Plug 'liushapku/gist-vim'              " gist
-Plug 'kien/ctrlp.vim'                  " file lookup
-Plug 'majutsushi/tagbar'               " tag generation and listing
-Plug 'scrooloose/nerdcommenter'        " comment and uncomment text
-Plug 'houtsnip/vim-emacscommandline'   " emacs keybinding in command mode
-Plug 'tommcdo/vim-exchange'            " exchange two strings
-Plug 'liushapku/vim-operator-user'     " user defined operator
-Plug 'kana/vim-operator-replace'       " replace as a operator
-Plug 'raimondi/delimitmate'            " autocompletion for quotes, brackets...
-Plug 'tpope/vim-surround'              " surround text using [( etc
-Plug 'tpope/vim-unimpaired'            " navigate using [ and ]
-Plug 'tpope/vim-eunuch'                " os actions like Delete and Remove
-Plug 'tpope/vim-repeat'                " enable repeat user defined editing
-Plug 'gioele/vim-autoswap'             " handles swap files
-Plug 'qpkorr/vim-bufkill'              " handle window after buf is deleted
-Plug 'vim-airline/vim-airline'         " statsline
-Plug 'vim-airline/vim-airline-themes'  " statsline
-Plug 'bronson/vim-trailing-whitespace' " trailing whitespace
-Plug 'peterrincker/vim-argumentative'  " nativate in parameter list and change order
-Plug 'mbbill/undotree'                 " undo tree
-Plug 'scrooloose/nerdtree'             " directory tree
-Plug 'jistr/vim-nerdtree-tabs'         " directory tree
-Plug 'tpope/vim-abolish'               " language friendly searches, substitutions, and abbreviations
-Plug 'liushapku/vim-colorschemes'      " color scheme for gruvbox
-Plug 'kassio/neoterm'                  " terminal
-Plug 'kana/vim-textobj-user'           " user defined textobject
-Plug 't9md/vim-quickhl'                " quick highlight
-Plug 'andrewradev/linediff.vim'        " diff blocks and merge
-Plug 'chrisbra/vim-diff-enhanced'      " smart diff
-Plug 'junkblocker/patchreview-vim'     " ????
-Plug 'skywind3000/asyncrun.vim'        " asyncrun shell commands
-Plug 'mhinz/vim-signify'               " show symbols at the leftmost columns
-Plug 'wesq3/vim-windowswap'            " swap windows
-Plug 'easymotion/vim-easymotion'       " easily move by selection
-Plug 'mhinz/vim-startify'              " session management
-Plug 'godlygeek/tabular'               " tabularize using delimiters
+                                          " Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
+                                          " Plug '~/repos/jupyter_nvim'
+Plug 'tpope/vim-fugitive'                 " git
+Plug 'liushapku/webapi-vim'               " webapi
+Plug 'liushapku/gist-vim'                 " gist
+Plug 'kien/ctrlp.vim'                     " file lookup
+Plug 'majutsushi/tagbar'                  " tag generation and listing
+Plug 'scrooloose/nerdcommenter'           " comment and uncomment text
+Plug 'houtsnip/vim-emacscommandline'      " emacs keybinding in command mode
+Plug 'tommcdo/vim-exchange'               " exchange two strings
+Plug 'liushapku/vim-operator-user'        " user defined operator
+Plug 'kana/vim-operator-replace'          " replace as a operator
+Plug 'raimondi/delimitmate'               " autocompletion for quotes, brackets...
+Plug 'tpope/vim-surround'                 " surround text using [( etc
+Plug 'tpope/vim-unimpaired'               " navigate using [ and ]
+Plug 'tpope/vim-eunuch'                   " os actions like Delete and Remove
+Plug 'tpope/vim-repeat'                   " enable repeat user defined editing
+Plug 'gioele/vim-autoswap'                " handles swap files
+Plug 'qpkorr/vim-bufkill'                 " handle window after buf is deleted
+Plug 'vim-airline/vim-airline'            " statsline
+Plug 'vim-airline/vim-airline-themes'     " statsline
+Plug 'bronson/vim-trailing-whitespace'    " trailing whitespace
+Plug 'peterrincker/vim-argumentative'     " nativate in parameter list and change order
+Plug 'mbbill/undotree'                    " undo tree
+Plug 'scrooloose/nerdtree'                " directory tree
+Plug 'jistr/vim-nerdtree-tabs'            " directory tree
+Plug 'tpope/vim-abolish'                  " language friendly searches, substitutions, and abbreviations
+Plug 'liushapku/vim-colorschemes-gruvbox' " color scheme for gruvbox
+Plug 'kassio/neoterm'                     " terminal
+Plug 'kana/vim-textobj-user'              " user defined textobject
+Plug 't9md/vim-quickhl'                   " quick highlight
+Plug 'andrewradev/linediff.vim'           " diff blocks and merge
+Plug 'chrisbra/vim-diff-enhanced'         " smart diff
+Plug 'junkblocker/patchreview-vim'        " ????
+Plug 'skywind3000/asyncrun.vim'           " asyncrun shell commands
+Plug 'mhinz/vim-signify'                  " show symbols at the leftmost columns
+Plug 'wesq3/vim-windowswap'               " swap windows
+Plug 'easymotion/vim-easymotion'          " easily move by selection
+Plug 'mhinz/vim-startify'                 " session management
+Plug 'godlygeek/tabular'                  " tabularize using delimiters
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'chrisbra/colorizer'
 
