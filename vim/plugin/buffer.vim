@@ -28,6 +28,7 @@ tmap <esc>#     <c-\><c-n>:b#<cr>
 nnoremap gb :<C-U>exec "b" . (v:count==0? "#":v:count)<CR>
 " switch to previous window or (when count is present) go to window n
 nnoremap <silent> <expr> gw v:count==0?"\<C-W>p":"\<C-W>\<C-W>"
+nnoremap gc <C-W>c
 " goto preview window
 nnoremap gW <C-W>P
 tnoremap <esc>: <c-\><c-n>:
