@@ -48,6 +48,7 @@ augroup FileAu
   autocmd BufNewFile,BufRead *.ipynb setfiletype=json
   autocmd BufNewFile,BufRead * call autocmd#FileOpen()
   autocmd BufNewFile,BufRead * call autocmd#FugitiveAddCustomCommands()
+  autocmd BufNewFile,BufRead man://* set bufhidden=wipe
 augroup END
 
 augroup QuickFixCmdPostAu
