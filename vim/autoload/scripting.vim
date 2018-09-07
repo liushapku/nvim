@@ -184,13 +184,7 @@ function! scripting#parse(default_opts, ...) abort
   let lst = []
   let allpositional = 0
   let positional_modes = []
-
-  function! s:_expand(opts, keymap, key, varpart, append, mode, var)
-    let key = get(a:keymap, a:key, a:key)
-    if a:varpart == ''
-      let a:opts[key] = ''
-      return
-    endif
+  function! s:_expand(mode, var)
     if a:mode == ':'            " as is
       let var = a:var
     elseif a:mode == '$'        " evaluate
@@ -204,6 +198,16 @@ function! scripting#parse(default_opts, ...) abort
     elseif a:mode == '!'        " shellescape
       let var = shellescape(a:var)
     endif
+    return var
+  endfunction
+
+  function! s:_add(opts, keymap, key, varpart, append, mode, var)
+    let key = get(a:keymap, a:key, a:key)
+    if a:varpart == ''
+      let a:opts[key] = ''
+      return
+    endif
+    let var = s:_expand(a:mode, a:var)
     if !a:append
       let a:opts[key] = var
     elseif has_key(a:opts, key)
@@ -225,10 +229,10 @@ function! scripting#parse(default_opts, ...) abort
         let positional_modes = split(x[1:], '\zs')
       elseif x =~ pat_long
         let [key, varpt, append, mode, var] = matchlist(x, pat_long)[1:5]
-        call s:_expand(opts, keymap, key, varpt, append=='+', mode, var)
+        call s:_add(opts, keymap, key, varpt, append=='+', mode, var)
       elseif x =~ pat_short
         let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
-        call s:_expand(opts, keymap, key, var, append=='+', mode, var)
+        call s:_add(opts, keymap, key, var, append=='+', mode, var)
       else
         let allpositional = 1
         let handled = 0
@@ -245,7 +249,7 @@ function! scripting#parse(default_opts, ...) abort
   for x in lst
     let mode = get(positional_modes, idx, last_mode)  "tokenize
     let last_mode = mode
-    call add(args, s:Expand(mode, x))
+    call add(args, s:_expand(mode, x))
     let idx += 1
   endfor
   echomsg "Args:" string(opts) string(args)

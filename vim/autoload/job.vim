@@ -1,4 +1,4 @@
-let s:Shell = {}
+let s:Shell = {'exit_code':''}
 
 function! job#quickfix(instance, position) abort
   if has_key(a:instance, 'efm')
@@ -74,6 +74,40 @@ function! job#default_callback(jobid, data, event) dict
   endif
 endfunction
 
+let s:list = {}
+let s:list.jobs = {}
+let s:list.last = -100
+let job#list = s:list
+
+function! s:list.list()
+  for key in keys(self.jobs)
+    let inst = self.jobs[key]
+    echo key inst.cmd inst.exit_code
+  endfor
+endfunction
+function! s:list.get(id)
+  return self.jobs[a:id]
+endfunction
+function! s:list.kill(id)
+  if has_key(self.jobs, id)
+    call jobstop(a:id)
+  endif
+endfunction
+function! s:list.remove(id)
+  if has_key(self.jobs, id)
+    return remove(self.jobs, id)
+  else
+    echoerr id . " not in job list"
+  endif
+endfunction
+function! s:list.clear()
+  let self.jobs = {}
+endfunction
+function! s:list.add(id, instance)
+  let self.jobs[a:id] = a:instance
+  let self.last = a:id
+endfunction
+
 function! job#new(cmd, ...) abort
   " optional para:
   " a:1: options dict
@@ -89,14 +123,21 @@ function! job#new(cmd, ...) abort
   if get(instance, 'expand', 1)
     call map(instance.cmd, 'expand(v:val)')
   endif
-  let instance.id = jobstart(instance.cmd, instance)
-  let g:last_job = instance
+  let id = jobstart(instance.cmd, instance)
+  let instance.id = id
+  call s:list.add(id, instance)
   "echo 'job started: id:' instance.id
-  return instance
+  return instance.id
 endfunction
 
 function! job#spawn(options, parsed_args)
   let options = copy(a:options)
   call extend(options, a:parsed_args[0])
   return job#new(a:parsed_args[1], options)
+endfunction
+
+function! job#kill(...)
+  let instance = get(a:000, 0, g:last_job)
+  let id = type(instance) == v:t_dict? instance.id : instance
+  call jobstop(id)
 endfunction
