@@ -186,25 +186,29 @@ endfunction
 function! scripting#parse(default_opts, ...) abort
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
   let lst = []
-  let idx = 0
-  let last_mode = '='
   let allpositional = 0
   let positional_modes = []
 
   function! s:Expand(mode, var)
-    if a:mode == '!'
-      return eval(a:var)
-    elseif a:mode == ':'
+    if a:mode == ':'            " as is
       return a:var
-    elseif a:mode == ''
+    elseif a:mode == '$'        " evaluate
+      return eval(a:var)
+    elseif a:mode == '='        " expand
       return expand(a:var)
+    elseif a:mode == ''         " expand: default
+      return expand(a:var)
+    elseif a:mode == '%'        " fnameescape
+      return fnameescape(a:var)
+    elseif a:mode == '!'        " shellescape
+      return shellescape(a:var)
     endif
   endfunction
   for x in a:000
     if !allpositional
       let handled = 1
-      let pattern = '^--\([_a-zA-Z0-9][-_a-zA-Z0-9]*\)\(\(+\?\)\([!:+]\?\)=\(.\+\)\)\?$'
-      if x=~ '^[=:!]\+$'
+      let pattern = '^--\([_a-zA-Z0-9][-_a-zA-Z0-9]*\)\(\(+\?\)\([$:%!]\?\)=\(.\+\)\)\?$'
+      if x=~ '^[=$:%!]\+$'
         let positional_modes = split(x, '\zs')
       elseif x =~ pattern
         let matches = scripting#regex_extract(x, pattern, "", 5)
@@ -234,14 +238,17 @@ function! scripting#parse(default_opts, ...) abort
       call add(lst, x)
     endif
   endfor
+
   let args = []
+  let idx = 0
+  let last_mode = '='
   for x in lst
     let mode = get(positional_modes, idx, last_mode)  "tokenize
     let last_mode = mode
     call add(args, s:Expand(mode, x))
     let idx += 1
   endfor
-  echo opts args
+  echomsg "parsed args" string(opts) string(args)
   return [opts, args]
 endfunction
 

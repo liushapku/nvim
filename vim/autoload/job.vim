@@ -17,9 +17,6 @@ function! job#quickfix(instance, position) abort
   endif
 endfunction
 
-function! job#echo(...)
-  echo join(a:000, ' ')
-endfunction
 function! job#default_callback(jobid, data, event) dict
   if ! has_key(self, 'chunks')
     let self.chunks = ['']

@@ -7,6 +7,7 @@
 
 "set updatetime=4000
 "set tildeop  " ~ behaves like an operator
+set cedit=
 set title
 set shortmess+=c
 set virtualedit=block
