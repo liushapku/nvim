@@ -63,8 +63,8 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> under
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
-noremap <C-S> :w<CR>
-imap <C-S> <Esc><C-S>
+noremap <c-s> :<c-u>w<cr>
+inoremap <c-s> <esc>:w<cr>
 noremap <leader>mks :SSave!
 nmap Y y$
 
@@ -155,3 +155,18 @@ command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 command! Tc tabclose | tabprevious
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
 nnoremap ;E <Cmd>doautocmd FileType<cr>
+
+function! s:Shebang(executable)
+  if &ft == 'python'
+    let shebang = '#!/usr/bin/env python'
+  elseif &ft == '' || &ft == 'sh'
+    let shebang = '#!/bin/bash'
+    set ft=sh
+  endif
+  0put =shebang
+  write
+  if a:executable
+    Chmod a+x
+  endif
+endfunction
+command! -bar -bang Shebang :call s:Shebang(<bang>1)

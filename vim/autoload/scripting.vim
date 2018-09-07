@@ -178,57 +178,57 @@ function! scripting#GetMotionRange(type)
   endif
 endfunction
 
-"test scope
-function! s:Eval(string)
-  return eval(a:string)
-endfunction
-
 function! scripting#parse(default_opts, ...) abort
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
+  let keymap =has_key(opts, '_KMAP')? remove(opts, '_KMAP'): {}
   let lst = []
   let allpositional = 0
   let positional_modes = []
 
-  function! s:Expand(mode, var)
+  function! s:_expand(opts, keymap, key, varpart, append, mode, var)
+    let key = get(a:keymap, a:key, a:key)
+    if a:varpart == ''
+      let a:opts[key] = ''
+      return
+    endif
     if a:mode == ':'            " as is
-      return a:var
+      let var = a:var
     elseif a:mode == '$'        " evaluate
-      return eval(a:var)
+      let var = eval(a:var)
     elseif a:mode == '='        " expand
-      return expand(a:var)
+      let var = expand(a:var)
     elseif a:mode == ''         " expand: default
-      return expand(a:var)
+      let var = expand(a:var)
     elseif a:mode == '%'        " fnameescape
-      return fnameescape(a:var)
+      let var = fnameescape(a:var)
     elseif a:mode == '!'        " shellescape
-      return shellescape(a:var)
+      let var = shellescape(a:var)
+    endif
+    if !a:append
+      let a:opts[key] = var
+    elseif has_key(a:opts, key)
+      if type(a:opts[key]) == v:t_list
+        call add(a:opts[key], var)
+      else
+        let a:opts[key] = [a:opts[key], var]
+      endif
+    else
+      let a:opts[key] = [var]
     endif
   endfunction
   for x in a:000
     if !allpositional
       let handled = 1
-      let pattern = '^--\([_a-zA-Z0-9][-_a-zA-Z0-9]*\)\(\(+\?\)\([$:%!]\?\)=\(.\+\)\)\?$'
-      if x=~ '^[=$:%!]\+$'
-        let positional_modes = split(x, '\zs')
-      elseif x =~ pattern
-        let matches = scripting#regex_extract(x, pattern, "", 5)
-        let [unused, key, hasvar, append, mode, var] = matches
-        if hasvar == ''
-          let opts[key] = '__DEFAULT__'
-        else
-          let var = s:Expand(mode, var)
-          if append == ''
-            let opts[key] = var
-          elseif has_key(opts, key)
-            if type(opts[key]) == v:t_list
-              call add(opts[key], var)
-            else
-              let opts[key] = [opts[key], var]
-            endif
-          else
-            let opts[key] = [var]
-          endif
-        endif
+      let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([$:%!]\?\)=\(.\+\)\)\?$'
+      let pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
+      if x=~ '^-[=$:%!]\+$'
+        let positional_modes = split(x[1:], '\zs')
+      elseif x =~ pat_long
+        let [key, varpt, append, mode, var] = matchlist(x, pat_long)[1:5]
+        call s:_expand(opts, keymap, key, varpt, append=='+', mode, var)
+      elseif x =~ pat_short
+        let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
+        call s:_expand(opts, keymap, key, var, append=='+', mode, var)
       else
         let allpositional = 1
         let handled = 0
@@ -248,18 +248,6 @@ function! scripting#parse(default_opts, ...) abort
     call add(args, s:Expand(mode, x))
     let idx += 1
   endfor
-  echomsg "parsed args" string(opts) string(args)
+  echomsg "Args:" string(opts) string(args)
   return [opts, args]
 endfunction
-
-function! scripting#regex_extract(string, pattern, flag, n)
-  let rv = []
-  function! s:Collect(rv, n)
-    for i in range(0, a:n)
-      call add(a:rv, submatch(i))
-    endfor
-  endfunction
-  call substitute(a:string, a:pattern, printf('\=s:Collect(rv, %d)', a:n), a:flag)
-  return rv
-endfunction
-

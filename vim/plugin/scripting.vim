@@ -14,3 +14,6 @@ command! -nargs=* RegCopy call scripting#CopyRegister(<f-args>)
 
 command! -narg=+ -range=-999999 PutOutput call append(<line1>, split(execute(<q-args>), "\n"))
 
+command! -nargs=* Parse call scripting#parse({'_KMAP':{'v':'verbose'}}, <f-args>)
+"Parse --a=3 --b:=$HOME --c=$HOME git -m'a\ b\ c'
+"parsed args {'b': '$HOME', 'c': '/home/liusha'} ['git', '-m''a b c''']
