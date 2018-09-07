@@ -103,3 +103,70 @@ function! qf#Search(pat, backward, mode)
     endif
   endfor
 endfunction
+
+function! qf#CleanPythonDoctestResult(lines) abort
+  let out = []
+  let mode = ''
+  for line in a:lines[1:]
+    if line =~# '^FAIL: Doctest:'
+      call add(out, line)
+    elseif line =~# '^File'
+      let save = line
+    elseif line =~# '^Failed example'
+      let mode = 'example'
+    elseif line =~# '^Got:'
+      let mode = 'got'
+      call add(out, save . ' >>> Unmatched result:')
+    elseif line == 'Exception raised:'
+      let mode = 'except'
+      let idx = len(out)
+      call add(out, 'Exception: ' . save)
+    elseif line =~# '^===\+$'
+      if mode == 'except'
+        call add(out, '')
+      endif
+      let mode = ''
+    elseif line =~# '^---\+$'
+      if mode == 'except'
+        call add(out, '')
+      endif
+      let mode = ''
+    elseif line == ''
+      continue
+    elseif mode == 'got'
+      call add(out, line)
+    elseif mode == 'except'
+      if line =~# '^      File'
+        call add(out, line[6:])
+      elseif line =~# '^        \w'
+        let out[-1] = out[-1] . ' >>> ' . line[8:]
+      elseif line =~# '^    \w\+Error'
+        let out[idx] = out[idx]. ' ==== ' . line[4:] . " ===="
+      endif
+    endif
+  endfor
+  "echo a:lines
+  return out
+endfunction
+
+function! qf#Ptest(regex, winnr, name_prefix_pattern_to_remove)
+  if a:regex != ""
+    let regex = a:regex
+  else
+    let name = bufname(winbufnr(a:winnr))
+    "let regex = substitute(name, , "", "")
+    if a:name_prefix_pattern_to_remove != ''
+      let regex = substitute(name, a:name_prefix_pattern_to_remove, "", "")
+    elseif exists('g:Ptest_name_prefix')
+      let regex = substitute(name, g:Ptest_name_prefix, "", "")
+    else
+      let regex = name
+    endif
+  endif
+  echo regex
+  call job#new(['pptest', regex], {
+        \ 'onexit':'copen',
+        \ 'efm': g:efm_python_pptest,
+        \ 'filter': function('qf#CleanPythonDoctestResult'),
+        \ })
+endfunction

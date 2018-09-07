@@ -56,8 +56,8 @@ endfunction
 "that. Or use a |<Cmd>| mapping (which doesn't have these restrictions).
 function! textobject#define_all(list)
   for x in a:list
-    let [mapstr, acommand] = x[:2]  " allow the rest to be comments
-    let amode = len(x) > 2? x[2] : ""
+    let [mapstr, acommand] = x[:1]  " allow the rest to be comments
+    let amode = get(x, 2, "")
     call textobject#define(mapstr, acommand, amode)
   endfor
 endfunction

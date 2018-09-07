@@ -2,7 +2,6 @@
 let s:Shell = {}
 
 function! job#quickfix(instance, position) abort
-  echo a:instance
   if has_key(a:instance, 'efm')
     let efm = &efm
     let &efm = a:instance.efm
@@ -27,9 +26,12 @@ function! job#default_callback(jobid, data, event) dict
     let self.chunks = ['']
   endif
   if a:event == 'exit'
+    if has_key(self, 'filter')
+      let self.data = self.chunks
+      let self.chunks = self.filter(self.chunks)
+    endif
     let self.exit_code = a:data
     let Onexit = get(self, 'onexit', 'echo')
-    echo Onexit
     if type(Onexit) == v:t_func
       call Onexit(self)
     elseif Onexit == 'echo'
@@ -44,7 +46,7 @@ function! job#default_callback(jobid, data, event) dict
     elseif type(Onexit) == v:t_string && Onexit =~# '^:'
       exe Onexit
     else
-      echoerr 'unknown Onexit: ' . string(onexit)
+      echoerr 'unknown Onexit: ' . string(Onexit)
     endif
     return
   elseif a:data == ['']
@@ -66,6 +68,9 @@ function! job#default_callback(jobid, data, event) dict
   endif
 endfunction
 
+function! job#makelist(...)
+  return a:000
+endfunction
 function! job#new(cmd, ...) abort
   " optional para:
   " a:1: options dict
@@ -79,6 +84,11 @@ function! job#new(cmd, ...) abort
   let instance.stderr_buffered = 1
   let instance.cmd = type(a:cmd) == type([])? a:cmd : ['sh', '-c', a:cmd]
   let instance.id = jobstart(instance.cmd, instance)
+  let g:last_job = instance
   "echo 'job started: id:' instance.id
   return instance
+endfunction
+
+function! job#spawn(options, ...)
+  return job#new(a:000, a:options)
 endfunction

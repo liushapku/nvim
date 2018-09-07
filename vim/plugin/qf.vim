@@ -26,16 +26,8 @@ let g:efm_python1=join([
       \ ], ',')
 
 let g:efm_python_pptest=join([
-      \ '%A%.pptest%m',
-      \ '%AFile "%f"\, line %l\, in %s',
-      \ '%A      File "%f"\, line %l\, in %s',
-      \ '%AFAIL: Doctest: %m',
-      \ '%CFailed %m',
-      \ '%C        %m',
-      \ '%C%.%#',
-      \ '%-G===%#',
-      \ '%-G\s%#',
-      \ '%-GDoctest%.%#',
+      \ 'Exception: File "%f"\, line %l\, %m',
+      \ 'File "%f"\, line %l\, %m',
       \ ], ',')
 
 let g:efm_python_ipython=join([
@@ -63,7 +55,7 @@ let &efm = g:efm_python
 " get QF list from neoterm
 command! -bang QFFromNeoterm call qf#GetQFFromNeoterm('ipython', {'nojump':<bang>0})
 
-command! -bar QFClear :call setqflist([], 'r')
+command! -bar QFClear :call setqflist([], 'r') | cclose
 " reverse the QF list
 command! -bar QFReverse :call setqflist(reverse(getqflist()), 'r')
 " set QF from a register, if bang, then do not jump to the first one
@@ -83,3 +75,5 @@ command! -nargs=1 QFp  call qf#Search(<q-args>, 1, "")
 command! -nargs=1 QFpf call qf#Search(<q-args>, 1, "file")
 command! -nargs=1 QFpt call qf#Search(<q-args>, 1, "text")
 
+" option: set g:Ptest_name_prefix
+command! -range=0 -addr=windows -nargs=* Ptest :call qf#Ptest(<q-args>, <line1>, '')

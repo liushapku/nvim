@@ -22,6 +22,7 @@ command!           -addr=buffers TestNoop3  : echo <count> <line1> <line2>
 " | :nCommand                  | n         | n       | n               |
 " | :-nCommand                 | c-n       | c-n     | c-n             |
 " | :l1,l2Command              | f(l2)     | f(l1)   | f(l2)           |
+" | :Command n -count[=N]      | n         | c       | n               |
 " | :Command                   | ****      | ****    | ****            |
 " |     -range                 | -1        | c       | -addr=line? c:1 |
 " |     -range=%               | -1        | 1       | $               |

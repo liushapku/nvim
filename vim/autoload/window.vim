@@ -160,8 +160,8 @@ function! window#start_recording()
   endif
   let s:macro_reg = x
   let s:macro_winnr = winnr()
-  nnoremap q :<c-u>call window#StopRecording(0)<cr>
-  nnoremap Q :<c-u>call window#StopRecording(1)<cr>
+  nnoremap q :<c-u>call window#stop_recording(0)<cr>
+  nnoremap Q :<c-u>call window#stop_recording(1)<cr>
   exe "normal! q" . x
 endfunction
 

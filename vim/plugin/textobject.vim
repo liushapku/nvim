@@ -93,8 +93,8 @@ call textobject#define_all([
       \ [";S", '<SID>FindLineLen("<", 1)'],
       \ [";l", '<SID>FindLineLen(">", 0)'],
       \ [";L", '<SID>FindLineLen(">", 1)'],
-      \ ["il", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("<", 1)."o".<SID>FindLineLen("<", 0)'],
-      \ ["iL", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen(">", 1)."o".<SID>FindLineLen(">", 0)'],
-      \ ["i=", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("=", 1)."o".<SID>FindLineLen("=", 0)'],
+      \ ["il", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("<", 1)."o".<SID>FindLineLen("<", 0)', "vo"],
+      \ ["iL", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen(">", 1)."o".<SID>FindLineLen(">", 0)', "vo"],
+      \ ["i=", '<SID>ChangeMode("[nv]", "V").<SID>FindLineLen("=", 1)."o".<SID>FindLineLen("=", 0)', "vo"],
       \ ])
 

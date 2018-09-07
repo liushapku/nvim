@@ -45,4 +45,4 @@ map <buffer> <F17> :TREPLSendFile<cr>   " <S-F5>
 "map <buffer> <F29> :TREPLSendLine<cr>   " <C-F5>
 command! -buffer IPy RightE Tnew | TREPLSetTerm 0
 
-
+nmap <buffer> ;t :<c-u>exe v:count . "Ptest"<cr>
