@@ -8,21 +8,21 @@ let g:efm_python0=join([
       \ '%A  File "%f"\, line %l\, %m',
       \ '%A  File "%f"\, line %l',
       \ "%Z%p^",
-      \ "%Z    %m",
+      \ "%+Z %#    %.%#",
       \ ], ',')
 " for result from ctest
 let g:efm_python_ctest=join([
       \ '%A%\d%\+:  %#  File "%f"\, line %l\, %m',
       \ '%A%\d%\+:  %#  File "%f"\, line %l',
       \ '%Z%\d%\+: %p^',
-      \ '%Z%\d%\+:  %#    %m',
+      \ '%+Z%\d%\+:  %#    %.%#',
       \ ], ',')
 
 let g:efm_python1=join([
       \ '%A %#  File "%f"\, line %l\, %m',
       \ '%A %#  File "%f"\, line %l',
       \ "%Z%p^",
-      \ "%Z %#    %m",
+      \ "%+Z %#    %.%#",
       \ ], ',')
 
 let g:efm_python_pptest=join([
@@ -57,15 +57,12 @@ command! -bang QFFromNeoterm call qf#GetQFFromNeoterm('ipython', {'nojump':<bang
 
 command! -bar QFClear :call setqflist([], 'r') | cclose
 " reverse the QF list
-command! -bar QFReverse :call setqflist(reverse(getqflist()), 'r')
 " set QF from a register, if bang, then do not jump to the first one
-command! -register -bang -bar QFset :call qf#SetQF(getreg(<q-reg>, 0), {'nojump':<bang>0})
-command! -register -bang -bar QFSet :QFset <reg> | QFReverse
+command! -bang -bar -nargs=* Qf :call qf#SetQF(scripting#parse({'reverse':<bang>0}, <f-args>)[0])
 
-vnoremap ;Qf :call qf#SetQF(getline(line("'<"), line("'>")), {'nojump':1})<cr>
-nnoremap ;Qf :call qf#SetQF(qf#LocateQF(), {'nojump':1})<cr>
-nnoremap ;qf :<c-u>QFset *<cr>
-nnoremap ;qF :<c-u>QFSet *<cr>
+vnoremap ;qf :call qf#SetQF({'data':getline(line("'<"), line("'>")), 'jump':1})<cr>
+nnoremap ;qf <Cmd>Qf --reg!=v:register<cr>
+nnoremap ;QF <Cmd>Qf! --reg!=v:register<cr>
 
 
 command! -nargs=1 QFn  call qf#Search(<q-args>, 0, "")

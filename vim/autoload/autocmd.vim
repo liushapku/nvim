@@ -17,10 +17,16 @@ function! autocmd#BufWinEnter()
   endif
 endfunction
 
+function! s:CopyQuickfix() range
+  let x = getline(a:firstline, a:lastline)
+  let x = map(x, 'substitute(v:val, ''\([^|]*|\)\{2} '', "", "")')
+  call setreg(v:register, x, "V")
+endfunction
 function! autocmd#WinEnter()
   "Echo "winenter"
   if &buftype == 'quickfix'
     stopinsert
+    nnoremap <buffer> <silent> yy :call <SID>CopyQuickfix()<cr>
   endif
 endfunction
 

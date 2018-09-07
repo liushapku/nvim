@@ -7,10 +7,11 @@ function! buffer#list()
   return airline#extensions#tabline#buflist#list()
 endfunction
 
-function! buffer#wipe_noname()
+function! buffer#wipe_noname(bang)
+  let cmd = a:bang? 'bw!': 'bw'
   for x in buffer#list()
     if bufname(x) == ''
-      exe 'bw ' . x
+      exe cmd x
     endif
   endfor
 endfunction

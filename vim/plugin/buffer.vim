@@ -36,7 +36,7 @@ tnoremap <esc>: <c-\><c-n>:
 command! -bar -narg=0 Cd exe 'cd' expand('%:p:h')
 nmap <leader>cd :<C-U>silent exec "lcd " . expand('%:p:h')<bar>pwd<CR>
 
-command! WipeNoName call buffer#wipe_noname()
+command! -bang WipeNoName call buffer#wipe_noname(<bang>0)
 
 command! -count -addr=windows -nargs=+ -complete=command	WE call buffer#WinExec(v:count, <f-args>)
 command! -nargs=+ -complete=command	WEE call buffer#WinExecAll(<f-args>)

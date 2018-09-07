@@ -177,3 +177,82 @@ function! scripting#GetMotionRange(type)
     return "`[\<C-V>`]"
   endif
 endfunction
+
+"test scope
+function! s:Eval(string)
+  return eval(a:string)
+endfunction
+
+function! scripting#parse(default_opts, ...) abort
+  let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
+  let lst = []
+  let idx = 0
+  let last_mode = '='
+  let allpositional = 0
+  let positional_modes = []
+
+  function! s:Expand(mode, var)
+    if a:mode == '!'
+      return eval(a:var)
+    elseif a:mode == ':'
+      return a:var
+    elseif a:mode == ''
+      return expand(a:var)
+    endif
+  endfunction
+  for x in a:000
+    if !allpositional
+      let handled = 1
+      let pattern = '^--\([_a-zA-Z0-9][-_a-zA-Z0-9]*\)\(\(+\?\)\([!:+]\?\)=\(.\+\)\)\?$'
+      if x=~ '^[=:!]\+$'
+        let positional_modes = split(x, '\zs')
+      elseif x =~ pattern
+        let matches = scripting#regex_extract(x, pattern, "", 5)
+        let [unused, key, hasvar, append, mode, var] = matches
+        if hasvar == ''
+          let opts[key] = '__DEFAULT__'
+        else
+          let var = s:Expand(mode, var)
+          if append == ''
+            let opts[key] = var
+          elseif has_key(opts, key)
+            if type(opts[key]) == v:t_list
+              call add(opts[key], var)
+            else
+              let opts[key] = [opts[key], var]
+            endif
+          else
+            let opts[key] = [var]
+          endif
+        endif
+      else
+        let allpositional = 1
+        let handled = 0
+      endif
+    endif
+    if !handled
+      call add(lst, x)
+    endif
+  endfor
+  let args = []
+  for x in lst
+    let mode = get(positional_modes, idx, last_mode)  "tokenize
+    let last_mode = mode
+    call add(args, s:Expand(mode, x))
+    let idx += 1
+  endfor
+  echo opts args
+  return [opts, args]
+endfunction
+
+function! scripting#regex_extract(string, pattern, flag, n)
+  let rv = []
+  function! s:Collect(rv, n)
+    for i in range(0, a:n)
+      call add(a:rv, submatch(i))
+    endfor
+  endfunction
+  call substitute(a:string, a:pattern, printf('\=s:Collect(rv, %d)', a:n), a:flag)
+  return rv
+endfunction
+

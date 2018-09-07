@@ -2,72 +2,43 @@
 " qf#SetQF(lines[, option_dic])
 " option_dic: key:
 "   nojump: do not jump, default 0
-function! qf#SetQF(data, ...) abort
-  let workspacepat = substitute($WORKSPACE, 'workspace[0-9]', 'workspace[0-9]', '')
-  let workspacetarget = $WORKSPACE
-  if a:data is ''
-    call setqflist([], 'r')
-    cclose
+function! qf#SetQF(opts) abort
+  let opts     = a:opts
+  if has_key(opts, 'data')
+    let data = opts['data']
+  elseif has_key(opts, 'reg')
+    let data = getreg(opts.reg, 1, 1)
+  else
+    echoerr 'no data or register provided'
     return
   endif
-  let opts = a:0 == 0? {} : a:1
-  let nojump = get(opts, 'nojump', 0)
-  let data = type(a:data) == v:t_string?  split(a:data, "\n") : a:data
+  let jump     = get(opts, 'jump', 0)
+  let position = get(opts, 'action', 'copen')
+  let reverse  = get(opts, 'reverse', 0)
+  let oldefm   = &efm
+  let &efm     = get(opts, 'efm', &efm)
+
+  let workspacepat = substitute($WORKSPACE, 'workspace[0-9]', 'workspace[0-9]', '')
+  let workspacetarget = $WORKSPACE
   let qflist = filter(data, 'v:val != ""')
   let qflist = map(qflist, 'substitute(v:val, "^/site/home", "/home", "")')
   let qflist = map(qflist, 'substitute(v:val, workspacepat, workspacetarget, "")')
-  "echo join(qflist, "\n") . "\n"
-  let oldefm = &efm
-  let &efm = get(opts, 'efm', &efm)
-  let position = get(opts, 'location', 'quickfix')
-  let cmd = position == 'quickfix'? 'cexpr qflist' : 'lexpr qflist'
-
+  if reverse
+    let qflist = reverse(qflist)
+  endif
   try
-    if position == 'quickfix'
-      cexpr qflist
+    if position == 'lopen'
+      lgetexpr qflist
+      belowright lopen
+      if jump | cc | endif
     else
-      lexpr qflist
-    endif
-    bo cw
-    if nojump
-      wincmd p
-    else
-      exec "normal \<cr>"
+      cgetexpr qflist
+      botright copen
+      if jump | ll | endif
     endif
   finally
     let &efm = oldefm
   endtry
-endfunction
-
-function! qf#GetQFFromNeoterm(type, ...) abort
-  let bufid = g:neoterm.repl.instance().buffer_id
-  let switch=buffer#SwitchToBuffer(bufid)
-  let temp = @"
-  normal G
-  silent normal :?Traceback?+1;/^\(\d\+: \)\?\s*\S\+Error/y "
-  call buffer#SwitchBack(switch)
-  if a:type == 'ipython'
-      let msg = substitute(@", "\n\n", "\n\n[FILE]:", "g")
-      let msg = "[FILE]:" . msg
-      let efm = g:efm_python_ipython
-  elseif a:type == 'python'
-      let msg = string#SearchAndSubstitute(@", '\(\d\+: \)\?  File .*, line \d\+, in \w\+', "$", '():', '')
-      let efm = g:efm_python
-  else
-      let msg = @"
-      let efm = &efm
-  endif
-  call SetQF(msg, {'efm': efm})
-  let @"=temp
-  bo cw
-  let opts = get(a:000, 0, {})
-  let nojump = get(opts, 'nojump', 0)
-  echo nojump
-  if nojump
-    wincmd p
-  else
-    normal "\<cr>"
-  endif
 endfunction
 
 function! qf#LocateQF()
@@ -104,7 +75,7 @@ function! qf#Search(pat, backward, mode)
   endfor
 endfunction
 
-function! qf#CleanPythonDoctestResult(lines) abort
+function! s:CleanPythonDoctestResult(lines) abort
   let out = []
   let mode = ''
   for line in a:lines[1:]
@@ -163,10 +134,10 @@ function! qf#Ptest(regex, winnr, name_prefix_pattern_to_remove)
       let regex = name
     endif
   endif
-  echo regex
+  echo 'pptest' regex
   call job#new(['pptest', regex], {
         \ 'onexit':'copen',
         \ 'efm': g:efm_python_pptest,
-        \ 'filter': function('qf#CleanPythonDoctestResult'),
+        \ 'transform': function('s:CleanPythonDoctestResult'),
         \ })
 endfunction
