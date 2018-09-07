@@ -296,6 +296,7 @@ command! -bang -nargs=* Hld  :call quickhl#manual#del(<q-args>, <bang>1)
 let g:extra_whitespace_ignored_filetypes = ['unite', 'markdown']
 
 "======startify
+let g:startify_session_autoload = 1
 let g:startify_session_dir = '~/.vim/session'
 let g:startify_skiplist = [
     \ '.git/*',
