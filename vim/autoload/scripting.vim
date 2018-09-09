@@ -182,9 +182,13 @@ endfunction
 " known mega-options:
 " -- [KMAP]: the map from --key or -key to the destination option
 "            for example: [KMAP] = {'v': 'verbose'}
+" -- [AUTOPOSITIONAL]: if true, then all args after the first positional
+"                      arg are treaded as positional args
+"                      otherwise, use '--' to start positional args
 function! scripting#parse(default_opts, qargs) abort
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
-  let keymap =has_key(opts, '[KMAP]')? remove(opts, '[KMAP]'): {}
+  let keymap = scripting#pop(opts, '[KMAP]', {})
+  let autopositional = scripting#pop(opts, '[AUTOPOSITIONAL]', 0)
   function! s:_expand(mode, var)
     let modes = split(a:mode == ''? '<' : a:mode, '\zs')
     let var = a:var
@@ -227,6 +231,7 @@ function! scripting#parse(default_opts, qargs) abort
   let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
   let pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
   let args = scripting#split(a:qargs)
+  let hasoption = 1
   let lst = []
   for idx in range(len(args))
     let x = args[idx]
@@ -237,8 +242,15 @@ function! scripting#parse(default_opts, qargs) abort
       let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
       call s:_add(opts, keymap, key, var, append=='+', mode, var)
     else
-      let lst = args[idx:]
-      break
+      if x == '--'
+        let lst = args[idx+1:]
+        break
+      elseif autopositional
+        let lst = args[idx:]
+        break
+      else
+        call add(lst, x)
+      endif
     endif
   endfor
 

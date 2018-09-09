@@ -2,7 +2,7 @@
 " qf#SetQF(lines[, option_dic])
 " option_dic: key:
 "   nojump: do not jump, default 0
-function! qf#SetQF(opts) abort
+function! qf#SetQF(opts)
   let opts     = a:opts
   if has_key(opts, 'data')
     let data = opts['data']
@@ -12,6 +12,7 @@ function! qf#SetQF(opts) abort
     echoerr 'no data or register provided'
     return
   endif
+  let title    = get(opts, 'title', '')
   let jump     = get(opts, 'jump', 0)
   let position = get(opts, 'action', 'copen')
   let reverse  = get(opts, 'reverse', 0)
@@ -30,10 +31,12 @@ function! qf#SetQF(opts) abort
     if position == 'lopen'
       lgetexpr qflist
       belowright lopen
+      if title != '' | let w:quickfix_title = title | endif
       if jump | cc | endif
     else
       cgetexpr qflist
       botright copen
+      if title != '' | let w:quickfix_title = title | endif
       if jump | ll | endif
     endif
   finally
@@ -140,4 +143,13 @@ function! qf#Ptest(regex, winnr, name_prefix_pattern_to_remove)
         \ 'efm': g:efm_python_pptest,
         \ 'transform': function('s:CleanPythonDoctestResult'),
         \ })
+endfunction
+
+function! qf#select(parsed_opts)
+  let [opts, positional] = parsed_opts
+  let oldlist = getqflist()
+  let newlist = []
+  for item in oldlist
+    if item
+  endfor
 endfunction

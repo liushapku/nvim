@@ -58,11 +58,11 @@ command! -bang QFFromNeoterm call qf#GetQFFromNeoterm('ipython', {'nojump':<bang
 command! -bar QFClear :call setqflist([], 'r') | cclose
 " reverse the QF list
 " set QF from a register, if bang, then do not jump to the first one
-command! -bang -bar -nargs=* Qf :call qf#SetQF(scripting#parse({'reverse':<bang>0}, <f-args>)[0])
+command! -bang -bar -nargs=* Qf :call qf#SetQF(scripting#parse({'reverse':<bang>0}, <q-args>)[0])
 
 vnoremap ;qf :call qf#SetQF({'data':getline(line("'<"), line("'>")), 'jump':1})<cr>
-nnoremap ;qf <Cmd>Qf --reg!=v:register<cr>
-nnoremap ;QF <Cmd>Qf! --reg!=v:register<cr>
+nnoremap ;qf <Cmd>Qf --reg$=v:register<cr>
+nnoremap ;QF <Cmd>Qf! --reg$=v:register<cr>
 
 
 command! -nargs=1 QFn  call qf#Search(<q-args>, 0, "")

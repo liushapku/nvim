@@ -5,8 +5,8 @@ command! -narg=? -bang -complete=function EditFunction call scripting#edit_funct
 " e.g. EditMap i <S-Tab>
 command! -narg=+ -bang -complete=mapping EditMap call scripting#edit_map(<q-mods>, <bang>0, <f-args>)
 
-nnoremap <silent> <leader>e :call scripting#ExeLines()<CR>
-vnoremap <silent> <leader>e :call scripting#ExeLines()<CR>
+nnoremap <silent> <leader>E :call scripting#ExeLines()<CR>
+vnoremap <silent> <leader>E :call scripting#ExeLines()<CR>
 command! -register ExeReg :<c-u>call scripting#ExeReg(<q-reg>)<cr>
 
 """"""""""""""""""""""

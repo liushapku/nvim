@@ -1,20 +1,24 @@
 let s:Shell = {'exit_code':''}
 
-function! job#quickfix(instance, position) abort
+function! job#quickfix(instance, position, title) abort
   if has_key(a:instance, 'efm')
     let efm = &efm
     let &efm = a:instance.efm
   endif
-  if a:position == 'l'
-    lgetexpr a:instance.chunks
-    belowright lopen
-  else
-    cgetexpr a:instance.chunks
-    botright copen
-  endif
-  if has_key(a:instance, 'efm')
-    let &efm = efm
-  endif
+  try
+    if a:position == 'l'
+      lgetexpr a:instance.chunks
+      belowright lopen
+    else
+      cgetexpr a:instance.chunks
+      botright copen
+    endif
+    let w:quickfix_title = 'Job: ' . a:title
+  finally
+    if has_key(a:instance, 'efm')
+      let &efm = efm
+    endif
+  endtry
 endfunction
 
 function! job#default_callback(jobid, data, event) dict
@@ -43,9 +47,9 @@ function! job#default_callback(jobid, data, event) dict
     elseif Onexit == 'echo'
       echo join(self.chunks, "\n")
     elseif Onexit == 'copen'
-      call job#quickfix(self, 'q')
+      call job#quickfix(self, 'q', string(self.cmd))
     elseif Onexit == 'lopen'
-      call job#quickfix(self, 'l')
+      call job#quickfix(self, 'l', string(self.cmd))
     elseif Onexit =~# '\(v\|tab\)\?new\($\| .*\)'
       exe Onexit
       call append(0, self.chunks[:-2])
@@ -130,14 +134,10 @@ function! job#new(options, cmd) abort
   return instance.id
 endfunction
 
-function! job#spawn(options, parsed_args)
-  let options = copy(a:options)
-  call extend(options, a:parsed_args[0])
-  if scripting#pop(options, '@list', 1)
-    let cmd = a:parsed_args[1]
-  else
-    "call map(a:parsed_args, 'v:val =~ " "? shellescape(v:val): v:val ')
-    let cmd = join(a:parsed_args[1])
+function! job#spawn(parsed_args)
+  let [options, cmd] = a:parsed_args
+  if !scripting#pop(options, '@list', 1)
+    let cmd = join(cmd)
   endif
   return job#new(options, cmd)
 endfunction
