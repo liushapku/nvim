@@ -6,14 +6,17 @@ function! job#quickfix(instance, position, title) abort
     let &efm = a:instance.efm
   endif
   try
+    let title = 'Job: ' . a:title
     if a:position == 'l'
       lgetexpr a:instance.chunks
+      call setloclist([], 'r', {'title': title})
       belowright lopen
     else
       cgetexpr a:instance.chunks
+      call setqflist([], 'r', {'title': title})
       botright copen
     endif
-    let w:quickfix_title = 'Job: ' . a:title
+    let w:quickfix_title = title
   finally
     if has_key(a:instance, 'efm')
       let &efm = efm

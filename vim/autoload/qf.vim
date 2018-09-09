@@ -31,12 +31,18 @@ function! qf#SetQF(opts)
     if position == 'lopen'
       lgetexpr qflist
       belowright lopen
-      if title != '' | let w:quickfix_title = title | endif
+      if title != ''
+        let w:quickfix_title = title
+        call setloclist([], 'r', {'title': title})
+      endif
       if jump | cc | endif
     else
       cgetexpr qflist
       botright copen
-      if title != '' | let w:quickfix_title = title | endif
+      if title != ''
+        let w:quickfix_title = title
+        call setqflist([], 'r', {'title': title})
+      endif
       if jump | ll | endif
     endif
   finally
@@ -146,10 +152,47 @@ function! qf#Ptest(regex, winnr, name_prefix_pattern_to_remove)
 endfunction
 
 function! qf#select(parsed_opts)
-  let [opts, positional] = parsed_opts
-  let oldlist = getqflist()
-  let newlist = []
-  for item in oldlist
-    if item
-  endfor
+  let [opts, pattern] = a:parsed_opts
+  if len(pattern) != 1
+    echoerr 'only one pattern is allowed'
+    return
+  else
+    let pattern = pattern[0]
+  endif
+  let fields = get(opts, 'fields', ['file', 'text'])
+  let fields = type(fields) == v:t_list? fields: [fields]
+  let matchall = get(opts, 'matchall', 0)
+  let location = get(opts, 'location', 0)
+
+  let what = {'items':1, 'title': 1}
+  let rv = location? getloclist(what): getqflist(what)
+  let list = rv['items']
+  let title = rv['title']
+  function! s:match(item, fields, pattern, matchall)
+    for field in a:fields
+      if field == 'file'
+        let target = a:item.bufnr > 0? bufname(a:item.bufnr) : ''
+      else
+        let target = a:item[field]
+      endif
+      "echo printf('%s | %s | %s', target, a:pattern, (target =~ a:pattern))
+      if a:matchall
+        if target !~ a:pattern | return 0 | endif
+      else
+        if target =~ a:pattern | return 1 | endif
+      endif
+    endfor
+    return a:matchall
+  endfunction
+
+  call filter(list, 's:match(v:val, fields, pattern, matchall)')
+  let rv = {'items': list, 'title': title . '|' . pattern}
+  if location
+    call setloclist([], ' ', rv)
+    belowright lopen
+  else
+    call setqflist([], ' ',  rv)
+    belowright copen
+  endif
+
 endfunction

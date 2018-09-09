@@ -74,3 +74,5 @@ command! -nargs=1 QFpt call qf#Search(<q-args>, 1, "text")
 
 " option: set g:Ptest_name_prefix
 command! -range=0 -addr=windows -nargs=* Ptest :call qf#Ptest(<q-args>, <line1>, '')
+
+command! -nargs=1 Qfilter call qf#select(scripting#parse(0, <q-args>))

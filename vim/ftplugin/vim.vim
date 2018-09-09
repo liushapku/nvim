@@ -3,7 +3,7 @@ for d in split(&runtimepath, ',')
     exec 'setlocal tags+=' . d . '/doc/tags'
 endfor
 
-nnoremap <buffer> \\ bia:<esc>
+nnoremap <buffer> \\ ebia:<esc>
 
 command! -buf -bang -nargs=? TogglePlug call buffer#TogglePlug(<q-args>, <bang>0)
 command! -buf -bang -nargs=? EditPlug <mods> vsplit | call buffer#TogglePlug(<q-args>, <bang>0)
