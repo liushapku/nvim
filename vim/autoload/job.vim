@@ -109,7 +109,9 @@ function! s:list.add(id, instance)
 endfunction
 
 function! job#new(options, cmd) abort
-  echomsg string(cmd)
+  if get(a:options, 'verbose', 0) || get(a:options, 'v', 0)
+    echomsg string(a:cmd)
+  endif
   " optional para:
   " a:1: options dict
   let instance = extend(copy(s:Shell), a:options)
@@ -134,6 +136,7 @@ function! job#spawn(options, parsed_args)
   if scripting#pop(options, '@list', 1)
     let cmd = a:parsed_args[1]
   else
+    "call map(a:parsed_args, 'v:val =~ " "? shellescape(v:val): v:val ')
     let cmd = join(a:parsed_args[1])
   endif
   return job#new(options, cmd)

@@ -1,4 +1,4 @@
-function! scripting#command(command) abort
+function! scripting#locate_command(command) abort
   let acommand = a:command == ''? expand("<cword>") : a:command
   let output = execute('verb comm ' . acommand)
   let ret = split(output, "\n")
@@ -10,7 +10,7 @@ function! scripting#command(command) abort
 endfunction
 function! scripting#edit_command(mods, pedit, command) abort
   try
-    let file = scripting#command(a:command)
+    let file = scripting#locate_command(a:command)
   catch
     echoerr v:exception
   endtry
@@ -36,7 +36,7 @@ endfunction
 " block. This may cause inconsistence. So it is better to exit the function
 " whenever there is a need to call echoerr.
 
-function! scripting#map(type, command, index) abort
+function! scripting#locate_map(type, command, index) abort
   let acommand = a:command == ''? expand("<cword>") : a:command
   let output = execute('verb ' . a:type . 'map ' . acommand)
   let ret = split(output, "\n")
@@ -64,7 +64,7 @@ function! scripting#edit_map(mods, pedit, type, command, ...) abort
   let acommand = a:command
   let index = a:0 == 0? 0 : a:1
   try
-    let file = call('scripting#map', [a:type, acommand, index])
+    let file = call('scripting#locate_map', [a:type, acommand, index])
   catch
     echoerr v:exception
   endtry
@@ -86,7 +86,7 @@ function! scripting#edit_map(mods, pedit, type, command, ...) abort
   endif
 endfunction
 
-function! scripting#function(functionname) abort
+function! scripting#locate_function(functionname) abort
   let output = execute('verb function ' . a:functionname)
   let ret = split(output, "\n")
   return substitute(ret[1], '\s*Last set from ', '', '')
@@ -97,7 +97,7 @@ function! scripting#edit_function(mods, pedit, function) abort
     if afunction =~# '^s:'
       " the same file
     else
-      let file = scripting#function(afunction)
+      let file = scripting#locate_function(afunction)
       if a:pedit
         exe a:mods 'pedit' file
         wincmd P
@@ -185,33 +185,32 @@ endfunction
 function! scripting#parse(default_opts, qargs) abort
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
   let keymap =has_key(opts, '[KMAP]')? remove(opts, '[KMAP]'): {}
-  let lst = []
-  let allpositional = 0
-  let positional_modes = []
   function! s:_expand(mode, var)
-    if a:mode == ':'            " as is
-      let var = a:var
-    elseif a:mode == '$'        " evaluate
-      let var = eval(a:var)
-    elseif a:mode == '='        " expand
-      let var = expand(a:var)
-    elseif a:mode == ''         " expand: default
-      let var = expand(a:var)
-    elseif a:mode == '%'        " fnameescape
-      let var = fnameescape(a:var)
-    elseif a:mode == '!'        " shellescape
-      let var = shellescape(a:var)
-    endif
+    let modes = split(a:mode == ''? '<' : a:mode, '\zs')
+    let var = a:var
+    for mode in modes
+      if mode == ':'            " as is
+        let var = var
+      elseif mode == '$'        " evaluate
+        let var = eval(var)
+      elseif mode == '<'        " expand
+        let var = expand(var)
+      elseif mode == '%'        " fnameescape
+        let var = fnameescape(var)
+      elseif mode == '!'        " shellescape
+        let var = shellescape(var)
+      endif
+    endfor
     return var
   endfunction
 
-  function! s:_add(opts, keymap, key, varpart, append, mode, var)
+  function! s:_add(opts, keymap, key, varpart, append, modes, var)
     let key = get(a:keymap, a:key, a:key)
     if a:varpart == ''
-      let a:opts[key] = ''
+      let a:opts[key] = '1DEFAULT'  " if '1DEFAULT' evaluates to true
       return
     endif
-    let var = s:_expand(a:mode, a:var)
+    let var = s:_expand(a:modes, a:var)
     if !a:append
       let a:opts[key] = var
     elseif has_key(a:opts, key)
@@ -225,40 +224,40 @@ function! scripting#parse(default_opts, qargs) abort
     endif
   endfunction
 
+  let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
+  let pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
   let args = scripting#split(a:qargs)
-  for x in args
-    if !allpositional
-      let handled = 1
-      let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([$:%!]\?\)=\(.\+\)\)\?$'
-      let pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
-      if x=~ '^-[=$:%!]\+$'
-        let positional_modes = split(x[1:], '\zs')
-      elseif x =~ pat_long
-        let [key, varpt, append, mode, var] = matchlist(x, pat_long)[1:5]
-        call s:_add(opts, keymap, key, varpt, append=='+', mode, var)
-      elseif x =~ pat_short
-        let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
-        call s:_add(opts, keymap, key, var, append=='+', mode, var)
-      else
-        let allpositional = 1
-        let handled = 0
-      endif
-    endif
-    if !handled
-      call add(lst, x)
+  let lst = []
+  for idx in range(len(args))
+    let x = args[idx]
+    if x =~ pat_long
+      let [key, varpt, append, modes, var] = matchlist(x, pat_long)[1:5]
+      call s:_add(opts, keymap, key, varpt, append=='+', modes, var)
+    elseif x =~ pat_short
+      let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
+      call s:_add(opts, keymap, key, var, append=='+', mode, var)
+    else
+      let lst = args[idx:]
+      break
     endif
   endfor
 
+  let pat_with_modes = '^\(.\{-}\)\(@\(@\?\)\([:$<%!]\+\)\)\?$'
   let args = []
-  let idx = 0
-  let last_mode = '='
+  let last_modes = '<'
   for x in lst
-    let mode = get(positional_modes, idx, last_mode)  "tokenize
-    let last_mode = mode
-    call add(args, s:_expand(mode, x))
-    let idx += 1
+    let matched = matchlist(x, pat_with_modes)
+    let [var, hasmodes, savemodes, modes] = matched[1:4]
+    if hasmodes == ''
+      let modes = last_modes
+    elseif savemodes == '@'
+      let last_modes = modes
+    endif
+    call add(args, s:_expand(modes, var))
   endfor
-  echomsg "Args:" string(opts) string(args)
+  if get(opts, 'verbose', 0) || get(opts, 'v', 0)
+    echomsg "Args:" string(opts) string(args)
+  endif
   return [opts, args]
 endfunction
 
@@ -278,3 +277,4 @@ function! scripting#pop(dict, key, default)
   else
     return a:default
 endfunction
+
