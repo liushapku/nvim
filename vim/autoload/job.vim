@@ -108,10 +108,11 @@ function! s:list.add(id, instance)
   let self.last = a:id
 endfunction
 
-function! job#new(cmd, ...) abort
+function! job#new(options, cmd) abort
+  echomsg string(cmd)
   " optional para:
   " a:1: options dict
-  let instance = extend(copy(s:Shell), get(a:000, 0, {}))
+  let instance = extend(copy(s:Shell), a:options)
   let Callback = get(instance, 'callback', function('job#default_callback'))
   let instance.on_stdout = Callback
   let instance.on_stderr = Callback
@@ -120,9 +121,6 @@ function! job#new(cmd, ...) abort
   let instance.stdout_buffered = 1
   let instance.stderr_buffered = 1
   let instance.cmd = type(a:cmd) == type([])? copy(a:cmd) : ['sh', '-c', a:cmd]
-  if get(instance, 'expand', 1)
-    call map(instance.cmd, 'expand(v:val)')
-  endif
   let id = jobstart(instance.cmd, instance)
   let instance.id = id
   call s:list.add(id, instance)
@@ -133,7 +131,12 @@ endfunction
 function! job#spawn(options, parsed_args)
   let options = copy(a:options)
   call extend(options, a:parsed_args[0])
-  return job#new(a:parsed_args[1], options)
+  if scripting#pop(options, '@list', 1)
+    let cmd = a:parsed_args[1]
+  else
+    let cmd = join(a:parsed_args[1])
+  endif
+  return job#new(options, cmd)
 endfunction
 
 function! job#kill(...)

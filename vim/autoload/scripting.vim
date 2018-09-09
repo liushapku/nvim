@@ -178,9 +178,13 @@ function! scripting#GetMotionRange(type)
   endif
 endfunction
 
-function! scripting#parse(default_opts, ...) abort
+" [key] represents meta-option, which affects how parser interprets the args
+" known mega-options:
+" -- [KMAP]: the map from --key or -key to the destination option
+"            for example: [KMAP] = {'v': 'verbose'}
+function! scripting#parse(default_opts, qargs) abort
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
-  let keymap =has_key(opts, '_KMAP')? remove(opts, '_KMAP'): {}
+  let keymap =has_key(opts, '[KMAP]')? remove(opts, '[KMAP]'): {}
   let lst = []
   let allpositional = 0
   let positional_modes = []
@@ -220,7 +224,9 @@ function! scripting#parse(default_opts, ...) abort
       let a:opts[key] = [var]
     endif
   endfunction
-  for x in a:000
+
+  let args = scripting#split(a:qargs)
+  for x in args
     if !allpositional
       let handled = 1
       let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([$:%!]\?\)=\(.\+\)\)\?$'
@@ -254,4 +260,21 @@ function! scripting#parse(default_opts, ...) abort
   endfor
   echomsg "Args:" string(opts) string(args)
   return [opts, args]
+endfunction
+
+function! scripting#split(str)
+py3 << EOF
+import vim, shlex
+string = vim.eval('a:str')
+vim.vars['l:tmp'] = shlex.split(string)
+EOF
+let rv = remove(g:, 'l:tmp')
+return rv
+endfunction
+
+function! scripting#pop(dict, key, default)
+  if has_key(a:dict, a:key)
+    return remove(a:dict, a:key)
+  else
+    return a:default
 endfunction

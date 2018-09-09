@@ -46,6 +46,8 @@ Plug 'godlygeek/tabular'                  " tabularize using delimiters
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'chrisbra/colorizer'
 
+" scripting
+"Plug 'nvie/vim_bridge'
 
 " search
 Plug 'junegunn/fzf', {'do': './install --all'}
@@ -128,12 +130,23 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
+function! s:FilesConda()
+  if $CONDA_PREFIX != ''
+    let conda= $CONDA_PREFIX
+  elseif $HOSTNAME =~ '^liusha'
+    let conda= $HOME. '/miniconda3'
+  else
+    let conda= $HOME. '/conda'
+  endif
+  let conda .= '/lib/python3.*/site-packages'
+  exe 'Files' conda
+endfunction
 nnoremap <c-p>  :<c-u>Files<cr>
 nnoremap <c-p>~ :<c-u>Files ~/<cr>
 nnoremap <c-p>: :<c-u>History :<cr>
 nnoremap <c-p>/ :<c-u>History /<cr>
 nnoremap <c-p>b :<c-u>Buffers<cr>
-nnoremap <c-p>c :<c-u>Files $CONDA_PREFIX/lib/python3.*/site-packages<cr>
+nnoremap <c-p>c :<c-u>call <SID>FilesConda()<cr>
 nnoremap <c-p>d :<c-u>Files ~/dotfiles<cr>
 nnoremap <c-p>g :<c-u>History<cr>
 nnoremap <c-p>h :<c-u>History<cr>
@@ -319,6 +332,7 @@ let g:startify_change_to_dir       = 0
 let g:startify_update_oldfiles     = 1
 let g:startify_session_autoload    = 1
 let g:startify_session_persistence = 1
+command! -bang SNosave let g:startify_session_persistence=<bang>0
 let g:startify_commands = [
     \ ['Vim Reference', 'h ref'],
     \ {'f': ['fzf files', 'Files']},

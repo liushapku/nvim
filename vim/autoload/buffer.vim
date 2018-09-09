@@ -208,7 +208,7 @@ function! buffer#arg_select(glob, type)
   for x in buflist
     let name = bufname(x)
     if name =~ glob2regpat(a:glob)
-      call add(result, vimlocation#VimEscape(name))
+      call add(result, scripting#VimEscape(name))
     endif
   endfor
   if a:type == 'args'
