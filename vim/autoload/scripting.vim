@@ -256,7 +256,7 @@ function! scripting#parse(default_opts, qargs) abort
 
   let pat_with_modes = '^\(.\{-}\)\(@\(@\?\)\([:$<%!]\+\)\)\?$'
   let args = []
-  let last_modes = '<'
+  let last_modes = ':'
   for x in lst
     let matched = matchlist(x, pat_with_modes)
     let [var, hasmodes, savemodes, modes] = matched[1:4]

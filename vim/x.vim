@@ -209,6 +209,7 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#fnamemod =':t'
 let g:airline#extensions#tabline#fnametruncate = 16
 let g:airline#extensions#tabline#fnamecollapse = 2
+let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tabline#buffer_idx_format = {
       \ '0'  : '⁰',  '1'  : '¹',  '2'  : '²',  '3'  : '³',  '4'  : '⁴',
@@ -235,25 +236,25 @@ let g:airline#extensions#windowswap#indicator_text = 'WS'
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-"let g:airline_left_sep = '»'
-"let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-"let g:airline_right_sep = '◀'
-let g:airline_symbols.crypt = '🔒'
-"let g:airline_symbols.space = ''
-"let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = ''
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.maxlinenr = '☰'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
+""let g:airline_left_sep = '»'
+""let g:airline_left_sep = '▶'
+""let g:airline_right_sep = '«'
+""let g:airline_right_sep = '◀'
+"let g:airline_symbols.crypt = '🔒'
+""let g:airline_symbols.space = ''
+""let g:airline_symbols.linenr = '␊'
+""let g:airline_symbols.linenr = '␤'
+"let g:airline_symbols.linenr = ''
+""let g:airline_symbols.linenr = '¶'
+""let g:airline_symbols.maxlinenr = '☰'
+"let g:airline_symbols.maxlinenr = ''
+"let g:airline_symbols.branch = '⎇'
+""let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.paste = 'Þ'
+""let g:airline_symbols.paste = '∥'
+"let g:airline_symbols.spell = 'Ꞩ'
+"let g:airline_symbols.notexists = '∄'
+"let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline_powerline_fonts = 1
 "let g:airline_left_sep = ''
@@ -361,8 +362,6 @@ let g:org_heading_shade_leading_stars = 0
 let g:org_aggressive_conceal = 1
 let g:org_tag_column= 120
 
-"=======indent-guides
-nmap <silent> <space>i <Plug>IndentGuidesToggle
 
 "=======nerdcommenter
 let g:NERDDefaultAlign = 'left'
@@ -378,11 +377,6 @@ let delimitMate_balance_matchpairs = 1
 "let delimitMate_excluded_regions = "Comment,String"
 let delimitMate_expand_cr = 2
 
-
-" dbext
-let g:dbext_default_profile_pgsql = 'type=PGSQL'
-let g:dbext_default_profile = 'pgsql'
-let g:dbext_default_use_sep_result_buffer = 1
 
 " surround
 imap ;ys <esc>lys

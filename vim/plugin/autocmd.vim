@@ -65,18 +65,18 @@ augroup TabAu
   "autocmd TabNew * Startify
 augroup END
 
-function! s:should_fix_whitespace()
+function! s:fix_whitespace()
   if !has_key(b:, 'auto_fix_whitespace')
-    return index(g:extra_whitespace_ignored_filetypes, &ft) < 0 && @% !~# expand("$HOME/conda")
+    if index(g:extra_whitespace_ignored_filetypes, &ft) < 0 && @% !~# (expand("$HOME") . '/\(mini\)\?conda')
+      FixWhitespace
+    endif
   elseif get(b:, 'auto_fix_whitespace')
-    return 1
-  else
-    return 0
+    FixWhitespace
   endif
 endfunction
 augroup BufWriteAu
   autocmd!
-  autocmd BufWritePre * if s:should_fix_whitespace() | FixWhitespace
+  autocmd BufWritePre * call s:fix_whitespace()
 augroup END
 command! DisableAutoFixWhitespace let b:auto_fix_whitespace=0
 command! EnableAutoFixWhitespace let b:auto_fix_whitespace=1

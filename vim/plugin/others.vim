@@ -127,6 +127,7 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
 command! Doft doautocmd FileType
+nnoremap ;e <Cmd>Doft<cr>
 
 
 let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
@@ -174,3 +175,4 @@ command! -bar -bang Shebang :call s:Shebang(<bang>1)
 
 
 command! -range=% -addr=windows Diff :diffoff! | <line1>,<line2>windo diffthis
+command! -nargs=1 -complete=dir Lcd :windo lcd <args>

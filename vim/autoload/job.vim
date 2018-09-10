@@ -1,4 +1,13 @@
 let s:Shell = {'exit_code':''}
+function s:Shell.send(...)
+  if a:0 == 0
+    call chanclose(self.id, 'stdin')
+  else
+    for data in a:000
+      call chansend(self.id, data)
+    endfor
+  endif
+endfunction
 
 function! job#quickfix(instance, position, title) abort
   if has_key(a:instance, 'efm')
@@ -116,9 +125,6 @@ function! s:list.add(id, instance)
 endfunction
 
 function! job#new(options, cmd) abort
-  if get(a:options, 'verbose', 0) || get(a:options, 'v', 0)
-    echomsg string(a:cmd)
-  endif
   " optional para:
   " a:1: options dict
   let instance = extend(copy(s:Shell), a:options)
@@ -133,7 +139,21 @@ function! job#new(options, cmd) abort
   let id = jobstart(instance.cmd, instance)
   let instance.id = id
   call s:list.add(id, instance)
-  "echo 'job started: id:' instance.id
+
+  if has_key(instance, 'input')
+    let input = instance.input
+    call instance.send(input)
+  elseif has_key(instance, '@range')
+    let [l1, l2] = instance['@range']
+    let input = getline(l1, l2)
+    call instance.send(input)
+  endif
+  if get(instance, 'eof', 0)
+    call instance.send()
+  endif
+  if get(a:options, 'verbose', 0) || get(a:options, 'v', 0)
+    echomsg printf('job id: %d: %s', id, a:cmd)
+  endif
   return instance.id
 endfunction
 

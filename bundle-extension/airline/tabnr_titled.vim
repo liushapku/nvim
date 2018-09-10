@@ -4,10 +4,9 @@
 scriptencoding utf-8
 
 function! g:TablineTitle(nr)
-  if a:nr == tabpagenr() && has_key(t:, 'tabline_title')
-    let title = printf('[%s]', t:tabline_title) . (g:airline_symbols.space)
-  else
-    let title = ''
+  let title = gettabvar(a:nr, 'tabline_title')
+  if title != ''
+    let title = printf('[%s]', title) . (g:airline_symbols.space)
   endif
   return title
 endfunction
