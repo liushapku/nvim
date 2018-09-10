@@ -21,6 +21,8 @@ augroup FileTypeAu
   autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
   autocmd FileType vim,markdown TabSet 2
   autocmd FileType help set buftype=help
+  autocmd FileType help nmap <buffer> // /\(^\<bar> \)<bar>\zs<cr>
+  autocmd FileType help nmap <buffer> /? ?\(^\<bar> \)<bar>\zs<cr>
   autocmd FileType help,man set bufhidden=delete
 augroup END
 " with !, set globally

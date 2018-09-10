@@ -16,3 +16,4 @@ command! -range=-1 -nargs=1 -bang JobQ :call job#spawn(scripting#parse(s:opts('c
 command! -range=-1 -nargs=1 -bang Job  :call job#spawn(scripting#parse(s:opts('echo' , <bang>1, <count>, <line1>, <line2>), <q-args>))
 
 command! -nargs=? JobKill :call job#kill()
+
