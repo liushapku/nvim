@@ -176,3 +176,28 @@ command! -bar -bang Shebang :call s:Shebang(<bang>1)
 
 command! -range=% -addr=windows Diff :diffoff! | <line1>,<line2>windo diffthis
 command! -nargs=1 -complete=dir Lcd :windo lcd <args>
+
+let g:log_destination = '/tmp/vim.log'
+function! Log(msg)
+  let file = get(g:, 'log_destination', '/tmp/vim.log')
+  call writefile([a:msg], file, "a")
+endfunction
+command! -nargs=1 -bang Log call Log(<bang>0? eval(<q-args>) : <q-args>)
+
+let g:autoread_timer = 400
+function! Echo(msg)
+  echomsg a:msg
+endfunction
+
+function! s:Autoread(stop)
+  if a:stop && has_key(b:, 'autoread_timer')
+    call timer_stop(b:autoread_timer)
+    unlet b:autoread_timer
+  elseif !has_key(b:, 'autoread_timer')
+    let nr = bufnr("%")
+    let b:autoread_timer = timer_start(400,
+          \ {id-> execute('checktime ' . nr)},
+          \ {'repeat': -1})
+  endif
+endfunction
+command! -bang Autoread call s:Autoread(<bang>0)

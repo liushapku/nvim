@@ -38,7 +38,6 @@ function! job#default_callback(jobid, data, event) dict
     let self.chunks = ['']
   endif
   if a:event == 'exit'
-    let self.data = copy(self.chunks)
     if has_key(self, 'filter')
       call filter(self.chunks, self.filter)
     endif
@@ -69,6 +68,9 @@ function! job#default_callback(jobid, data, event) dict
       exe Onexit
     else
       echoerr 'unknown Onexit: ' . string(Onexit)
+    endif
+    if !get(self, 'persist', 0)
+      call s:list.remove(self.id)
     endif
     return
   elseif a:data == ['']

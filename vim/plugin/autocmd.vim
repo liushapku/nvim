@@ -24,6 +24,7 @@ augroup FileTypeAu
   autocmd FileType help nmap <buffer> // /\(^\<bar> \)<bar>\zs<cr>
   autocmd FileType help nmap <buffer> /? ?\(^\<bar> \)<bar>\zs<cr>
   autocmd FileType help,man set bufhidden=delete
+  autocmd FileType help,man setlocal nonumber
 augroup END
 " with !, set globally
 command! -nargs=1 -bang TabSet call s:tab_set(<bang>1, <args>)

@@ -4,6 +4,7 @@ for d in split(&runtimepath, ',')
 endfor
 
 nnoremap <buffer> \\ ebia:<esc>
+nmap <buffer> \<cr> g<cr>i\ <esc>
 
 command! -buf -bang -nargs=? TogglePlug call buffer#TogglePlug(<q-args>, <bang>0)
 command! -buf -bang -nargs=? EditPlug <mods> vsplit | call buffer#TogglePlug(<q-args>, <bang>0)

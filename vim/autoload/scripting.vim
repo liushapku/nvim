@@ -178,6 +178,8 @@ function! scripting#GetMotionRange(type)
   endif
 endfunction
 
+let s:pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
+let s:pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
 " [key] represents meta-option, which affects how parser interprets the args
 " known mega-options:
 " -- [KMAP]: the map from --key or -key to the destination option
@@ -228,18 +230,16 @@ function! scripting#parse(default_opts, qargs) abort
     endif
   endfunction
 
-  let pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
-  let pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
   let args = scripting#split(a:qargs)
   let hasoption = 1
   let lst = []
   for idx in range(len(args))
     let x = args[idx]
-    if x =~ pat_long
-      let [key, varpt, append, modes, var] = matchlist(x, pat_long)[1:5]
+    if x =~ s:pat_long
+      let [key, varpt, append, modes, var] = matchlist(x, s:pat_long)[1:5]
       call s:_add(opts, keymap, key, varpt, append=='+', modes, var)
-    elseif x =~ pat_short
-      let [append, mode, key, var] = matchlist(x, pat_short)[1:4]
+    elseif x =~ s:pat_short
+      let [append, mode, key, var] = matchlist(x, s:pat_short)[1:4]
       call s:_add(opts, keymap, key, var, append=='+', mode, var)
     else
       if x == '--'
@@ -290,3 +290,21 @@ function! scripting#pop(dict, key, default)
     return a:default
 endfunction
 
+function! scripting#complete(ArgLead, CmdLine, CursorPos)
+  let args = scripting#split(a:CmdLine[:a:CursorPos-1])[1:-2]
+  let positional = 0
+  for arg in args
+    if arg =~ s:pat_long
+      continue
+    elseif arg =~ s:pat_short
+      continue
+    elseif arg == '--'
+      continue
+    else
+      let positional = 1
+    endif
+  endfor
+  "Log! a:ArgLead . '|' . a:CmdLine . '|' .   a:CursorPos . '|'. string(args)
+  "return getcompletion("*", 'dir')
+  return getcompletion(a:ArgLead, 'shellcmd')
+endfunction
