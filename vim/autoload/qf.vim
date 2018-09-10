@@ -144,11 +144,12 @@ function! qf#Ptest(regex, winnr, name_prefix_pattern_to_remove)
     endif
   endif
   echo 'pptest' regex
-  call job#new(['pptest', regex], {
+  call job#new({
         \ 'onexit':'copen',
         \ 'efm': g:efm_python_pptest,
         \ 'transform': function('s:CleanPythonDoctestResult'),
-        \ })
+        \ },
+        \ ['pptest', regex])
 endfunction
 
 function! qf#select(parsed_opts)

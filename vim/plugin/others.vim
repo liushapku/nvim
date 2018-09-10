@@ -126,7 +126,6 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
-command! DoFileType doautocmd FileType
 command! Doft doautocmd FileType
 
 
@@ -144,6 +143,7 @@ endfunction
 command! -bang Serve call s:make_vim_server(<bang>0)
 
 
+" for markdown
 function! s:prepend_space(line1, line2)
   let x = getline(a:line1, a:line2)
   call map(x, 'substitute(v:val, "^", "    ", "g")')
@@ -153,6 +153,7 @@ endfunction
 command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 
 command! Tc tabclose | tabprevious
+nnoremap ;Z <Cmd>Tc<cr>
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
 nnoremap ;E <Cmd>doautocmd FileType<cr>
 
@@ -170,3 +171,6 @@ function! s:Shebang(executable)
   endif
 endfunction
 command! -bar -bang Shebang :call s:Shebang(<bang>1)
+
+
+command! -range=% -addr=windows Diff :diffoff! | <line1>,<line2>windo diffthis

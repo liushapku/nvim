@@ -67,7 +67,7 @@ Plug 'rip-rip/clang_complete'                                 " deoplete complet
 
 " filetype extensions
 Plug 'lambacck/python_matchit'  " matchit for python
-Plug 'vim-scripts/dbext.vim'    " database
+Plug 'tpope/vim-dadbod'         " database
 Plug 'chrisbra/csv.vim'
 Plug 'mattn/calendar-vim'
 Plug 'jceb/vim-orgmode'
@@ -198,6 +198,8 @@ let g:airline_extensions = [
             \'undotree',
             \'windowswap',
             \]
+
+let g:airline#extensions#tabline#tabnr_formatter = 'IGNORE_tabnr_titled'
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_buffers=1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -216,6 +218,15 @@ let g:airline#extensions#tabline#buffer_idx_format = {
       \ '20' : '⁰',  '21' : '¹',  '22' : '²',  '23' : '³',  '24' : '⁴',
       \ '25' : '⁵',  '26' : '⁶',  '27' : '⁷',  '28' : '⁸',  '29' : '⁹'
       \ }
+function! s:SetTitle(title)
+  if a:title == ''
+    unlet t:tabline_title
+  else
+    let t:tabline_title = a:title
+  endif
+  AirlineRefresh
+endfunction
+command! -bang -nargs=? Title :call s:SetTitle(<q-args>)
 
 let g:airline#extensions#windowswap#enabled = 1
 let g:airline#extensions#windowswap#indicator_text = 'WS'

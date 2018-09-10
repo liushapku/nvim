@@ -21,6 +21,7 @@ augroup FileTypeAu
   autocmd FileType markdown,html,json nmap <buffer> <F5> :<c-u>AsyncRun google-chrome <c-r>=expand('%:p')<cr><cr>
   autocmd FileType vim,markdown TabSet 2
   autocmd FileType help set buftype=help
+  autocmd FileType help,man set bufhidden=delete
 augroup END
 " with !, set globally
 command! -nargs=1 -bang TabSet call s:tab_set(<bang>1, <args>)
@@ -48,7 +49,6 @@ augroup FileAu
   autocmd BufNewFile,BufReadPost *.ipynb setfiletype=json
   autocmd BufNewFile,BufReadPost * call autocmd#FileOpen()
   autocmd BufNewFile,BufReadPost * call autocmd#FugitiveAddCustomCommands()
-  autocmd BufNewFile,BufReadPost man://* set bufhidden=wipe
 augroup END
 
 augroup QuickFixCmdPostAu
@@ -62,7 +62,7 @@ augroup END
 
 augroup TabAu
   autocmd!
-  autocmd TabNew * Startify
+  "autocmd TabNew * Startify
 augroup END
 
 function! s:should_fix_whitespace()
@@ -86,4 +86,9 @@ augroup VimAu
   autocmd!
   "autocmd VimEnter * !touch /tmp/vimenter
   "autocmd VimLeave * !touch /tmp/vimleave
+augroup END
+
+augroup VimLeavePreAu
+  autocmd!
+  autocmd VimLeavePre * :tabdo cclose
 augroup END
