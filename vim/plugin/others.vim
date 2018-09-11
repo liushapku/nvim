@@ -185,10 +185,6 @@ endfunction
 command! -nargs=1 -bang Log call Log(<bang>0? eval(<q-args>) : <q-args>)
 
 let g:autoread_timer = 400
-function! Echo(msg)
-  echomsg a:msg
-endfunction
-
 function! s:Autoread(stop)
   if a:stop && has_key(b:, 'autoread_timer')
     call timer_stop(b:autoread_timer)

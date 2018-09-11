@@ -41,8 +41,10 @@ let g:echodoc_enable_at_startup = 1
 let g:UltiSnipsExpandTrigger=";;"
 inoremap ;2 ;;
 let g:UltiSnipsListSnippets="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+"let g:UltiSnipsJumpForwardTrigger="<c-n>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+let g:UltiSnipsJumpForwardTrigger=";n"
+let g:UltiSnipsJumpBackwardTrigger=";p"
 let g:UltiSnipsEditSplit="normal"
 let g:UltiSnipsSnippetDirectories=['UltiSnips']
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
@@ -66,5 +68,3 @@ augroup CompleteAu
   autocmd!
   autocmd BufWinEnter '__doc__' setlocal bufhidden=delete
 augroup END
-
-inoremap <buffer> <expr> <A-;> CallFunction('jedi#show_call_signatures', "")
