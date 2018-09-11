@@ -3,7 +3,7 @@ for d in split(&runtimepath, ',')
     exec 'setlocal tags+=' . d . '/doc/tags'
 endfor
 
-nnoremap <buffer> \\ ebia:<esc>
+nnoremap <buffer> \\ ciw<c-r>= @- =~ '^a:' ? @-[2:] : 'a:' . @-<cr><esc>
 nmap <buffer> \<cr> g<cr>i\ <esc>
 
 command! -buf -bang -nargs=? TogglePlug call buffer#TogglePlug(<q-args>, <bang>0)

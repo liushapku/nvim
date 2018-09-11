@@ -2,19 +2,18 @@
 " qf#SetQF(lines[, option_dic])
 " option_dic: key:
 "   nojump: do not jump, default 0
-function! qf#SetQF(opts)
-  let opts     = a:opts
+"   positional: [reg]
+function! qf#SetQF(parsed_args)
+  let [opts, positional] = a:parsed_args
   if has_key(opts, 'data')
     let data = opts['data']
-  elseif has_key(opts, 'reg')
-    let data = getreg(opts.reg, 1, 1)
   else
-    echoerr 'no data or register provided'
-    return
+    let reg = get(positional, 0, '*')
+    let data = getreg(reg, 1, 1)
   endif
   let title    = get(opts, 'title', '')
   let jump     = get(opts, 'jump', 0)
-  let position = get(opts, 'action', 'copen')
+  let loclist  = str2nr(get(opts, 'l', ''))
   let reverse  = get(opts, 'reverse', 0)
   let oldefm   = &efm
   let &efm     = get(opts, 'efm', &efm)
@@ -28,17 +27,17 @@ function! qf#SetQF(opts)
     let qflist = reverse(qflist)
   endif
   try
-    if position == 'lopen'
-      lgetexpr qflist
-      belowright lopen
+    if loclist
+      silent lgetexpr qflist
+      silent belowright lopen
       if title != ''
         let w:quickfix_title = title
         call setloclist([], 'r', {'title': title})
       endif
       if jump | cc | endif
     else
-      cgetexpr qflist
-      botright copen
+      silent cgetexpr qflist
+      silent botright copen
       if title != ''
         let w:quickfix_title = title
         call setqflist([], 'r', {'title': title})

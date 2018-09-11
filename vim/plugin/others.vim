@@ -126,8 +126,6 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
-command! Doft doautocmd FileType
-nnoremap ;e <Cmd>Doft<cr>
 
 
 let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
@@ -156,7 +154,6 @@ command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 command! Tc tabclose | tabprevious
 nnoremap ;Z <Cmd>Tc<cr>
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
-nnoremap ;E <Cmd>doautocmd FileType<cr>
 
 function! s:Shebang(executable)
   if &ft == 'python'
@@ -177,10 +174,13 @@ command! -bar -bang Shebang :call s:Shebang(<bang>1)
 command! -range=% -addr=windows Diff :diffoff! | <line1>,<line2>windo diffthis
 command! -nargs=1 -complete=dir Lcd :windo lcd <args>
 
-let g:log_destination = '/tmp/vim.log'
+if !exists('g:log_destination')
+  let g:log_destination = '/tmp/vim.log'
+endif
 function! Log(msg)
+  let msg = type(a:msg) == v:t_string? a:msg : string(a:msg)
   let file = get(g:, 'log_destination', '/tmp/vim.log')
-  call writefile([a:msg], file, "a")
+  call writefile([msg], file, "a")
 endfunction
 command! -nargs=1 -bang Log call Log(<bang>0? eval(<q-args>) : <q-args>)
 

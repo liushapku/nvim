@@ -17,13 +17,13 @@ function! job#quickfix(instance, position, title) abort
   try
     let title = 'Job: ' . a:title
     if a:position == 'l'
-      lgetexpr a:instance.chunks
+      silent lgetexpr a:instance.chunks
       call setloclist([], 'r', {'title': title})
-      belowright lopen
+      silent belowright lopen
     else
-      cgetexpr a:instance.chunks
+      silent cgetexpr a:instance.chunks
       call setqflist([], 'r', {'title': title})
-      botright copen
+      silent botright copen
     endif
     let w:quickfix_title = title
   finally

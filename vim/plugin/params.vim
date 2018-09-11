@@ -22,17 +22,22 @@ nnoremap ) f)
 
 inoremap ;, <end>,
 nnoremap ;, A,<esc>
-imap <a-9> <c-r>=params#Echo()<cr>
-imap <c-x>) <c-r>=params#Complete(1)<cr>
 imap ,) <esc>lys$)
 nmap ,) ys$)
+imap <c-x>) <c-r>=params#Complete()<cr>
+imap ;) <c-r>=params#Complete()<cr>
+imap <silent> <a-;> <Cmd>call params#Echo()<cr>
+"imap <silent> <expr> <a-;> jedi#show_call_signatures()?"":""
 
 
 nnoremap <silent> , :<c-u>call params#GotoNextPara(v:count1)<cr>
-nnoremap <silent> g, :<c-u>call params#GotoPrevPara(v:count1)<cr>
+nnoremap <silent> g; :<c-u>call params#GotoPrevPara(v:count1)<cr>
 nnoremap <space>, ,
 nnoremap <space><space> ;
 
 call operator#user#define('InsertSurround', 'params#Surround')
-imap ;s <esc><Plug>(operator-InsertSurround)
+
+imap ;s <esc>l<Plug>(operator-InsertSurround)
+imap ;S <esc><Plug>(operator-InsertSurround)
+
 

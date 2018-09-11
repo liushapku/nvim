@@ -131,7 +131,7 @@ function! scripting#ExeLines() range
 endfunction
 
 function! scripting#ExeReg(reg)
-  exec substitute(eval("@".a:reg), "\n", "|", "")
+  exec join(getreg(a:reg, 1, 1), "|")
 endfunction
 
 function! scripting#SaveRegister(reg)
@@ -143,8 +143,14 @@ function! scripting#RestoreRegister(values)
   call setreg(a:values[0], a:values[1], a:values[2])
 endfunction
 
-function! scripting#CopyRegister(regfrom, regto)
-  call setreg(a:regto, getreg(a:regfrom, 1), getregtype(a:regfrom))
+function! scripting#CopyRegister(regfrom, ...)
+  " only the first character is used
+  let regto = get(a:000, 0, '*')[0]
+  let regfrom = a:regfrom[0]
+  if regfrom == regto
+    return
+  endif
+  call setreg(regto, getreg(regfrom, 1), getregtype(regfrom))
 endfunction
 
 function! scripting#SaveMark(mk)
@@ -157,15 +163,16 @@ function! scripting#RestoreMark(saved)
 endfunction
 
 " escape the args so that can be feed to commandline or 'exec'
-function! scripting#VimEscape(string, ...)
-  let esc = a:0? a:1: get(g:, 'vim_cmdline_escape', '\ ')
+function! scripting#escape(string, ...)
+  let esc = get(a:000, 0, '\ ')
   return escape(a:string, esc)
 endfunction
 
-function! scripting#CallFunction(Func, key)
-  let F=function(a:Func)
-  call F()
-  return a:key
+" used in lambda to execute some commands
+" positional: [retvar] replace the return value
+function! scripting#exe(cmd, ...)
+  let rv = execute(a:cmd)
+  return get(a:000, 0, rv)
 endfunction
 
 function! scripting#GetMotionRange(type)
@@ -178,8 +185,9 @@ function! scripting#GetMotionRange(type)
   endif
 endfunction
 
-let s:pat_long = '^--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
-let s:pat_short = '^\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
+let s:pat_long = '^\s*--\([a-zA-Z0-9][-_/.a-zA-Z0-9]*\)\(\(+\?\)\([:$<%!]*\)=\(.*\)\)\?$'
+let s:pat_short = '^\s*\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
+" starting whitespaces are trimmed, ending whitespaces are kept
 " [key] represents meta-option, which affects how parser interprets the args
 " known mega-options:
 " -- [KMAP]: the map from --key or -key to the destination option
@@ -192,7 +200,7 @@ function! scripting#parse(default_opts, qargs) abort
   let keymap = scripting#pop(opts, '[KMAP]', {})
   let autopositional = scripting#pop(opts, '[AUTOPOSITIONAL]', 0)
   function! s:_expand(mode, var)
-    let modes = split(a:mode == ''? '<' : a:mode, '\zs')
+    let modes = split(a:mode == ''? ':' : a:mode, '\zs')
     let var = a:var
     for mode in modes
       if mode == ':'            " as is
@@ -242,7 +250,7 @@ function! scripting#parse(default_opts, qargs) abort
       let [append, mode, key, var] = matchlist(x, s:pat_short)[1:4]
       call s:_add(opts, keymap, key, var, append=='+', mode, var)
     else
-      if x == '--'
+      if x =~ '^\s*--$'
         let lst = args[idx+1:]
         break
       elseif autopositional
@@ -254,7 +262,7 @@ function! scripting#parse(default_opts, qargs) abort
     endif
   endfor
 
-  let pat_with_modes = '^\(.\{-}\)\(@\(@\?\)\([:$<%!]\+\)\)\?$'
+  let pat_with_modes = '^\s*\(.\{-}\)\(@\(@\?\)\([:$<%!]\+\)\)\?$'
   let args = []
   let last_modes = ':'
   for x in lst
@@ -273,14 +281,22 @@ function! scripting#parse(default_opts, qargs) abort
   return [opts, args]
 endfunction
 
+" positional: [IFS]
 function! scripting#split(str)
+  let IFS = get(g:, 'IFS', '')
+  if IFS == ''
 py3 << EOF
 import vim, shlex
 string = vim.eval('a:str')
 vim.vars['l:tmp'] = shlex.split(string)
 EOF
-let rv = remove(g:, 'l:tmp')
-return rv
+    let rv = remove(g:, 'l:tmp')
+    return rv
+  else
+    " only get one character
+    let rv = split(a:str, IFS[0])
+    return rv
+  endif
 endfunction
 
 function! scripting#pop(dict, key, default)
@@ -307,4 +323,15 @@ function! scripting#complete(ArgLead, CmdLine, CursorPos)
   "Log! a:ArgLead . '|' . a:CmdLine . '|' .   a:CursorPos . '|'. string(args)
   "return getcompletion("*", 'dir')
   return getcompletion(a:ArgLead, 'shellcmd')
+endfunction
+
+function! scripting#with_ifs(command)
+  let oldifs = g:IFS
+  try
+    let g:IFS = a:command[0]
+    let command = substitute(a:command[1:], '^\s*', '', '')
+    exe command
+  finally
+    let g:IFS = oldifs
+  endtry
 endfunction

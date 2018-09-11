@@ -5,11 +5,15 @@ function! s:auto_select()
 endfunction
 
 function! params#Echo()
+  if empty(get(b:, 'echodoc', []))
+    return ''
+  endif
+  echo ''
   for doc in b:echodoc
     if has_key(doc, 'highlight')
-    execute 'echohl' doc.highlight
-    echon doc.text
-    echohl None
+      execute 'echohl' doc.highlight
+      echon doc.text
+      echohl None
     else
     echon doc.text
     endif
@@ -25,6 +29,7 @@ function! params#GetParams()
   let params = []
   let ident = ''
   let started = 0
+  let idx = 0
   for doc in b:echodoc
     if get(doc, 'highlight', '') == 'Identifier'
       let ident = doc.text
@@ -39,21 +44,22 @@ function! params#GetParams()
     elseif doc.text is ', '
       continue
     elseif started
+      if get(doc, 'highlight', '') == 'Special'
+        let idx = len(params)
+      endif
       call add(params, doc.text)
     endif
   endfor
-  return [ident, params]
+  return [ident, params, idx]
 endfunction
 
-function! params#Complete(jump) abort
-  for i in range(a:times)
-    if !exists('b:echodoc')
-      return ''
-    else
-    let [ident, params] = params#GetParams()
-      return join(params, ', ') . (a:jump? "\<esc>%":"")
-    endif
-  endfor
+function! params#Complete() abort
+  if !exists('b:echodoc')
+    return ''
+  else
+  let [ident, params, idx] = params#GetParams()
+    return join(params[idx:], ', ') . (getline('.')[col('.')-1]==')'?'':'?')
+  endif
 endfunction
 
 function! params#GotoNextPara(times) abort
@@ -152,23 +158,32 @@ endfunction
 
 function! params#Surround(motion_wiseness) abort
   let x = nr2char(getchar())
-  let a = split("([{", '\zs')
-  let b = split(")]}", '\zs')
+  let a = split("<([{", '\zs')
+  let b = split(">)]}", '\zs')
   let i = index(b, x)
   if i != -1
     let x = a[i]
+    let y = b[i]
+  else
+    let i = index(a, x)
+    if i != -1
+      let x = a[i]
+      let y = b[i]
+    else
+      let y = x
+    endif
   endif
-  let i = index(a, x)
-  let y = i==-1? x:b[i]
-  let saved = vimlocation#SaveRegister("t")
-  try
-    silent normal! `["td$
-    let line = getline('.')
-    let newline = line . x . @" . y
-    call setline(line('.'), newline)
-    startinsert!
-  finally
-    call vimlocation#RestoreRegister(saved)
-  endtry
+  let [startline, startcol] = getpos("'[")[1:2]
+  let [endline, endcol] = getpos("']")[1:2]
+  if startline != endline
+    return
+  endif
+
+  let string = getline('.')
+  let new = string[:startcol-2] . x . string[startcol-1:endcol-1] . y . string[endcol:]
+  call setline('.', new)
+  call setpos("'[", [0, startline, startcol, 0])
+  call setpos("']", [0, startline, endcol+2, 0])
+  "normal `]
 endfunction
 
