@@ -196,6 +196,7 @@ let s:pat_short = '^\s*\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
 "                      arg are treaded as positional args
 "                      otherwise, use '--' to start positional args
 function! scripting#parse(default_opts, qargs) abort
+  "Log! a:qargs
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
   let keymap = scripting#pop(opts, '[KMAP]', {})
   let autopositional = scripting#pop(opts, '[AUTOPOSITIONAL]', 0)
@@ -294,7 +295,7 @@ EOF
     return rv
   else
     " only get one character
-    let rv = split(a:str, IFS[0])
+    let rv = split(a:str, printf('\(%s\)\+', IFS))
     return rv
   endif
 endfunction
@@ -328,8 +329,7 @@ endfunction
 function! scripting#with_ifs(command)
   let oldifs = g:IFS
   try
-    let g:IFS = a:command[0]
-    let command = substitute(a:command[1:], '^\s*', '', '')
+    let [g:IFS, command] = matchlist(a:command, '\(\S\+\)\(\s.*\)')[1:2]
     exe command
   finally
     let g:IFS = oldifs

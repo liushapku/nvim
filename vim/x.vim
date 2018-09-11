@@ -53,6 +53,7 @@ Plug 'chrisbra/colorizer'
 Plug 'junegunn/fzf', {'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
+"Plug 'mhinz/neovim-remote' "install using pip
 
 " Complete
 Plug 'SirVer/ultisnips'                                       " snippets framework
@@ -292,10 +293,8 @@ let g:neoterm_autoscroll=1
 
 
 " futgitive
-command! GInitDir call fugitive#detect(resolve(expand('%:h')))
+command! Gdetect call fugitive#detect(resolve(expand('%:h')))
 autocmd BufReadPost fugitive://* set bufhidden=delete
-"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-"
 
 " undotree
 nnoremap <f8> :<C-U>UndotreeToggle<cr>

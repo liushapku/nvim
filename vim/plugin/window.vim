@@ -16,6 +16,8 @@ tnoremap <A-k> <C-\><C-n><C-W>k
 tnoremap <A-l> <C-\><C-n><C-W>l
 tnoremap <A-n> <C-\><C-n><C-W>w
 tnoremap <A-p> <C-\><C-n><C-W>W
+command! Tc tabclose | tabprevious
+nnoremap ;Z <Cmd>Tc<cr>
 
 inoremap <a-pageup> <esc>gT
 inoremap <a-pagedown> <esc>gt

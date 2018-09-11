@@ -1,6 +1,3 @@
-
-
-"autocmd BufEnter * silent! lcd %:p:h
 "
 "set shellcmdflag=-ic
 "set termguicolors
@@ -50,6 +47,10 @@ if has('nvim')
   set undofile
 endif
 filetype plugin indent on
+noremap <space>- :<C-u>set invcursorline<cr>
+noremap <space><bar> :<C-u>set invcursorcolumn<cr>
+noremap g<bar> :<C-u>set invrelativenumber<CR>
+
 " commandline select folder and complete next level
 cnoremap <c-s> /<bs><tab><tab>
 
@@ -70,14 +71,8 @@ nmap Y y$
 
 let tempdir=fnamemodify(tempname(), ':h')
 
-
 " detect git folder
-nmap <leader>gt :<C-U>silent call fugitive#detect(resolve(expand('%:h')))<CR>
 " cd to folder containing current dir
-
-noremap <space>- :<C-u>set invcursorline<cr>
-noremap <space><bar> :<C-u>set invcursorcolumn<cr>
-noremap g<bar> :<C-u>set invrelativenumber<CR>
 
 "cWORD
 cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
@@ -151,8 +146,6 @@ function! s:prepend_space(line1, line2)
 endfunction
 command! -range CopyCode :call s:prepend_space(<line1>, <line2>)
 
-command! Tc tabclose | tabprevious
-nnoremap ;Z <Cmd>Tc<cr>
 command! EShada :<mods> split ~/.local/share/nvim/shada/main.shada
 
 function! s:Shebang(executable)
