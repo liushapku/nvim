@@ -1,0 +1,33 @@
+#!/usr/bin/env python
+
+"""
+used in neovim's embeded terminal to execute vim commands
+"""
+
+import argparse
+import neovim, os, re, sys, time
+
+parser = argparse.ArgumentParser('execute vim command within an embeded terminal. -f is not implemented')
+parser.add_argument('--normal', '-n', action='store_true', help='treat as normal command')
+parser.add_argument('--func', '-f', action='store_true', help='call function')
+parser.add_argument('command', nargs='*', help='command')
+args = parser.parse_args()
+
+try:
+    nvim_socket = os.environ["NVIM_LISTEN_ADDRESS"]
+    nvim = neovim.attach('socket', path=nvim_socket)
+    if args.normal:
+        # nvim.command('stopinsert')
+        nvim.feedkeys('' + ''.join(args.command))
+    elif args.func:
+        command = 'echo ' + ' '.join(args.command)
+        print(command)
+        nvim.command(command)
+    else:
+        command = ' '.join(args.command)
+        print(command)
+        nvim.command(command)
+
+except KeyError:
+    exit('didn''t find a nvim to attach, has no effect')
+    pass

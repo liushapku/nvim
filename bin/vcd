@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+
+"""
+used in neovim's embeded terminal to change the current workding directory of neovim itself
+"""
+
+import argparse
+import neovim, os, re, sys, time
+
+parser = argparse.ArgumentParser()
+parser.add_argument('dir', nargs='?', default=os.getcwd(), help='destination dir')
+# parser.add_argument('--all', '-a', action='store_true', help='change dir for all embeded terminals and nvim itself')
+args = parser.parse_args()
+
+
+try:
+    nvim_socket = os.environ["NVIM_LISTEN_ADDRESS"]
+    nvim = neovim.attach('socket', path=nvim_socket)
+    if not os.path.exists(args.dir):
+        exit('nvim: dir', args.dir, 'does not exist')
+    if os.path.isdir(args.dir):
+        todir = args.dir
+    elif os.path.isfile(args.dir):
+        todir = os.path.dirname(args.dir)
+
+    print('nvim @', nvim_socket, ': change to:', todir)
+    nvim.command('cd {}'.format(todir))
+
+
+except KeyError:
+    exit('didn''t find a nvim to attach, has no effect')
+    pass
