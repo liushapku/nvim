@@ -3,8 +3,9 @@ let g:plug_url_format="https://github.com/%s.git"
 set rtp+=~/repos/jupyter_nvim
 call plug#begin('~/.vim/bundle')
 
-                                          " Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
-                                          " Plug '~/repos/jupyter_nvim'
+" Plug 'liushapku/jupyter_nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug '~/repos/jupyter_nvim'
+
 Plug 'tpope/vim-fugitive'                 " git
 Plug 'liushapku/webapi-vim'               " webapi
 Plug 'liushapku/gist-vim'                 " gist
@@ -205,9 +206,11 @@ let g:signify_vcs_list = ['git']
 "nmap gpp gpg@
 nmap gp <Plug>(operator-replace)
 vmap gp <Plug>(operator-replace)  " the same as p
-nmap gpp gp_
-nmap ;P ^Pa<space><esc>
-nmap ;p $a<space><esc>p
+nmap <expr> gpp getregtype(v:register)=='c'?'^gp$':'gp_'
+" put to start of line
+nnoremap <expr> ;P '^"' . v:register . "Pa\<space>\<esc>"
+" put to end of line
+nnoremap <expr> ;p "$a\<space>\<esc>\"" . v:register . "p"
 
 
 " neoterm
@@ -275,11 +278,6 @@ let g:startify_commands = [
     \ {'m': ['My magical function', 'call Magic()']},
     \ ]
 
-"=======autopep8
-let g:autopep8_diff_type='horizontal'
-let g:autopep8_disable_show_diff=1
-
-
 "=======orgmode
 let g:org_agenda_files = ['~/dotfiles/org/*.org']
 let g:org_heading_shade_leading_stars = 0
@@ -323,5 +321,8 @@ let g:user_emmet_settings = {
 vmap <c-d> :Linediff<cr>
 
 "=============colorschemes
-colorscheme gruvbox
+if !exists("g:done_colorscheme")
+  colorscheme gruvbox
+  let g:done_colorscheme = 1
+endif
 

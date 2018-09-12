@@ -45,6 +45,7 @@ augroup WinAu
   "autocmd WinEnter term://* normal i
   autocmd WinLeave * call autocmd#WinLeave()
   "autocmd WinLeave term://* stopinsert
+  autocmd TabLeave * let g:last_accessed_tab=tabpagenr()
 augroup END
 
 augroup FileAu

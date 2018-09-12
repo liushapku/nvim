@@ -184,6 +184,6 @@ function! params#Surround(motion_wiseness) abort
   call setline('.', new)
   call setpos("'[", [0, startline, startcol, 0])
   call setpos("']", [0, startline, endcol+2, 0])
-  "normal `]
+  normal `]
 endfunction
 

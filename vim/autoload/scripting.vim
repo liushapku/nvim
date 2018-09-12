@@ -55,7 +55,11 @@ function! scripting#locate_map(type, command, index) abort
     let prompt = printf("select [1-%d] >> ", N)
     let n = 0
     while (n > N || n < 1)
-      let n = str2nr(input(prompt))
+      let in = input({'prompt': prompt, 'cancelreturn': '-'})
+      if in == '-'
+        throw 'Cancled'
+      endif
+      let n = str2nr(in)
     endwhile
     return substitute(ret[2*n -1], '\s*Last set from ', '', '')
   endif
@@ -66,7 +70,7 @@ function! scripting#edit_map(mods, pedit, type, command, ...) abort
   try
     let file = call('scripting#locate_map', [a:type, acommand, index])
   catch
-    echoerr v:exception
+    return
   endtry
   let command = acommand[0] == ';'? ('\(<leader>\|;\)' . acommand[1:]) : acommand
   if a:pedit

@@ -16,8 +16,6 @@ tnoremap <A-k> <C-\><C-n><C-W>k
 tnoremap <A-l> <C-\><C-n><C-W>l
 tnoremap <A-n> <C-\><C-n><C-W>w
 tnoremap <A-p> <C-\><C-n><C-W>W
-command! Tc tabclose | tabprevious
-nnoremap ;Z <Cmd>Tc<cr>
 
 inoremap <a-pageup> <esc>gT
 inoremap <a-pagedown> <esc>gt
@@ -31,9 +29,17 @@ nmap <a-=> <a-pagedown>
 nmap <a--> <a-pageup>
 tmap <a-=> <a-pagedown>
 tmap <a--> <a-pageup>
+nnoremap <expr> gt v:count==0?"\<esc>" . g:last_accessed_tab . "gt":"gt"
+tnoremap <expr> <esc>gt "\<c-\>\<c-n>" . v:count==0?g:last_accessed_tab . "gt":v:count . "gt"
+command! Tc tabclose | tabprevious
+nnoremap ;Z <Cmd>Tc<cr>
 
+" switch to previous window or (when count is present) go to window n
+nnoremap <silent> <expr> gw v:count==0?"\<C-W>p":"\<C-W>\<C-W>"
+nnoremap gc <C-W>c
+" goto preview window
+nnoremap gW <C-W>P
 tnoremap <Esc><ESC> <C-\><C-n>
-tnoremap <esc>gw <c-\><c-n>
 tnoremap <silent> <expr> <esc>gw v:count==0?"\<c-\>\<c-n>\<C-W>p":("\<c-\>\<c-n>". v:count . "\<C-W>\<C-W>")
 
 

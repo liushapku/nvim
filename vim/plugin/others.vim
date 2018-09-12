@@ -70,10 +70,12 @@ noremap <leader>mks :SSave!
 nmap Y y$
 
 let tempdir=fnamemodify(tempname(), ':h')
+let cachedir=expand('~/.vim/custom/cache')
 
 " detect git folder
 " cd to folder containing current dir
 
+cnoremap <C-R>= <C-R>=
 "cWORD
 cnoremap <C-R><C-E> <C-R>=expand('<cWORD>')<CR>
 "cword
@@ -82,31 +84,19 @@ cnoremap <C-R><C-W> <C-R>=expand('<cword>')<CR>
 cnoremap <C-R><C-F> <C-R>=expand('%:p')<cr>
 "full directory name
 cnoremap <C-R><C-D> <C-R>=expand('%:p:h') . '/'<cr>
-"full name for autoload
-cnoremap <C-R><C-L> <C-R>=substitute(expand('%:p:h'), 'plugin$', 'autoload', '') . '/'<cr>
 "cwd
-"cnoremap <C-R><C-C> <C-R>=getcwd()<cr>
 cnoremap <C-R><C-J> <C-R>=getcwd()<cr>
-function! s:InputBufName()
-  let n = str2nr(input('bufnr: '))
-  return n==0? '' : bufname(n)
-endfunction
 "buf name
-cnoremap <C-R><C-B> <C-R>=s:InputBufName()<cr>
+cnoremap <C-R><C-B> <C-R>=expand('#'.str2nr(input('bufnr: ')))<cr>
 "full buf name
-cnoremap <C-R><C-N> <C-R>=fnamemodify(InputBufName(), ':p')<cr>
+cnoremap <C-R><C-N> <C-R>=expand('#'.str2nr(input('bufnr: ')).':p')<cr>
 
 nnoremap <A-/> :<C-U>noh<CR>:redraw<CR>
 nnoremap <Space>/ :<C-U>set invhlsearch<CR>
 
-cabbr RR AsyncRun
 command! -nargs=+ R new term://<args>
 
 noremap g<cr> :<c-u>normal i<c-v><cr><cr>
-
-cnoreabbr <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
-cnoreabbr <> '<,'>
-
 nmap <space>c :<c-u>let &conceallevel=(&conceallevel == 0? 2:0)<cr>
 
 function! ToggleFoldMethod()
@@ -122,8 +112,7 @@ nmap <space>f :<c-u>call ToggleFoldMethod()<cr>
 command! -nargs=1 -range=% Count <line1>,<line2>s/<args>//gn
 
 
-
-let g:listen_address_file = expand('~/.vim/custom/tmp/NVIM_LISTEN_ADDRESS.txt')
+let g:listen_address_file = cachedir . '/NVIM_LISTEN_ADDRESS.txt'
 function! s:make_vim_server(off)
   if a:off
     if filereadable(g:listen_address_file)
@@ -184,3 +173,17 @@ function! s:Autoread(stop)
   endif
 endfunction
 command! -bang Autoread call s:Autoread(<bang>0)
+
+function! s:Gsync(bang)
+  if !exists("b:git_dir")
+    return
+  endif
+  let repo = matchlist(b:git_dir, ".*" . $HOME . '/\(.*\)/.git')[1]
+  let command = ':JobQ --onexit=caddexpr gitall -C ' . repo . ' pull'
+  let sep = ["========================================", ""]
+  exe "JobQ --onexit='cgetexpr self.chunks' " .
+        \ "--onexit+='caddexpr sep' " .
+        \ "--onexit+=" . string(command) .
+        \ " git push " . (a:bang?'--force':'')
+endfunction
+command! -bang Gsync  call s:Gsync(<bang>0)

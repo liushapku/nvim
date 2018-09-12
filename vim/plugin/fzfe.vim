@@ -79,4 +79,4 @@ command! L call fzf#run(fzf#wrap('*lines*', {
       \ 'sink':   function('scripting#log'),
       \ }, 0))
 
-command! -bang -nargs=1 F call fzf#execute(<q-args>, <bang>0)
+command! -bang -nargs=1 F call fzfe#execute(<q-args>, <bang>0)

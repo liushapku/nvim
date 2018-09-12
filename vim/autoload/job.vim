@@ -16,16 +16,17 @@ function! job#quickfix(instance, position, title) abort
   endif
   try
     let title = 'Job: ' . a:title
-    if a:position == 'l'
-      silent lgetexpr a:instance.chunks
+    if a:position == 'lgetexpr' || a:position == 'laddexpr'
+      exe printf("silent %s a:instance.chunks", a:position)
       call setloclist([], 'r', {'title': title})
       silent belowright lopen
-    else
-      silent cgetexpr a:instance.chunks
+      let w:quickfix_title = title
+    elseif a:position == 'cgetexpr' || a:position == 'caddexpr'
+      exe printf("silent %s a:instance.chunks", a:position)
       call setqflist([], 'r', {'title': title})
       silent botright copen
+      let w:quickfix_title = title
     endif
-    let w:quickfix_title = title
   finally
     if has_key(a:instance, 'efm')
       let &efm = efm
@@ -57,10 +58,8 @@ function! job#default_callback(jobid, data, event) dict
       endfor
     elseif Onexit == 'echo'
       echo join(self.chunks, "\n")
-    elseif Onexit == 'copen'
-      call job#quickfix(self, 'q', string(self.cmd))
-    elseif Onexit == 'lopen'
-      call job#quickfix(self, 'l', string(self.cmd))
+    elseif index(['cgetexpr', 'caddexpr', 'lgetexpr', 'laddexpr'], Onexit) != -1
+      call job#quickfix(self, Onexit, string(self.cmd))
     elseif Onexit =~# '\(v\|tab\)\?new\($\| .*\)'
       exe Onexit
       call append(0, self.chunks[:-2])
@@ -107,15 +106,15 @@ function! s:list.get(id)
   return self.jobs[a:id]
 endfunction
 function! s:list.kill(id)
-  if has_key(self.jobs, id)
+  if has_key(self.jobs, a:id)
     call jobstop(a:id)
   endif
 endfunction
 function! s:list.remove(id)
-  if has_key(self.jobs, id)
-    return remove(self.jobs, id)
+  if has_key(self.jobs, a:id)
+    return remove(self.jobs, a:id)
   else
-    echoerr id . " not in job list"
+    echoerr a:id . " not in job list"
   endif
 endfunction
 function! s:list.clear()
@@ -155,6 +154,12 @@ function! job#new(options, cmd) abort
   endif
   if get(a:options, 'verbose', 0) || get(a:options, 'v', 0)
     echomsg printf('job id: %d: %s', id, a:cmd)
+  endif
+  let syncwait =  get(a:options, 'sync', '_')
+  if syncwait == '1DEFAULT'
+    call jobwait([instance.id])
+  elseif syncwait != '_'
+    call jobwait(str2nr(syncwait))
   endif
   return instance.id
 endfunction
