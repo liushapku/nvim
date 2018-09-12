@@ -27,3 +27,5 @@ command! -nargs=1 Parse echo scripting#parse({'[KMAP]':{'v':'verbose'}}, <q-args
 command! -nargs=1 IFS call scripting#with_ifs(<q-args>)
 "IFS,g Parse  --a=3, --b<=$SHELL , --c=$HOME,git,-ma b c
 "[{'a': '3', 'b': 'zsh', 'c': '$HOME', 'm': 'a b c'}, ['git']]
+"
+command! -nargs=1 -bang Log call scripting#log(<bang>0? eval(<q-args>) : <q-args>)

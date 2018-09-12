@@ -174,12 +174,20 @@ function! scripting#exe(cmd, ...)
   let rv = execute(a:cmd)
   return get(a:000, 0, rv)
 endfunction
+
 function! scripting#echo(...)
   for x in a:000
     echon x ' '
   endfor
   echo ''
 endfunction
+
+function! scripting#log(msg)
+  let msg = type(a:msg) == v:t_string? a:msg : string(a:msg)
+  let file = get(g:, 'log_destination', '/tmp/vim.log')
+  call writefile([msg], file, "a")
+endfunction
+
 function! scripting#GetMotionRange(type)
   if a:type=='line'
     return "'[V']"

@@ -170,12 +170,6 @@ command! -nargs=1 -complete=dir Lcd :windo lcd <args>
 if !exists('g:log_destination')
   let g:log_destination = '/tmp/vim.log'
 endif
-function! Log(msg)
-  let msg = type(a:msg) == v:t_string? a:msg : string(a:msg)
-  let file = get(g:, 'log_destination', '/tmp/vim.log')
-  call writefile([msg], file, "a")
-endfunction
-command! -nargs=1 -bang Log call Log(<bang>0? eval(<q-args>) : <q-args>)
 
 let g:autoread_timer = 400
 function! s:Autoread(stop)
