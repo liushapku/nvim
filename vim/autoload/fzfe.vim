@@ -12,10 +12,15 @@ function! fzfe#execute(qargs, bang) abort
   endif
   let name = scripting#pop(wrap, 'name', 'fzf')
   if !empty(source)
-    let opts = matchlist(source, '^|source!\?\s\+\(.\{-}\)\s*$')[1]
-    if source =~ '^|source!'
-      let wrap['source'] = eval(opts)
-    else
+    let [unused, mode, IFS, opts] =
+          \ matchlist(source, '^|source\(\([:!]\)\(\S*\)\)\?\s\+\(.\{-}\)\s*$')[1:4]
+    if mode == ':'   "Execute code
+      let code = scripting#parse({'[POSITIONAL]':'all', '[IFS]':IFS}, opts)[1]
+      let wrap['source'] = split(execute(code), "\n")
+    elseif mode == '!'  "systemlist
+      let code = scripting#parse({'[POSITIONAL]':'all', '[IFS]':IFS}, opts)[1]
+      let wrap['source'] = systemlist(code)
+    else "run system command
       let wrap['source'] = opts
     endif
   endif
@@ -24,7 +29,7 @@ function! fzfe#execute(qargs, bang) abort
     if fzfoptions =~ '^|fzf!'
       let wrap['options'] = opts
     else
-      let wrap['options'] = scripting#parse({'[AUTOPOSITIONAL]':1}, '-- '.opts)[1]
+      let wrap['options'] = scripting#parse({'[POSITIONAL]':'all'}, opts)[1]
     endif
   endif
 

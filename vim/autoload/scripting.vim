@@ -203,14 +203,16 @@ let s:pat_short = '^\s*\([-+]\)\([$:%!]\?\)\([a-zA-Z0-9]\)\(.*\)$'
 " known mega-options:
 " -- [KMAP]: the map from --key or -key to the destination option
 "            for example: [KMAP] = {'v': 'verbose'}
-" -- [AUTOPOSITIONAL]: if true, then all args after the first positional
-"                      arg are treaded as positional args
-"                      otherwise, use '--' to start positional args
+" -- [POSITIONAL]: if 2, then all args after the first positional
+"                  arg are treaded as positional args
+"                  if 1, then all args are positional
+"                  if 0, then use '--' to start positional args (default)
 function! scripting#parse(default_opts, qargs) abort
   "Log! a:qargs
   let opts = type(a:default_opts) == v:t_dict? a:default_opts : {}
   let keymap = scripting#pop(opts, '[KMAP]', {})
-  let autopositional = scripting#pop(opts, '[AUTOPOSITIONAL]', 0)
+  let positionalmode = scripting#pop(opts, '[POSITIONAL]', '')
+  let IFS = scripting#pop(opts, '[IFS]', '')
   function! s:_expand(mode, var)
     let modes = split(a:mode == ''? ':' : a:mode, '\zs')
     let var = a:var
@@ -250,29 +252,32 @@ function! scripting#parse(default_opts, qargs) abort
     endif
   endfunction
 
-  let args = scripting#split(a:qargs)
-  let hasoption = 1
-  let lst = []
-  for idx in range(len(args))
-    let x = args[idx]
-    if x =~ s:pat_long
-      let [key, varpt, append, modes, var] = matchlist(x, s:pat_long)[1:5]
-      call s:_add(opts, keymap, key, varpt, append=='+', modes, var)
-    elseif x =~ s:pat_short
-      let [append, mode, key, var] = matchlist(x, s:pat_short)[1:4]
-      call s:_add(opts, keymap, key, var, append=='+', mode, var)
-    else
-      if x =~ '^\s*--$'
-        let lst = args[idx+1:]
-        break
-      elseif autopositional
-        let lst = args[idx:]
-        break
+  let args = scripting#split(a:qargs, IFS)
+  if positionalmode != 'all'
+    let lst = []
+    for idx in range(len(args))
+      let x = args[idx]
+      if x =~ s:pat_long
+        let [key, varpt, append, modes, var] = matchlist(x, s:pat_long)[1:5]
+        call s:_add(opts, keymap, key, varpt, append=='+', modes, var)
+      elseif x =~ s:pat_short
+        let [append, mode, key, var] = matchlist(x, s:pat_short)[1:4]
+        call s:_add(opts, keymap, key, var, append=='+', mode, var)
       else
-        call add(lst, x)
+        if x =~ '^\s*--$'
+          let lst = args[idx+1:]
+          break
+        elseif positionalmode == 'auto'
+          let lst = args[idx:]
+          break
+        else
+          call add(lst, x)
+        endif
       endif
-    endif
-  endfor
+    endfor
+  else
+    let lst = args
+  endif
 
   let pat_with_modes = '^\s*\(.\{-}\)\(@\(@\?\)\([:$<%!]\+\)\)\?$'
   let args = []

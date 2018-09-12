@@ -3,7 +3,7 @@ function! s:opts(onexit, cmd_is_list, count, line1, line2)
   let rv =  {
         \ 'onexit': a:onexit,
         \ '@list' : a:cmd_is_list,
-        \ '[AUTOPOSITIONAL]': 1,
+        \ '[POSITIONAL]': 1,
         \ }
   if a:count != -1  "range provided
     let rv['@range'] = [a:line1, a:line2]
