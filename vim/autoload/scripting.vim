@@ -335,3 +335,4 @@ function! scripting#with_ifs(command)
     let g:IFS = oldifs
   endtry
 endfunction
+

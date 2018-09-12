@@ -10,7 +10,7 @@ endfunction
 function! buffer#wipe_noname(bang)
   let cmd = a:bang? 'bw!': 'bw'
   for x in buffer#list()
-    if bufname(x) == ''
+    if bufname(x) == '' && getbufvar(x, "&mod")
       exe cmd x
     endif
   endfor

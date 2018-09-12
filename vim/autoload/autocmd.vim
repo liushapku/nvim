@@ -3,6 +3,10 @@ function! autocmd#BufWinLeave()
   if &diff
     diffoff!
   endif
+  "if expand('<afile>') == '' && line('$') == 1 && getline(1) == ''
+  "  echomsg 'delete' bufnr('%')
+  "  set bufhidden=wipe
+  "endif
 endfunction
 
 function! autocmd#BufWinEnter()
