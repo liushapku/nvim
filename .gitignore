@@ -1,5 +1,4 @@
 *.swp
 *.pyc
 *_custom.vim
-runtime
 bundle/

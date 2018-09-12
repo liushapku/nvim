@@ -174,7 +174,12 @@ function! scripting#exe(cmd, ...)
   let rv = execute(a:cmd)
   return get(a:000, 0, rv)
 endfunction
-
+function! scripting#echo(...)
+  for x in a:000
+    echon x ' '
+  endfor
+  echo ''
+endfunction
 function! scripting#GetMotionRange(type)
   if a:type=='line'
     return "'[V']"

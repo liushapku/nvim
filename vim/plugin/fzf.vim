@@ -76,5 +76,6 @@ let g:fzf_action = {
 
 command! L call fzf#run(fzf#wrap('*lines*', {
       \ 'source': getline(1, line('$')),
-      \ 'sink':   {line-> scripting#echo(line)},
+      \ 'sink':   {line-> scripting#log(line)},
       \ }, 0))
+
