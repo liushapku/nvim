@@ -186,12 +186,6 @@ function! scripting#echo(...)
   echo ''
 endfunction
 
-function! scripting#log(msg)
-  let msg = type(a:msg) == v:t_string? a:msg : string(a:msg)
-  let file = get(g:, 'log_destination', '/tmp/vim.log')
-  call writefile([msg], file, "a")
-endfunction
-
 function! scripting#GetMotionRange(type)
   if a:type=='line'
     return "'[V']"
@@ -300,8 +294,9 @@ function! scripting#parse(default_opts, qargs) abort
 endfunction
 
 " positional: [IFS]
-function! scripting#split(str)
-  let IFS = get(g:, 'IFS', '')
+function! scripting#split(str, ...)
+  let IFS = get(a:000, 0, '')
+  let IFS = IFS==''?get(g:, 'IFS', ''):IFS
   if IFS == ''
 py3 << EOF
 import vim, shlex

@@ -28,4 +28,8 @@ command! -nargs=1 IFS call scripting#with_ifs(<q-args>)
 "IFS,g Parse  --a=3, --b<=$SHELL , --c=$HOME,git,-ma b c
 "[{'a': '3', 'b': 'zsh', 'c': '$HOME', 'm': 'a b c'}, ['git']]
 "
-command! -nargs=1 -bang Log call scripting#log(<bang>0? eval(<q-args>) : <q-args>)
+command! -nargs=1 -bang Log
+      \ call writefile(
+      \   <bang>0? split(execute("echo " . <q-args>), "\n") : [<q-args>],
+      \   get(g:, 'logdestination', '/tmp/vim.log'),
+      \   "a")

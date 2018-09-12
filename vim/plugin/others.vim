@@ -156,8 +156,8 @@ command! -bar -bang Shebang :call s:Shebang(<bang>1)
 command! -range=% -addr=windows Diff :diffoff! | <line1>,<line2>windo diffthis
 command! -nargs=1 -complete=dir Lcd :windo lcd <args>
 
-if !exists('g:log_destination')
-  let g:log_destination = '/tmp/vim.log'
+if !exists('g:logdestination')
+  let g:logdestination = '/tmp/vim.log'
 endif
 
 let g:autoread_timer = 400
